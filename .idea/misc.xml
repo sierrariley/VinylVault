@@ -9,6 +9,12 @@
         <entry key="app/src/main/res/drawable/ic_vault_icon.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/ic_vault_icon_two.xml" value="0.1125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/layout/fragment_browse.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/layout/fragment_currently.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3318130493164062" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/layout/fragment_to_listen.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/layout/fragment_vault.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2833333333333333" />
       </map>
     </option>
