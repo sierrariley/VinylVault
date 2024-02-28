@@ -7,31 +7,21 @@
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.example.vinylvault.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/nav_browse"
         android:name="com.example.vinylvault.BrowseFragment"
-        android:label="fragment_browse"
+        android:label="Browse"
         tools:layout="@layout/fragment_browse" />
     <fragment
         android:id="@+id/nav_vault"
         android:name="com.example.vinylvault.VaultFragment"
-        android:label="fragment_vault"
+        android:label="Vault"
         tools:layout="@layout/fragment_vault" />
-    <fragment
-        android:id="@+id/nav_listen"
-        android:name="com.example.vinylvault.ToListenFragment"
-        android:label="fragment_to_listen"
-        tools:layout="@layout/fragment_to_listen" />
-    <fragment
-        android:id="@+id/nav_current"
-        android:name="com.example.vinylvault.CurrentlyFragment"
-        android:label="fragment_currently"
-        tools:layout="@layout/fragment_currently" />
     <fragment
         android:id="@+id/nav_search"
         android:name="com.example.vinylvault.SearchFragment"
-        android:label="fragment_search"
+        android:label="Search"
         tools:layout="@layout/fragment_search" />
 </navigation>
