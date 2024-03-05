@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/light_blue"
     android:orientation="vertical"
-    tools:context=".BrowseFragment">
+    tools:context=".BrowseViewPager.BrowseFragment">
 
+<!--    Needs a viewpager host -->
     <TextView
         android:id="@+id/browse_album_name"
         android:layout_width="match_parent"
