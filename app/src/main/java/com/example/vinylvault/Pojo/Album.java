@@ -7,14 +7,17 @@ public class Album {
     private String name;
     private String artistName;
     private String genre;
-    private ArrayList<Track> tracks;
+    private String artwork;
 
-    public Album(int id, String name, String artistName, String genre, ArrayList<Track> tracks) {
+
+    public Album(int id, String name, String artistName, String genre, String artwork) {
         this.id = id;
         this.name = name;
         this.artistName = artistName;
         this.genre = genre;
-        this.tracks = tracks;
+        this.artwork = artwork;
+
+
     }
 
     public Album() {
@@ -52,11 +55,5 @@ public class Album {
         this.genre = genre;
     }
 
-    public ArrayList<Track> getTracks() {
-        return tracks;
-    }
 
-    public void setTracks(ArrayList<Track> tracks) {
-        this.tracks = tracks;
-    }
 }

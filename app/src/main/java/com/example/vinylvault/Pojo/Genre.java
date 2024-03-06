@@ -1,30 +1,16 @@
 package com.example.vinylvault.Pojo;
 
-public class Track {
+public class Genre {
     private int id;
     private String name;
-    private Album album;
 
-    public Track(int id, String name, Album album) {
-        this.id = id;
-        this.name = name;
-        this.album = album;
-    }
 
-    public Track(int id, String name) {
+    public Genre(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Track() {
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
+    public Genre() {
     }
 
     public int getId() {
@@ -41,5 +27,12 @@ public class Track {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
