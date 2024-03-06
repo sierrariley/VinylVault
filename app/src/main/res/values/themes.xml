@@ -13,4 +13,10 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.VinylVault.SeekBar" parent="Widget.AppCompat.SeekBar.Discrete">
+        <item name="android:progressTint">@color/light_purple</item>
+        <item name="android:thumbTint">@color/light_purple</item>
+    </style>
+
 </resources>
