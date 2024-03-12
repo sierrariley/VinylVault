@@ -55,5 +55,11 @@ public class Album {
         this.genre = genre;
     }
 
+    public String getArtwork() {
+        return artwork;
+    }
 
+    public void setArtwork(String artwork) {
+        this.artwork = artwork;
+    }
 }

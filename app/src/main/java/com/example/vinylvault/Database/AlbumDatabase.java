@@ -1,5 +1,6 @@
 package com.example.vinylvault.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +14,8 @@ import com.example.vinylvault.Pojo.AlbumTrack;
 import com.example.vinylvault.Pojo.Artist;
 import com.example.vinylvault.Pojo.Genre;
 import com.example.vinylvault.Pojo.Track;
+
+import java.util.ArrayList;
 
 public class AlbumDatabase extends SQLiteOpenHelper {
     public static final int DB_VERSION = 1;
@@ -51,9 +54,9 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                                                     TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + " INTEGER PRIMARY KEY," +
                                                     COLUMN_ALBUM_NAME + " TEXT," +
                                                     COLUMN_ALBUM_GENRE + " INT," +
-                                                    COLUMN_ARTWORK + "TEXT," +
+                                                    COLUMN_ARTWORK + " TEXT," +
                                                     " FOREIGN KEY (" + COLUMN_ALBUM_GENRE + ")" +
-                                                    " REFERENCES " + TABLE_GENRE + "(" + COLUMN_GENRE_ID + ")";
+                                                    " REFERENCES " + TABLE_GENRE + "(" + COLUMN_GENRE_ID + "))";
 
     public static final String CREATE_ARTIST_TABLE = "CREATE TABLE " +
                                                     TABLE_ARTIST + "(" + COLUMN_ARTIST_ID + " INTEGER PRIMARY KEY," +
@@ -75,7 +78,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                                                  " FOREIGN KEY (" + COLUMN_AA_ALBUM + ") " +
                                                  " REFERENCES " + TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + ")," +
                                                  " FOREIGN KEY (" + COLUMN_AA_ARTIST + ") " +
-                                                 " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + ")";
+                                                 " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + "))";
 
     public static final String CREATE_AT_TABLE = "CREATE TABLE " +
                                                   TABLE_ALBUM_TRACK+ "(" +
@@ -83,7 +86,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                                                 " FOREIGN KEY (" + COLUMN_AT_ALBUM + ") " +
                                                 " REFERENCES " + TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + ")," +
                                                 " FOREIGN KEY (" + COLUMN_AT_TRACK+ ") " +
-                                                " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + ")";
+                                                " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + "))";
 
 
     public AlbumDatabase(@Nullable Context context) {
@@ -134,6 +137,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getInt(0),
                     cursor.getString(1));
         }
+        db.close();
         return artist;
     }
 
@@ -148,6 +152,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getInt(0),
                     cursor.getString(1));
         }
+        db.close();
         return track;
     }
 
@@ -162,6 +167,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getInt(0),
                     cursor.getString(1));
         }
+        db.close();
         return genre;
     }
 
@@ -177,6 +183,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getInt(1),
                     cursor.getInt(2));
         }
+        db.close();
         return albumArtist;
     }
     public AlbumTrack getAlbumTrack(int id){
@@ -191,7 +198,103 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getInt(1),
                     cursor.getInt(2));
         }
+        db.close();
         return albumTrack;
+    }
+
+    public ArrayList<Album> getAllAlbums(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Album> albums = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALBUM,null);
+        while(cursor.moveToNext()){
+            albums.add(new Album( cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4)));
+        }
+        db.close();
+        return albums;
+    }
+
+    public ArrayList<Artist> getAllArtists(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Artist> artists = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ARTIST,null);
+        while(cursor.moveToNext()){
+            artists.add(new Artist( cursor.getInt(0),
+                    cursor.getString(1)));
+        }
+        db.close();
+        return artists;
+    }
+
+    public ArrayList<Genre> getAllGenres(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Genre> genres = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_GENRE,null);
+        while(cursor.moveToNext()){
+            genres.add(new Genre( cursor.getInt(0),
+                    cursor.getString(1)));
+        }
+        db.close();
+        return genres;
+    }
+
+    //Update
+    public int updateAlbum(Album album){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ALBUM_NAME, album.getName());
+        values.put(COLUMN_ALBUM_GENRE, album.getGenre());
+        values.put(COLUMN_ARTWORK, album.getArtwork());
+
+        return db.update(TABLE_ALBUM, values, COLUMN_ALBUM_ID + "=?",
+                new String[]{String.valueOf(album.getId())});
+    }
+
+    public int updateArtist(Artist artist){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ARTIST_NAME, artist.getName());
+
+        return db.update(TABLE_ARTIST, values, COLUMN_ARTIST_ID + "=?",
+                new String[]{String.valueOf(artist.getId())});
+    }
+
+   //We do not need to update track
+
+    public int updateGere(Genre genre){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_GENRE_NAME, genre.getName());
+
+        return db.update(TABLE_GENRE, values, COLUMN_GENRE_ID+ "=?",
+                new String[]{String.valueOf(genre.getId())});
+    }
+
+
+    //Delete
+    public void deleteAlbum(int album){
+    SQLiteDatabase db = this.getWritableDatabase();
+    db.delete(TABLE_ALBUM, COLUMN_ALBUM_ID + "=?", new String[]{String.valueOf(album)});
+    db.close();
+    }
+
+    public void deleteArtist(int artist){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ARTIST, COLUMN_ARTIST_ID + "=?", new String[]{String.valueOf(artist)});
+        db.close();
+    }
+    public void deleteTrack(int track){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TRACK, COLUMN_TRACK_ID + "=?", new String[]{String.valueOf(track)});
+        db.close();
+    }
+    public void deleteGenre(int genre){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_GENRE, COLUMN_GENRE_ID + "=?", new String[]{String.valueOf(genre)});
+        db.close();
     }
 
 
