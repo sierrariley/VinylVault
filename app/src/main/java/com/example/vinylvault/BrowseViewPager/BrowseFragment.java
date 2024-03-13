@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.vinylvault.R;
 
@@ -17,26 +20,31 @@ import com.example.vinylvault.R;
  */
 public class BrowseFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_ALBUMNAME = "param1";
+    private static final String ARG_ARTISTNAME = "param2";
+    private static final String ARG_GENRE = "param3";
+    private static final String ARG_IMAGE = "param4";
+    public static final String ARG_TRACKLIST = "param5";
 
-    private String mParam1;
-    private String mParam2;
+    private String albumNameParam;
+    private String artistNameParam;
+    private String genreParam;
+    private int imageParam;
+    //TODO: Replace this
+    //Create a new class called TrackList that implements Parcelable
+    //private TrackList trackListParam;
+    private String trackListParam; //is this valid?
 
     public BrowseFragment() {}
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BrowseFragment.
-     */
-    public static BrowseFragment newInstance(String param1, String param2) {
+    public static BrowseFragment newInstance(String albumNameParam, String artistNameParam, String genreParam, int imageParam, String trackListParam) {
         BrowseFragment fragment = new BrowseFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_ALBUMNAME, albumNameParam);
+        args.putString(ARG_ARTISTNAME, artistNameParam);
+        args.putString(ARG_GENRE, genreParam);
+        args.putInt(ARG_IMAGE, imageParam);
+        args.putString(ARG_TRACKLIST, trackListParam);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,15 +53,36 @@ public class BrowseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            albumNameParam = getArguments().getString(ARG_ALBUMNAME);
+            artistNameParam = getArguments().getString(ARG_ARTISTNAME);
+            genreParam = getArguments().getString(ARG_GENRE);
+            imageParam = getArguments().getInt(ARG_IMAGE);
+            trackListParam = getArguments().getString(ARG_TRACKLIST);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_browse, container, false);
+        View view = inflater.inflate(R.layout.fragment_browse, container, false);
+        if (albumNameParam != null && artistNameParam != null && genreParam != null && imageParam != 0 && trackListParam != null){
+            TextView albumName = view.findViewById(R.id.browse_album_name);
+            TextView artistName = view.findViewById(R.id.browse_artist_name);
+            TextView genre = view.findViewById(R.id.browse_genre);
+            ImageView image = view.findViewById(R.id.browse_album_image);
+            ListView listView = view.findViewById(R.id.browse_tracks);
+
+
+            albumName.setText(albumNameParam);
+            artistName.setText(artistNameParam);
+            genre.setText(genreParam);
+            image.setImageResource(imageParam);
+            /*
+            TODO: Set adapter of ListView
+            Will likely need to pass in values of tracks
+             */
+        }
+
+        return view;
     }
 }
