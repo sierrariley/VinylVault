@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/light_blue"
     android:orientation="vertical"
-    tools:context=".ProfileFragment">
+    tools:context=".Profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -60,6 +60,7 @@
         android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profile_top_albums"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
@@ -75,6 +76,7 @@
         android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profile_top_genres"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
