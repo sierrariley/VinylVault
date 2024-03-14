@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.R;
-
 import java.util.ArrayList;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder> {
 
+    //TODO: Finish this file - will need the database file
 //    private ArrayList<Albums> albums;
     private Context context;
 /*

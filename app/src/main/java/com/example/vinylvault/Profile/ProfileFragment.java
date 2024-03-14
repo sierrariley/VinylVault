@@ -24,7 +24,7 @@ public class ProfileFragment extends Fragment {
         RecyclerView topAlbumsRV = view.findViewById(R.id.profile_top_albums);
         RecyclerView topGenresRV = view.findViewById(R.id.profile_top_genres);
 
-        //TODO: Database creation
+        //TODO: Database creation + set layout adapters
 //        Albums db = new Albums(getContext());
         /*
         ProfileAdapter topAlbumsAdapter = new ProfileAdapter(db.getTopAlbums(), getContext());
