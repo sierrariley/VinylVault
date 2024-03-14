@@ -65,7 +65,8 @@ public class BrowseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse, container, false);
-        if (albumNameParam != null && artistNameParam != null && genreParam != null && imageParam != 0 && trackListParam != null){
+        if (albumNameParam != null && artistNameParam != null && genreParam != null && imageParam != 0){
+            // && trackListParam != null
             TextView albumName = view.findViewById(R.id.browse_album_name);
             TextView artistName = view.findViewById(R.id.browse_artist_name);
             TextView genre = view.findViewById(R.id.browse_genre);
