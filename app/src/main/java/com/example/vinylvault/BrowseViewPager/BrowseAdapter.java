@@ -17,7 +17,7 @@ public class BrowseAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
-            //TODO: Add proper cases
+            //TODO: Add the proper cases
             case 0:
                 return BrowseFragment.newInstance("Album Name 0", "Artist Name", "Genre", R.drawable.album_placeholder, "null");
             case 1:
