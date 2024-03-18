@@ -6,7 +6,7 @@
     app:startDestination="@id/nav_profile">
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.vinylvault.Profile.ProfileFragment"
+        android:name="com.example.vinylvault.ProfileRecyclerView.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_vault" />
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.example.vinylvault.SearchFragment"
+        android:name="com.example.vinylvault.SearchRecyclerView.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search" />
     <fragment

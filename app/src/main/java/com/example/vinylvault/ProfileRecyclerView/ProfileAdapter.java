@@ -1,4 +1,4 @@
-package com.example.vinylvault.Profile;
+package com.example.vinylvault.ProfileRecyclerView;
 
 import android.content.Context;
 import android.view.View;
@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.R;
-import java.util.ArrayList;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder> {
 
@@ -17,7 +16,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 //    private ArrayList<Albums> albums;
     private Context context;
 /*
-    public ProfileAdapter(ArrayList<Album> locations,Context context) {
+    public ProfileAdapter(ArrayList<Album> albums,Context context) {
         this.context = context;
     }
 */
