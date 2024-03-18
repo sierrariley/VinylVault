@@ -301,5 +301,28 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayList<Album> getTopAlbums(int top){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Album> topAlbums = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
+                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING}, null, null, null, null, COLUMN_RATING + " DESC", String.valueOf(top));
+       while(cursor.moveToNext()) {
+           topAlbums.add(new Album(
+                   cursor.getInt(0),
+                   cursor.getString(1),
+                   cursor.getString(2),
+                   cursor.getString(3),
+                   cursor.getString(4),
+                   cursor.getInt(5)));
+       }
+
+       cursor.close();
+       db.close();
+
+       return topAlbums;
+
+       //ArrayList<Album> topAlbums = albumDatabase.getTopAlbums(10); call this when we want to retreive topAlbums
+    }
 
 }
