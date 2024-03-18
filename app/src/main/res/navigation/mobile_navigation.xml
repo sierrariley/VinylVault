@@ -39,4 +39,9 @@
         android:name="com.example.vinylvault.ToListen.ToListenFragment"
         android:label="To Listen"
         tools:layout="@layout/fragment_to_listen" />
+    <fragment
+        android:id="@+id/albumSummary"
+        android:name="com.example.vinylvault.AlbumSummary"
+        android:label="Album Summary"
+        tools:layout="@layout/fragment_album_summary" />
 </navigation>

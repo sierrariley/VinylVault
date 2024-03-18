@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/browse_album_background.xml" value="0.1275" />
+        <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1275" />
         <entry key="app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.1275" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1125" />
@@ -14,6 +15,7 @@
         <entry key="app/src/main/res/drawable/profile_text_background.xml" value="0.1275" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/layout/fragment_add_an_album.xml" value="0.25480499267578127" />
+        <entry key="app/src/main/res/layout/fragment_album_summary.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_browse.xml" value="0.3238094385119452" />
         <entry key="app/src/main/res/layout/fragment_browse_view_pager_host.xml" value="0.22327898550724637" />
         <entry key="app/src/main/res/layout/fragment_currently.xml" value="0.18568840579710144" />
