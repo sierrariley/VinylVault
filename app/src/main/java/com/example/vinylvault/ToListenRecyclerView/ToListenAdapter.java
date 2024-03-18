@@ -5,10 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.vinylvault.R;
 
 public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToListenViewHolder> {
@@ -25,7 +23,7 @@ public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToList
     @NonNull
     @Override
     public ToListenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_item, parent, false);
         return new ToListenViewHolder(view);
     }
 

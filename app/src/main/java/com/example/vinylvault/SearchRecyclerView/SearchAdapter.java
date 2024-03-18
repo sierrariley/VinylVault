@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.vinylvault.ProfileRecyclerView.ProfileAdapter;
 import com.example.vinylvault.R;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
@@ -25,7 +24,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @NonNull
     @Override
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_item, parent, false);
         return new SearchViewHolder(view);
     }
 

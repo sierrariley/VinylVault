@@ -5,12 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.vinylvault.R;
-import com.example.vinylvault.ToListenRecyclerView.ToListenAdapter;
 
 public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.CurrentlyViewHolder> {
 
@@ -26,7 +23,7 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
     @NonNull
     @Override
     public CurrentlyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_item, parent, false);
         return new CurrentlyViewHolder(view);
     }
 
