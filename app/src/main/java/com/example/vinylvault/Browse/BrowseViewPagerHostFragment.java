@@ -1,4 +1,4 @@
-package com.example.vinylvault.BrowseViewPager;
+package com.example.vinylvault.Browse;
 
 import android.os.Bundle;
 

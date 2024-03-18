@@ -1,4 +1,4 @@
-package com.example.vinylvault.ProfileRecyclerView;
+package com.example.vinylvault.Profile;
 
 import android.content.Context;
 import android.view.LayoutInflater;

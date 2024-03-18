@@ -1,4 +1,4 @@
-package com.example.vinylvault.CurrentlyRecyclerView;
+package com.example.vinylvault.Vault;
 
 import android.os.Bundle;
 
@@ -11,19 +11,19 @@ import android.view.ViewGroup;
 
 import com.example.vinylvault.R;
 
-public class CurrentlyFragment extends Fragment {
+public class VaultFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_currently, container, false);
+        View view = inflater.inflate(R.layout.fragment_vault, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.currently_listening_recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.vault_recycler_view);
 
         //TODO: Database creation + set layout adapter
         /*
         Albums db = new Albums(getContext());
-        CurrentlyAdapter adapter = new CurrentlyAdapter(db.getAlbums(), getContext());
+        VaultAdapter adapter = new VaultAdapter(db.getAlbums(), getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         */

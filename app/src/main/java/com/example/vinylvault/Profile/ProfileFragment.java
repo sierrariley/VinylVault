@@ -1,4 +1,4 @@
-package com.example.vinylvault.ProfileRecyclerView;
+package com.example.vinylvault.Profile;
 
 import android.os.Bundle;
 

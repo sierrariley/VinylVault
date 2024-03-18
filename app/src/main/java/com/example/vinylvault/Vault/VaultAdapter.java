@@ -1,4 +1,4 @@
-package com.example.vinylvault.VaultRecyclerView;
+package com.example.vinylvault.Vault;
 
 import android.content.Context;
 import android.view.LayoutInflater;

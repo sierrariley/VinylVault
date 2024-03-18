@@ -1,4 +1,4 @@
-package com.example.vinylvault.BrowseViewPager;
+package com.example.vinylvault.Browse;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

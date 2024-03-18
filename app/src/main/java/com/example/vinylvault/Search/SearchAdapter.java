@@ -1,4 +1,4 @@
-package com.example.vinylvault.ToListenRecyclerView;
+package com.example.vinylvault.Search;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,29 +7,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.vinylvault.R;
 
-public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToListenViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
     //TODO: Finish this file - will need the database file
 //    private ArrayList<Albums> albums;
     private Context context;
     /*
-        public ToListenAdapter(ArrayList<Album> albums,Context context) {
+        public SearchAdapter(ArrayList<Album> albums,Context context) {
             this.context = context;
         }
     */
 
     @NonNull
     @Override
-    public ToListenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_item, parent, false);
-        return new ToListenViewHolder(view);
+        return new SearchViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ToListenViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
     }
 
     @Override
@@ -37,10 +37,10 @@ public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToList
         return 0;
     }
 
-    class ToListenViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected ImageView image;
 
-        public ToListenViewHolder(@NonNull View itemView) {
+        public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.search_item_image);
             itemView.setOnClickListener(this);

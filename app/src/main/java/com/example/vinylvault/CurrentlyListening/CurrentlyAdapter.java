@@ -1,4 +1,4 @@
-package com.example.vinylvault.CurrentlyRecyclerView;
+package com.example.vinylvault.CurrentlyListening;
 
 import android.content.Context;
 import android.view.LayoutInflater;
