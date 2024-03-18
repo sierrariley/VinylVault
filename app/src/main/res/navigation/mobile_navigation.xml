@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_to_listen" />
     <fragment
         android:id="@+id/albumSummary"
-        android:name="com.example.vinylvault.AlbumSummary"
+        android:name="com.example.vinylvault.AlbumSummary.AlbumSummary"
         android:label="Album Summary"
         tools:layout="@layout/fragment_album_summary" />
 </navigation>
