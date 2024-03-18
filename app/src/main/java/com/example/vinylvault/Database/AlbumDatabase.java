@@ -25,6 +25,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_ALBUM_ID = "album_id";
     public static final String COLUMN_ALBUM_NAME = "album_name";
     public static final String COLUMN_ARTWORK = "album_artwork";
+    public static final String COLUMN_RATING = "star_rating";
     public static final String COLUMN_ALBUM_GENRE = "ablum_genre";
 
 
@@ -55,6 +56,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                                                     COLUMN_ALBUM_NAME + " TEXT," +
                                                     COLUMN_ALBUM_GENRE + " INT," +
                                                     COLUMN_ARTWORK + " TEXT," +
+                                                    COLUMN_RATING + " INT," +
                                                     " FOREIGN KEY (" + COLUMN_ALBUM_GENRE + ")" +
                                                     " REFERENCES " + TABLE_GENRE + "(" + COLUMN_GENRE_ID + "))";
 
@@ -112,7 +114,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Album album = null;
         Cursor cursor = db.query(TABLE_ALBUM, new String[]{
-                                COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK}, COLUMN_ALBUM_ID + "= ?",
+                                COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING}, COLUMN_ALBUM_ID + "= ?",
                                 new String[]{String.valueOf(id)}, null, null, null);
         if(cursor.moveToFirst()){
             album = new Album(
@@ -120,7 +122,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4));
+                    cursor.getString(4),
+                    cursor.getInt(5));
         }
         db.close();
         return album;
@@ -211,7 +214,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4)));
+                    cursor.getString(4),
+                    cursor.getInt(5)));
         }
         db.close();
         return albums;

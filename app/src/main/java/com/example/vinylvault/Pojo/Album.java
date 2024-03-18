@@ -8,14 +8,17 @@ public class Album {
     private String artistName;
     private String genre;
     private String artwork;
+    private int rating;
 
 
-    public Album(int id, String name, String artistName, String genre, String artwork) {
+    public Album(int id, String name, String artistName, String genre, String artwork, int rating) {
         this.id = id;
         this.name = name;
         this.artistName = artistName;
         this.genre = genre;
         this.artwork = artwork;
+        this.rating = rating;
+
 
 
     }
@@ -57,6 +60,14 @@ public class Album {
 
     public String getArtwork() {
         return artwork;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public void setArtwork(String artwork) {
