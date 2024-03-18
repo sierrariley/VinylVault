@@ -1,36 +1,38 @@
-package com.example.vinylvault.SearchRecyclerView;
+package com.example.vinylvault.CurrentlyRecyclerView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.vinylvault.ProfileRecyclerView.ProfileAdapter;
 import com.example.vinylvault.R;
+import com.example.vinylvault.ToListenRecyclerView.ToListenAdapter;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
+public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.CurrentlyViewHolder> {
 
     //TODO: Finish this file - will need the database file
 //    private ArrayList<Albums> albums;
     private Context context;
     /*
-        public SearchAdapter(ArrayList<Album> albums,Context context) {
+        public CurrentlyAdapter(ArrayList<Album> albums,Context context) {
             this.context = context;
         }
     */
 
     @NonNull
     @Override
-    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CurrentlyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item, parent, false);
-        return new SearchViewHolder(view);
+        return new CurrentlyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CurrentlyViewHolder holder, int position) {
+
     }
 
     @Override
@@ -38,10 +40,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return 0;
     }
 
-    class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class CurrentlyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected ImageView image;
 
-        public SearchViewHolder(@NonNull View itemView) {
+        public CurrentlyViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.search_item_image);
             itemView.setOnClickListener(this);

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/light_blue"
-    tools:context=".ToListenFragment">
+    tools:context=".ToListenRecyclerView.ToListenFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/to_listen_recycler_view"
