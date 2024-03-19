@@ -325,4 +325,67 @@ public class AlbumDatabase extends SQLiteOpenHelper {
        //ArrayList<Album> topAlbums = albumDatabase.getTopAlbums(10); call this when we want to retreive topAlbums
     }
 
+    public ArrayList<Genre> getTopGenres(int top){
+        //Get the genres
+       ArrayList<Genre> genres = getAllGenres();
+       //create arraylist to hold top genres
+       ArrayList<Genre> topGenres = new ArrayList<>();
+       int maxCount = 0; //Track top genres ans associated album count
+
+       for(Genre genre : genres){
+           ArrayList<Album> albums = topGenres(genre.getId());
+           int albumCount = albums.size();
+
+           // If the current genre has more albums than the current maximum,
+           // clear the existing top genres and add the current genre as the new top genre
+           if(albumCount > maxCount){
+               maxCount = albumCount;
+               topGenres.clear();
+               topGenres.add(genre);
+           }
+           // If the current genre has the same number of albums as the current maximum,
+           // add it to the list of top genres
+           else if(albumCount == maxCount){
+               topGenres.add(genre);
+           }
+
+           // Limit the number of top genres
+           if(topGenres.size() >= top){
+               break;
+           }
+       }
+
+        return topGenres;
+
+       //ArrayList<Genre> topGenres = albumDatabase.getTopGenres(5); use this to retrieve top genres
+
+    }
+
+    private ArrayList<Album> topGenres(int genreId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Album> albums = new ArrayList<>();
+
+
+        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
+                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING},
+                COLUMN_ALBUM_GENRE + "=?",
+                new String[]{String.valueOf(genreId)},
+                null, null, null);
+
+
+        while (cursor.moveToNext()) {
+            albums.add(new Album(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getInt(5)));
+        }
+
+        db.close();
+
+        return albums;
+    }
+
 }
