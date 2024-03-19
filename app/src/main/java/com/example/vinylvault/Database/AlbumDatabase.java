@@ -325,6 +325,12 @@ public class AlbumDatabase extends SQLiteOpenHelper {
        //ArrayList<Album> topAlbums = albumDatabase.getTopAlbums(10); call this when we want to retreive topAlbums
     }
 
+    /**
+     * This method creates an arraylist of Top genres.
+     * Top genres are based on the number of albums each genres has that the user has listened to
+     * @param top
+     * @return topGenres
+     */
     public ArrayList<Genre> getTopGenres(int top){
         //Get the genres
        ArrayList<Genre> genres = getAllGenres();
@@ -361,6 +367,12 @@ public class AlbumDatabase extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * This method is used to help gather topGenres
+     * It grabs the albums associated with each genre
+     * @param genreId
+     * @return albums
+     */
     private ArrayList<Album> topGenres(int genreId){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Album> albums = new ArrayList<>();
