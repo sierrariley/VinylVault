@@ -8,18 +8,20 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+
+import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
-    //TODO: Finish this file - will need the database file
-//    private ArrayList<Albums> albums;
+    private ArrayList<Album> albums;
     private Context context;
-    /*
-        public SearchAdapter(ArrayList<Album> albums,Context context) {
-            this.context = context;
-        }
-    */
+
+    public SearchAdapter(ArrayList<Album> albums,Context context) {
+        this.context = context;
+    }
+
 
     @NonNull
     @Override

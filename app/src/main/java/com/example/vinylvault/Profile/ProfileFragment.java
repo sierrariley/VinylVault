@@ -3,10 +3,14 @@ package com.example.vinylvault.Profile;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.vinylvault.Database.AlbumDatabase;
+import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
 
 /**
@@ -23,17 +27,16 @@ public class ProfileFragment extends Fragment {
         RecyclerView topAlbumsRV = view.findViewById(R.id.profile_top_albums);
         RecyclerView topGenresRV = view.findViewById(R.id.profile_top_genres);
 
-        //TODO: Database creation + set layout adapters
-//        Albums db = new Albums(getContext());
-        /*
-        ProfileAdapter topAlbumsAdapter = new ProfileAdapter(db.getTopAlbums(), getContext());
+        AlbumDatabase db = new AlbumDatabase(getContext());
+
+        ProfileAdapter topAlbumsAdapter = new ProfileAdapter(db.getAllAlbums(), getContext());
         topAlbumsRV.setAdapter(topAlbumsAdapter);
         topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        ProfileAdapter topGenreAdapter = new ProfileAdapter(db.getTopGenres(), getContext());
+        ProfileAdapter topGenreAdapter = new ProfileAdapter(db.getAllAlbums(), getContext());
         topGenresRV.setAdapter(topGenreAdapter);
         topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        */
+
 
         return view;
     }

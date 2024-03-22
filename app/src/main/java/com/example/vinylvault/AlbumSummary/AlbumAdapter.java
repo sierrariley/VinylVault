@@ -9,18 +9,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+
+import java.util.ArrayList;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummaryViewHolder> {
 
     //TODO: Finish this file - will need the database file
-//    private ArrayList<Albums> albums;
+    private ArrayList<Album> albums;
     private Context context;
-    /*
-        public AlbumAdapter(ArrayList<Album> albums,Context context) {
-            this.context = context;
-        }
-    */
+
+    public AlbumAdapter(ArrayList<Album> albums, Context context) {
+        this.context = context;
+    }
+
 
     @NonNull
     @Override

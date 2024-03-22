@@ -9,18 +9,19 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+
+import java.util.ArrayList;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder> {
 
-    //TODO: Finish this file - will need the database file
-//    private ArrayList<Albums> albums;
+    private ArrayList<Album> albums;
     private Context context;
-/*
+
     public ProfileAdapter(ArrayList<Album> albums,Context context) {
         this.context = context;
     }
-*/
     @NonNull
     @Override
     public ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

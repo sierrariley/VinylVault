@@ -3,6 +3,7 @@ package com.example.vinylvault.AlbumSummary;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.R;
 
 public class AlbumSummary extends Fragment {
@@ -27,14 +29,10 @@ public class AlbumSummary extends Fragment {
         TextView genre = view.findViewById(R.id.album_genre);
         RecyclerView trackList = view.findViewById(R.id.album_track_list);
 
-
-        //TODO: Database creation + set layout adapter
-        /*
-        Albums db = new Albums(getContext());
-        AlbumAdapter adapter = new AlbumAdapter(db.getAlbums(), getContext());
+        AlbumDatabase db = new AlbumDatabase(getContext());
+        AlbumAdapter adapter = new AlbumAdapter(db.getAllAlbums(), getContext());
         trackList.setAdapter(adapter);
         trackList.setLayoutManager(new LinearLayoutManager(getContext()));
-        */
 
         return view;
     }
