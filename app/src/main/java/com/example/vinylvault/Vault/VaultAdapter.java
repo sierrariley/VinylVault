@@ -33,7 +33,6 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
     @Override
     public void onBindViewHolder(@NonNull VaultViewHolder holder, int position) {
         Album album = albums.get(position);
-        //Only display if the album status == listened to
         //TODO: Figure out how to set an image resource to an api image link
 //        holder.image.setImageResource(album.getArtwork());
     }

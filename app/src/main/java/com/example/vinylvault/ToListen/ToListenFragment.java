@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vinylvault.Database.AlbumDatabase;
+import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+
+import java.util.ArrayList;
 
 public class ToListenFragment extends Fragment {
 
@@ -24,7 +27,14 @@ public class ToListenFragment extends Fragment {
 
 
         AlbumDatabase db = new AlbumDatabase(getContext());
-        ToListenAdapter adapter = new ToListenAdapter(db.getAllAlbums(), getContext());
+        ArrayList<Album> toListenAlbums = new ArrayList<>();
+        for (Album album : db.getAllAlbums()) {
+            if (album.getStatus() == 2) {
+                toListenAlbums.add(album);
+            }
+        }
+
+        ToListenAdapter adapter = new ToListenAdapter(toListenAlbums, getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 

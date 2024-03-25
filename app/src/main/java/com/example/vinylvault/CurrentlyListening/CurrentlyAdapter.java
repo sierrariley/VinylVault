@@ -19,6 +19,7 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
     private Context context;
 
     public CurrentlyAdapter(ArrayList<Album> albums, Context context) {
+        this.albums = albums;
         this.context = context;
     }
 
@@ -31,11 +32,16 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
 
     @Override
     public void onBindViewHolder(@NonNull CurrentlyViewHolder holder, int position) {
-
+        Album album = albums.get(position);
+        //TODO: Figure out how to set an image resource to an api image link
+//        holder.image.setImageResource(album.getArtwork());
     }
 
     @Override
     public int getItemCount() {
+        if(albums != null){
+            return albums.size();
+        }
         return 0;
     }
 
@@ -50,7 +56,7 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
 
         @Override
         public void onClick(View view) {
-
+            //TODO: Open up album summary
         }
     }
 }

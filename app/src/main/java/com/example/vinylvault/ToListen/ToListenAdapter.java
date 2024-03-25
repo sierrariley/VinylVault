@@ -19,6 +19,7 @@ public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToList
     private Context context;
 
     public ToListenAdapter(ArrayList<Album> albums,Context context) {
+        this.albums = albums;
         this.context = context;
     }
 
@@ -32,11 +33,16 @@ public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToList
 
     @Override
     public void onBindViewHolder(@NonNull ToListenViewHolder holder, int position) {
-
+        Album album = albums.get(position);
+        //TODO: Figure out how to set an image resource to an api image link
+//        holder.image.setImageResource(album.getArtwork());
     }
 
     @Override
     public int getItemCount() {
+        if(albums != null){
+            return albums.size();
+        }
         return 0;
     }
 
@@ -51,7 +57,7 @@ public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToList
 
         @Override
         public void onClick(View view) {
-
+            //TODO: Open up album summary
         }
     }
 }

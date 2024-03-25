@@ -26,11 +26,9 @@ public class VaultFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.vault_recycler_view);
 
         AlbumDatabase db = new AlbumDatabase(getContext());
-
         ArrayList<Album> vaultAlbums = new ArrayList<>();
         for (Album album : db.getAllAlbums()) {
-            if (album.getStatus() == 1) {
-                //TODO: Add to arrayList
+            if (album.getStatus() == 3) {
                 vaultAlbums.add(album);
             }
         }
