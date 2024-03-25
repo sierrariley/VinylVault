@@ -1,6 +1,9 @@
 package com.example.vinylvault.Pojo;
 
-public class AlbumTrack {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class AlbumTrack implements Parcelable {
     private int id;
     private int album_id;
     private int track_id;
@@ -13,6 +16,24 @@ public class AlbumTrack {
 
     public AlbumTrack() {
     }
+
+    protected AlbumTrack(Parcel in) {
+        id = in.readInt();
+        album_id = in.readInt();
+        track_id = in.readInt();
+    }
+
+    public static final Creator<AlbumTrack> CREATOR = new Creator<AlbumTrack>() {
+        @Override
+        public AlbumTrack createFromParcel(Parcel in) {
+            return new AlbumTrack(in);
+        }
+
+        @Override
+        public AlbumTrack[] newArray(int size) {
+            return new AlbumTrack[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -36,5 +57,17 @@ public class AlbumTrack {
 
     public void setTrack_id(int track_id) {
         this.track_id = track_id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(album_id);
+        dest.writeInt(track_id);
     }
 }
