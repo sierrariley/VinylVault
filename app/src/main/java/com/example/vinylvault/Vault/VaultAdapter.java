@@ -19,6 +19,7 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
     private Context context;
 
     public VaultAdapter(ArrayList<Album> albums,Context context) {
+        this.albums = albums;
         this.context = context;
     }
 
@@ -31,11 +32,17 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
 
     @Override
     public void onBindViewHolder(@NonNull VaultViewHolder holder, int position) {
-
+        Album album = albums.get(position);
+        //Only display if the album status == listened to
+        //TODO: Figure out how to set an image resource to an api image link
+//        holder.image.setImageResource(album.getArtwork());
     }
 
     @Override
     public int getItemCount() {
+        if(albums != null){
+            return albums.size();
+        }
         return 0;
     }
 
@@ -50,7 +57,7 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
 
         @Override
         public void onClick(View view) {
-
+            //TODO: Open up album summary
         }
     }
 }

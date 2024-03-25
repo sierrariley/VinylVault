@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vinylvault.Database.AlbumDatabase;
+import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+
+import java.util.ArrayList;
 
 public class VaultFragment extends Fragment {
 
@@ -23,7 +26,16 @@ public class VaultFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.vault_recycler_view);
 
         AlbumDatabase db = new AlbumDatabase(getContext());
-        VaultAdapter adapter = new VaultAdapter(db.getAllAlbums(), getContext());
+
+        ArrayList<Album> vaultAlbums = new ArrayList<>();
+        for (Album album : db.getAllAlbums()) {
+            if (album.getStatus() == 1) {
+                //TODO: Add to arrayList
+                vaultAlbums.add(album);
+            }
+        }
+
+        VaultAdapter adapter = new VaultAdapter(vaultAlbums, getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 

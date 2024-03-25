@@ -29,13 +29,13 @@ public class ProfileFragment extends Fragment {
 
         AlbumDatabase db = new AlbumDatabase(getContext());
 
-        ProfileAdapter topAlbumsAdapter = new ProfileAdapter(db.getAllAlbums(), getContext());
-        topAlbumsRV.setAdapter(topAlbumsAdapter);
-        topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+//        ProfileAdapter topAlbumsAdapter = new ProfileAdapter(db.getAllAlbums(), getContext());
+//        topAlbumsRV.setAdapter(topAlbumsAdapter);
+//        topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        ProfileAdapter topGenreAdapter = new ProfileAdapter(db.getAllAlbums(), getContext());
-        topGenresRV.setAdapter(topGenreAdapter);
-        topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+//        ProfileAdapter topGenreAdapter = new ProfileAdapter(db.getAllAlbums(), getContext());
+//        topGenresRV.setAdapter(topGenreAdapter);
+//        topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
         return view;

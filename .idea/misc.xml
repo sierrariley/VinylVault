@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/drawable/profile_background.xml" value="0.1275" />
         <entry key="app/src/main/res/drawable/profile_text_background.xml" value="0.1275" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/layout/album_item.xml" value="0.22327898550724637" />
         <entry key="app/src/main/res/layout/fragment_add_an_album.xml" value="0.25480499267578127" />
         <entry key="app/src/main/res/layout/fragment_album_summary.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_browse.xml" value="0.3238094385119452" />
