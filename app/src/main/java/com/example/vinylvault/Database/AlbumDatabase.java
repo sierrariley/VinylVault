@@ -25,6 +25,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_ALBUM_ID = "album_id";
     public static final String COLUMN_ALBUM_NAME = "album_name";
     public static final String COLUMN_ARTWORK = "album_artwork";
+    public static final String COLUMN_RATING = "star_rating";
     public static final String COLUMN_ALBUM_GENRE = "ablum_genre";
 
 
@@ -55,6 +56,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                                                     COLUMN_ALBUM_NAME + " TEXT," +
                                                     COLUMN_ALBUM_GENRE + " INT," +
                                                     COLUMN_ARTWORK + " TEXT," +
+                                                    COLUMN_RATING + " INT," +
                                                     " FOREIGN KEY (" + COLUMN_ALBUM_GENRE + ")" +
                                                     " REFERENCES " + TABLE_GENRE + "(" + COLUMN_GENRE_ID + "))";
 
@@ -112,7 +114,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Album album = null;
         Cursor cursor = db.query(TABLE_ALBUM, new String[]{
-                                COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK}, COLUMN_ALBUM_ID + "= ?",
+                                COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING}, COLUMN_ALBUM_ID + "= ?",
                                 new String[]{String.valueOf(id)}, null, null, null);
         if(cursor.moveToFirst()){
             album = new Album(
@@ -120,7 +122,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4));
+                    cursor.getString(4),
+                    cursor.getInt(5));
         }
         db.close();
         return album;
@@ -211,7 +214,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4)));
+                    cursor.getString(4),
+                    cursor.getInt(5)));
         }
         db.close();
         return albums;
@@ -297,5 +301,103 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayList<Album> getTopAlbums(int top){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Album> topAlbums = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
+                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING}, null, null, null, null, COLUMN_RATING + " DESC", String.valueOf(top));
+       while(cursor.moveToNext()) {
+           topAlbums.add(new Album(
+                   cursor.getInt(0),
+                   cursor.getString(1),
+                   cursor.getString(2),
+                   cursor.getString(3),
+                   cursor.getString(4),
+                   cursor.getInt(5)));
+       }
+
+       cursor.close();
+       db.close();
+
+       return topAlbums;
+
+       //ArrayList<Album> topAlbums = albumDatabase.getTopAlbums(10); call this when we want to retreive topAlbums
+    }
+
+    /**
+     * This method creates an arraylist of Top genres.
+     * Top genres are based on the number of albums each genres has that the user has listened to
+     * @param top
+     * @return topGenres
+     */
+    public ArrayList<Genre> getTopGenres(int top){
+        //Get the genres
+       ArrayList<Genre> genres = getAllGenres();
+       //create arraylist to hold top genres
+       ArrayList<Genre> topGenres = new ArrayList<>();
+       int maxCount = 0; //Track top genres ans associated album count
+
+       for(Genre genre : genres){
+           ArrayList<Album> albums = topGenres(genre.getId());
+           int albumCount = albums.size();
+
+           // If the current genre has more albums than the current maximum,
+           // clear the existing top genres and add the current genre as the new top genre
+           if(albumCount > maxCount){
+               maxCount = albumCount;
+               topGenres.clear();
+               topGenres.add(genre);
+           }
+           // If the current genre has the same number of albums as the current maximum,
+           // add it to the list of top genres
+           else if(albumCount == maxCount){
+               topGenres.add(genre);
+           }
+
+           // Limit the number of top genres
+           if(topGenres.size() >= top){
+               break;
+           }
+       }
+
+        return topGenres;
+
+       //ArrayList<Genre> topGenres = albumDatabase.getTopGenres(5); use this to retrieve top genres
+
+    }
+
+    /**
+     * This method is used to help gather topGenres
+     * It grabs the albums associated with each genre
+     * @param genreId
+     * @return albums
+     */
+    private ArrayList<Album> topGenres(int genreId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Album> albums = new ArrayList<>();
+
+
+        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
+                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING},
+                COLUMN_ALBUM_GENRE + "=?",
+                new String[]{String.valueOf(genreId)},
+                null, null, null);
+
+
+        while (cursor.moveToNext()) {
+            albums.add(new Album(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getInt(5)));
+        }
+
+        db.close();
+
+        return albums;
+    }
 
 }
