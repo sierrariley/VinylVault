@@ -1,6 +1,7 @@
 package com.example.vinylvault.Search;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+import com.example.vinylvault.api.AlbumSingleton;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -45,6 +56,35 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.albumName.setText(album.getName());
         holder.artistName.setText(album.getArtistName());
 
+
+        String url = "https://itunes.apple.com/search?" +
+                "country=CA&" +
+                "media=album&" +
+                "term=" + "" +
+                "&entity=album";
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            JSONObject mainObject = response.getJSONObject(0);
+                            album.setName(mainObject.getString(""));
+                            album.setArtistName(mainObject.getString("artistName"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
+            }
+        });
+
+        AlbumSingleton.getInstance(context).getRequestQueue().add(request);
+
     }
 
     @Override
@@ -69,12 +109,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         public void onClick(View view) {
 
         }
+
     }
 
-    String url = "https://itunes.apple.com/search?" +
-            "country=CA&" +
-            "media=album&" +
-            "term=" + "" +
-            "&entity=album";
 
 }
