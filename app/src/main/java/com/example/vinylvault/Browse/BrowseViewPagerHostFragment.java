@@ -23,6 +23,7 @@ public class BrowseViewPagerHostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_browse_view_pager_host, container, false);
         ViewPager2 viewPager2 = view.findViewById(R.id.browseViewPager);
         viewPager2.setAdapter(new BrowseAdapter(getActivity()));
+        //TODO: Add  a transformer
 //        viewPager2.setPageTransformer(new ZoomOutPageTransformer());
         return view;
     }

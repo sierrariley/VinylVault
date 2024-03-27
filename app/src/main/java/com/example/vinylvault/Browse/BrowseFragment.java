@@ -78,8 +78,9 @@ public class BrowseFragment extends Fragment {
             artistName.setText(artistNameParam);
             genre.setText(genreParam);
             image.setImageResource(imageParam);
+
             /*
-            TODO: Set adapter of ListView
+            TODO: FOR SAGE - Change listview to recycler view, identical to fragment_album_summary's
             Will likely need to pass in values of tracks
              */
         }

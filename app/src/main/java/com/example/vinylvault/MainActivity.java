@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_vault,
                 R.id.nav_search)
                 .build();
+
+        //TODO: Implement Fab Button
+        //TODO: Make Settings Menu
+        //TODO: Add Animations to RecyclerViews
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);

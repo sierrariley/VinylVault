@@ -24,11 +24,18 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        //TODO: FOR SAGE - delete username and pfp section. add currently listening button and to listen to
+
         RecyclerView topAlbumsRV = view.findViewById(R.id.profile_top_albums);
         RecyclerView topGenresRV = view.findViewById(R.id.profile_top_genres);
 
         AlbumDatabase db = new AlbumDatabase(getContext());
 
+        /**
+         * TODO: Two different adapters
+         * one takes in all albums and displays the top 5
+         * second one takes in genres and displays the top 5 genres
+         */
 //        ProfileAdapter topAlbumsAdapter = new ProfileAdapter(db.getAllAlbums(), getContext());
 //        topAlbumsRV.setAdapter(topAlbumsAdapter);
 //        topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

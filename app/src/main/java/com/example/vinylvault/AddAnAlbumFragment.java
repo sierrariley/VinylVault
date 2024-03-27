@@ -13,6 +13,9 @@ import android.view.ViewGroup;
  * Use the {@link AddAnAlbumFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+/**
+ * TODO: Opens based on fab button, If album status and fab button is hit...
+ */
 public class AddAnAlbumFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

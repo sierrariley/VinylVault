@@ -36,7 +36,6 @@ public class SearchFragment extends Fragment {
         searchView = view.findViewById(R.id.search_searchBar);
         searchView.clearFocus();
 
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

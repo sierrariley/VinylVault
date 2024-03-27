@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummaryViewHolder> {
 
-    //TODO: Finish this file - will need the database file
     private ArrayList<Album> albums;
     private Context context;
 
@@ -35,6 +34,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
     @Override
     public void onBindViewHolder(@NonNull AlbumSummaryViewHolder holder, int position) {
 
+        //TODO: With collectionId from album, make new api search for track list
     }
 
     @Override

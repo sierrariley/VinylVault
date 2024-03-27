@@ -55,6 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         Album album = albums.get(position);
         holder.albumName.setText(album.getName());
         holder.artistName.setText(album.getArtistName());
+        //TODO: Add protected search bar and then link here, get entered text
 
 
         String url = "https://itunes.apple.com/search?" +
