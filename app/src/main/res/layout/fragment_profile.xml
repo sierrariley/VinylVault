@@ -16,36 +16,62 @@
             android:id="@+id/filler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="TODO"
             android:src="@drawable/profile_background"
-            app:layout_constraintStart_toStartOf="@+id/profile_photo"
-            app:layout_constraintTop_toTopOf="@+id/profile_photo" />
-
-        <ImageView
-            android:id="@+id/profile_photo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:contentDescription="profile photo"
-            android:src="@drawable/profile_placeholder"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/filler2"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ImageContrastCheck" />
+            app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
-            android:id="@+id/profile_username"
+        <ImageView
+            android:id="@+id/filler2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/profile_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/filler"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/profile_currently_listening"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:fontFamily="@font/josefin_sans_semibold"
-            android:text="username"
+            android:text="Currently\nListening"
+            android:textAlignment="center"
             android:textColor="@color/light_purple"
-            android:textSize="24sp"
-            app:layout_constraintStart_toEndOf="@+id/profile_photo"
-            app:layout_constraintTop_toTopOf="@+id/profile_photo" />
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/filler"
+            app:layout_constraintStart_toStartOf="@+id/filler"
+            app:layout_constraintTop_toTopOf="@+id/filler" />
+
+        <TextView
+            android:id="@+id/profile_to_listen"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_marginStart="94dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="To\nListen"
+            android:textAlignment="center"
+            android:textColor="@color/light_purple"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="@+id/filler2"
+            app:layout_constraintEnd_toEndOf="@+id/filler2"
+            app:layout_constraintStart_toStartOf="@+id/filler2"
+            app:layout_constraintTop_toTopOf="@+id/filler2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

@@ -3,14 +3,13 @@ package com.example.vinylvault.Profile;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.vinylvault.Database.AlbumDatabase;
-import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
 
 /**
@@ -24,7 +23,22 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        //TODO: FOR SAGE - delete username and pfp section. add currently listening button and to listen to
+        ImageView currentlyListening = view.findViewById(R.id.profile_currently_listening);
+        currentlyListening.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Open CurrentlyListening Fragment
+            }
+        });
+
+        ImageView toListen = view.findViewById(R.id.profile_to_listen);
+        toListen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Open ToListen Fragment
+            }
+        });
+
 
         RecyclerView topAlbumsRV = view.findViewById(R.id.profile_top_albums);
         RecyclerView topGenresRV = view.findViewById(R.id.profile_top_genres);

@@ -1,4 +1,4 @@
-package com.example.vinylvault.AlbumSummary;
+package com.example.vinylvault.Browse;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,17 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.vinylvault.AlbumSummary.AlbumAdapter;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
-
 import java.util.ArrayList;
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummaryViewHolder> {
+public class BrowseTrackAdapter extends RecyclerView.Adapter<BrowseTrackAdapter.BrowseTrackViewHolder> {
 
     private ArrayList<Album> albums;
     private Context context;
 
-    public AlbumAdapter(ArrayList<Album> albums, Context context) {
+    public BrowseTrackAdapter(ArrayList<Album> albums, Context context) {
         this.albums = albums;
         this.context = context;
     }
@@ -27,14 +27,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
 
     @NonNull
     @Override
-    public AlbumSummaryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BrowseTrackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_list_item, parent, false);
-        return new AlbumSummaryViewHolder(view);
+        return new BrowseTrackViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AlbumSummaryViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull BrowseTrackViewHolder holder, int position) {
         //TODO: With collectionId from album, make new api search for track list
     }
 
@@ -44,12 +43,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
         return 0;
     }
 
-    class AlbumSummaryViewHolder extends RecyclerView.ViewHolder {
+    class BrowseTrackViewHolder extends RecyclerView.ViewHolder {
         protected TextView number;
         protected TextView name;
         protected TextView length;
 
-        public AlbumSummaryViewHolder(@NonNull View itemView) {
+        public BrowseTrackViewHolder(@NonNull View itemView) {
             super(itemView);
             this.number = itemView.findViewById(R.id.track_number);
             this.name = itemView.findViewById(R.id.track_name);

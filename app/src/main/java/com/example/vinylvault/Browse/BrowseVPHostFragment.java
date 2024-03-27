@@ -14,7 +14,7 @@ import com.example.vinylvault.R;
 /**
  * ViewPager Host
  */
-public class BrowseViewPagerHostFragment extends Fragment {
+public class BrowseVPHostFragment extends Fragment {
 
 
     @Override
@@ -22,7 +22,7 @@ public class BrowseViewPagerHostFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse_view_pager_host, container, false);
         ViewPager2 viewPager2 = view.findViewById(R.id.browseViewPager);
-        viewPager2.setAdapter(new BrowseAdapter(getActivity()));
+        viewPager2.setAdapter(new BrowseVPAdapter(getActivity()));
         //TODO: Add  a transformer
 //        viewPager2.setPageTransformer(new ZoomOutPageTransformer());
         return view;

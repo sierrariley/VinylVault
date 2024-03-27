@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.R;
 
-public class AlbumSummary extends Fragment {
+public class AlbumSummaryFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

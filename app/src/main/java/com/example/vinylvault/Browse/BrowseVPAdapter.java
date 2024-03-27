@@ -7,9 +7,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.vinylvault.R;
 
-public class BrowseAdapter extends FragmentStateAdapter {
+public class BrowseVPAdapter extends FragmentStateAdapter {
 
-    public BrowseAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public BrowseVPAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 

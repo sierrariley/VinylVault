@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/nav_browse"
-        android:name="com.example.vinylvault.Browse.BrowseViewPagerHostFragment"
+        android:name="com.example.vinylvault.Browse.BrowseVPHostFragment"
         android:label="Browse Albums"
         tools:layout="@layout/fragment_browse_view_pager_host" />
     <fragment
@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_to_listen" />
     <fragment
         android:id="@+id/albumSummary"
-        android:name="com.example.vinylvault.AlbumSummary.AlbumSummary"
+        android:name="com.example.vinylvault.AlbumSummary.AlbumSummaryFragment"
         android:label="Album Summary"
         tools:layout="@layout/fragment_album_summary" />
 </navigation>

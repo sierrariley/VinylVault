@@ -3,6 +3,8 @@ package com.example.vinylvault.Browse;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.vinylvault.AlbumSummary.AlbumAdapter;
+import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.R;
 
 /**
@@ -30,10 +34,7 @@ public class BrowseFragment extends Fragment {
     private String artistNameParam;
     private String genreParam;
     private int imageParam;
-    //TODO: Replace this
-    //Create a new class called TrackList that implements Parcelable
-    //private TrackList trackListParam;
-    private String trackListParam; //is this valid?
+    private String trackListParam;
 
     public BrowseFragment() {}
 
@@ -71,7 +72,7 @@ public class BrowseFragment extends Fragment {
             TextView artistName = view.findViewById(R.id.browse_artist_name);
             TextView genre = view.findViewById(R.id.browse_genre);
             ImageView image = view.findViewById(R.id.browse_album_image);
-            ListView listView = view.findViewById(R.id.browse_tracks);
+            RecyclerView recyclerView = view.findViewById(R.id.browse_tracks);
 
 
             albumName.setText(albumNameParam);
@@ -79,10 +80,14 @@ public class BrowseFragment extends Fragment {
             genre.setText(genreParam);
             image.setImageResource(imageParam);
 
-            /*
-            TODO: FOR SAGE - Change listview to recycler view, identical to fragment_album_summary's
-            Will likely need to pass in values of tracks
+            /**
+             * TODO: Fix this once db has collectionId
+             * AlbumDatabase db = new AlbumDatabase(getContext());
+             * AlbumAdapter adapter = new AlbumAdapter(db.getCollectionId(), getContext());
+             * recyclerView.setAdapter(adapter);
+             * recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
              */
+
         }
 
         return view;
