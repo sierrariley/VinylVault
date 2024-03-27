@@ -84,12 +84,14 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                                                  " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + "))";
 
     public static final String CREATE_AT_TABLE = "CREATE TABLE " +
-                                                  TABLE_ALBUM_TRACK+ "(" +
-                                                  COLUMN_AT_ID + " INTEGER PRIMARY KEY," +
+                                                TABLE_ALBUM_TRACK + "(" +
+                                                COLUMN_AT_ID + " INTEGER PRIMARY KEY," +
+                                                COLUMN_AT_ALBUM + " INT," +
+                                                COLUMN_AT_TRACK + " INT," +
                                                 " FOREIGN KEY (" + COLUMN_AT_ALBUM + ") " +
                                                 " REFERENCES " + TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + ")," +
-                                                " FOREIGN KEY (" + COLUMN_AT_TRACK+ ") " +
-                                                " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + "))";
+                                                " FOREIGN KEY (" + COLUMN_AT_TRACK + ") " +
+                                                " REFERENCES " + TABLE_TRACK + "(" + COLUMN_TRACK_ID + "))";
 
 
     public AlbumDatabase(@Nullable Context context) {
@@ -269,8 +271,6 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                 new String[]{String.valueOf(artist.getId())});
     }
 
-   //We do not need to update track
-
     public int updateGere(Genre genre){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -279,7 +279,6 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         return db.update(TABLE_GENRE, values, COLUMN_GENRE_ID+ "=?",
                 new String[]{String.valueOf(genre.getId())});
     }
-
 
     //Delete
     public void deleteAlbum(int album){

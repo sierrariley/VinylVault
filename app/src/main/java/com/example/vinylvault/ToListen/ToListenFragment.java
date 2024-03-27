@@ -25,7 +25,6 @@ public class ToListenFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.to_listen_recycler_view);
 
-
         AlbumDatabase db = new AlbumDatabase(getContext());
         ArrayList<Album> toListenAlbums = new ArrayList<>();
         for (Album album : db.getAllAlbums()) {
