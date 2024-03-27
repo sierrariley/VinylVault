@@ -84,12 +84,14 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                                                  " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + "))";
 
     public static final String CREATE_AT_TABLE = "CREATE TABLE " +
-                                                  TABLE_ALBUM_TRACK+ "(" +
-                                                  COLUMN_AT_ID + " INTEGER PRIMARY KEY," +
-                                                " FOREIGN KEY (" + COLUMN_AT_ALBUM + ") " +
-                                                " REFERENCES " + TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + ")," +
-                                                " FOREIGN KEY (" + COLUMN_AT_TRACK+ ") " +
-                                                " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + "))";
+                                                 TABLE_ALBUM_TRACK + "(" +
+                                                 COLUMN_AT_ID + " INTEGER PRIMARY KEY," +
+                                                 COLUMN_AT_ALBUM + " INT," +
+                                                 COLUMN_AT_TRACK + " INT," +
+                                                 " FOREIGN KEY (" + COLUMN_AT_ALBUM + ") " +
+                                                 " REFERENCES " + TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + ")," +
+                                                 " FOREIGN KEY (" + COLUMN_AT_TRACK + ") " +
+                                                 " REFERENCES " + TABLE_TRACK + "(" + COLUMN_TRACK_ID + "))";
 
 
     public AlbumDatabase(@Nullable Context context) {

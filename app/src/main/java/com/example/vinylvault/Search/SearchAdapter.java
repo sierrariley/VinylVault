@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,12 +20,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     private ArrayList<Album> albums;
     private Context context;
+    private SearchView searchView;
+
 
     public SearchAdapter(ArrayList<Album> albums,Context context) {
         this.context = context;
+        this.albums = albums;
     }
 
-
+    public void setSearchList(ArrayList<Album> searchList){
+        this.albums = searchList;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,6 +41,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
+        Album album = albums.get(position);
+        holder.albumName.setText(album.getName());
+        holder.artistName.setText(album.getArtistName());
+
     }
 
     @Override
@@ -41,10 +54,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected ImageView image;
+        protected TextView albumName;
+        protected TextView artistName;
 
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.search_item_image);
+            this.albumName = itemView.findViewById(R.id.albumName);
+            this.artistName = itemView.findViewById(R.id.artistName);
             itemView.setOnClickListener(this);
         }
 
@@ -53,4 +70,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         }
     }
+
+    String url = "https://itunes.apple.com/search?" +
+            "country=CA&" +
+            "media=album&" +
+            "term=" + "" +
+            "&entity=album";
+
 }
