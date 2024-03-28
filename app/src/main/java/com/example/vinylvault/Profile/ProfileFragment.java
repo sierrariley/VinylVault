@@ -3,6 +3,7 @@ package com.example.vinylvault.Profile;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,17 +47,15 @@ public class ProfileFragment extends Fragment {
         AlbumDatabase db = new AlbumDatabase(getContext());
 
         /**
-         * TODO: Two different adapters
-         * one takes in all albums and displays the top 5
-         * second one takes in genres and displays the top 5 genres
+         * TODO: Create TopGenre Adapter
          */
-//        ProfileAdapter topAlbumsAdapter = new ProfileAdapter(db.getAllAlbums(), getContext());
-//        topAlbumsRV.setAdapter(topAlbumsAdapter);
-//        topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        TopAlbumsAdapter topAlbumsAdapter = new TopAlbumsAdapter(db.getAllAlbums(), getContext());
+        topAlbumsRV.setAdapter(topAlbumsAdapter);
+        topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-//        ProfileAdapter topGenreAdapter = new ProfileAdapter(db.getAllAlbums(), getContext());
-//        topGenresRV.setAdapter(topGenreAdapter);
-//        topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        TopGenresAdapter topGenreAdapter = new TopGenresAdapter(db.getAllAlbums(), getContext());
+        topGenresRV.setAdapter(topGenreAdapter);
+        topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
         return view;

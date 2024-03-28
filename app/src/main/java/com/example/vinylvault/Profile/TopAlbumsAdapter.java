@@ -14,44 +14,39 @@ import com.example.vinylvault.R;
 
 import java.util.ArrayList;
 
-public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder> {
+public class TopAlbumsAdapter extends RecyclerView.Adapter<TopAlbumsAdapter.TopAlbumsViewHolder> {
 
     private ArrayList<Album> albums;
     private Context context;
 
-    public ProfileAdapter(ArrayList<Album> albums,Context context) {
+    public TopAlbumsAdapter(ArrayList<Album> albums, Context context) {
+        this.albums = albums;
         this.context = context;
     }
     @NonNull
     @Override
-    public ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TopAlbumsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_item, parent, false);
-        return new ProfileViewHolder(view);
+        return new TopAlbumsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProfileViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull TopAlbumsViewHolder holder, int position) {
+        //TODO
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        //Only displays top 5 albums, needs the rating or order by
+        return 5;
     }
 
-    class ProfileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class TopAlbumsViewHolder extends RecyclerView.ViewHolder{
         protected ImageView image;
 
-        public ProfileViewHolder(@NonNull View itemView) {
+        public TopAlbumsViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.profile_item_image);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            //if it's a genre - open up that page
-            //if it's an album - open up that page
         }
     }
 }
