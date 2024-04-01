@@ -34,7 +34,6 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
     @Override
     public void onBindViewHolder(@NonNull CurrentlyViewHolder holder, int position) {
         Album album = albums.get(position);
-//        holder.image.setImageResource(album.getArtwork());
         //Picasso.get().load(LINK TO ARTWORK).placeholder(R.drawable.user_placeholder).error(R.drawable.user_placeholder_error).into(imageView);
 
     }
