@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,8 +36,9 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
     @Override
     public void onBindViewHolder(@NonNull VaultViewHolder holder, int position) {
         Album album = albums.get(position);
-        //TODO: Figure out how to set an image resource to an api image link
 //        holder.image.setImageResource(album.getArtwork());
+        //Picasso.get().load(LINK TO ARTWORK).placeholder(R.drawable.user_placeholder).error(R.drawable.user_placeholder_error).into(imageView);
+
     }
 
     @Override
@@ -58,16 +60,6 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
 
         @Override
         public void onClick(View view) {
-            //TODO: Pass in a bundle
-            /*
-            Bundle extra = new Bundle();
-            extra.putInt(CreateUpdateFragment.ACTION_TYPE,
-                    CreateUpdateFragment.UPDATE);
-            extra.putParcelable(CreateUpdateFragment.LOCATION,
-                    locations.get(holder.getLayoutPosition()));
-            Navigation.findNavController(view)
-                    .navigate(R.id.createUpdateFragment, extra);
-            */
             Navigation.findNavController(view).navigate(R.id.nav_album_summary);
         }
     }

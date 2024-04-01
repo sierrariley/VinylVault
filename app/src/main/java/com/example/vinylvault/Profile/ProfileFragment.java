@@ -48,14 +48,11 @@ public class ProfileFragment extends Fragment {
 
         AlbumDatabase db = new AlbumDatabase(getContext());
 
-        /**
-         * TODO: Create TopGenre Adapter
-         */
-        TopAlbumsAdapter topAlbumsAdapter = new TopAlbumsAdapter(db.getAllAlbums(), getContext());
+        TopAlbumsAdapter topAlbumsAdapter = new TopAlbumsAdapter(db.getTopAlbums(5), getContext());
         topAlbumsRV.setAdapter(topAlbumsAdapter);
         topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        TopGenresAdapter topGenreAdapter = new TopGenresAdapter(db.getAllAlbums(), getContext());
+        TopGenresAdapter topGenreAdapter = new TopGenresAdapter(db.getTopGenres(5), getContext());
         topGenresRV.setAdapter(topGenreAdapter);
         topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
