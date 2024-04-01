@@ -61,13 +61,14 @@ AlbumDatabase db = new AlbumDatabase(getContext());
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // Handle search query submission if needed
-                return false;
+                searchString = query;
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 searchString = newText;
-                return true;
+                return false;
 
             }
         });
