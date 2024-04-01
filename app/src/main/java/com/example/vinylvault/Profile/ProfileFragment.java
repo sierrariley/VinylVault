@@ -24,7 +24,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        ImageView currentlyListening = view.findViewById(R.id.profile_currently_listening);
+        ImageView currentlyListening = view.findViewById(R.id.filler);
         currentlyListening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        ImageView toListen = view.findViewById(R.id.profile_to_listen);
+        ImageView toListen = view.findViewById(R.id.filler2);
         toListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

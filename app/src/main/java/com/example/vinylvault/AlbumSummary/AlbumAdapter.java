@@ -31,8 +31,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
     private ArrayList<Track> tracks;
     private Context context;
 
-    public AlbumAdapter(ArrayList<Album> albums, Context context) {
-        this.albums = albums;
+    public AlbumAdapter(ArrayList<Track> tracks, Context context) {
+        this.tracks = tracks;
         this.context = context;
     }
 
@@ -46,8 +46,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
 
     @Override
     public void onBindViewHolder(@NonNull AlbumSummaryViewHolder holder, int position) {
-        Album album = albums.get(position);
-        Track track = tracks.get(album.getId());
+//        Album album = albums.get(position);
+        Track track = tracks.get(position);
 
         holder.number.setText(position);
         holder.name.setText(track.getName());
@@ -58,7 +58,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
         //https://itunes.apple.com/lookup?id=COLLECTIONID&entity=song
         String url =
                 "https://itunes.apple.com/lookup?id=" +
-                        album.getId() + "&entity=song";
+                        track.getAlbum() + "&entity=song";
 
 
         //Make a request
@@ -70,10 +70,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
                             JSONObject mainObject = response.getJSONObject("results");
                             //Update the trackName
                             track.setName(mainObject.getString("trackName"));
-                            AlbumDatabase db = new AlbumDatabase(context);
-                            db.updateAlbum(album);
-                            db.close();
-                            Log.d("UPDATE", track.getName() + " TEMP UPDATED");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
