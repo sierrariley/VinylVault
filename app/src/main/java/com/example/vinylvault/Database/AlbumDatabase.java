@@ -163,6 +163,32 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         return track;
     }
 
+    /**
+     * Searching for all Tracks associated with an album
+     * @param albumId
+     * @return
+     */
+    public ArrayList<Track> getTracksByAlbum(int albumId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Track> tracks = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_ALBUM_TRACK, null, COLUMN_AT_ALBUM + "=?", new String[]{String.valueOf(albumId)}, null, null, null);
+
+        int columnIndex = cursor.getColumnIndex(COLUMN_AT_TRACK);
+        while(cursor.moveToNext()){
+            int trackId = cursor.getInt(columnIndex);
+            Track track = getTrack(trackId);
+
+            if(tracks != null){
+                tracks.add(track);
+            }
+        }
+
+        cursor.close();
+        db.close();
+        return tracks;
+    }
+
     public Genre getGenre(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         Genre genre = null;
