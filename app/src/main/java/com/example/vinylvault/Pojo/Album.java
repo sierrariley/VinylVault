@@ -50,6 +50,14 @@ public class Album implements Parcelable {
         }
     };
 
+    public Album(String albumName, String artistName, String imageUrl) {
+        this.name = albumName;
+        this.artistName = artistName;
+        this.artwork = imageUrl;
+    }
+
+
+
     public int getId() {
         return id;
     }

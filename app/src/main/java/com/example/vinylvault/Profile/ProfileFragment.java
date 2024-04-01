@@ -24,21 +24,21 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        ImageView currentlyListening = view.findViewById(R.id.profile_currently_listening);
-        currentlyListening.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: Open CurrentlyListening Fragment
-            }
-        });
-
-        ImageView toListen = view.findViewById(R.id.profile_to_listen);
-        toListen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: Open ToListen Fragment
-            }
-        });
+//        ImageView currentlyListening = view.findViewById(R.id.profile_currently_listening);
+//        currentlyListening.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //TODO: Open CurrentlyListening Fragment
+//            }
+//        });
+//
+//        ImageView toListen = view.findViewById(R.id.profile_to_listen);
+//        toListen.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //TODO: Open ToListen Fragment
+//            }
+//        });
 
 
         RecyclerView topAlbumsRV = view.findViewById(R.id.profile_top_albums);
