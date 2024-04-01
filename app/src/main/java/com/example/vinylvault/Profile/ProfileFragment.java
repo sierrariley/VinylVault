@@ -3,6 +3,7 @@ package com.example.vinylvault.Profile;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,21 +25,21 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-//        ImageView currentlyListening = view.findViewById(R.id.profile_currently_listening);
-//        currentlyListening.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //TODO: Open CurrentlyListening Fragment
-//            }
-//        });
-//
-//        ImageView toListen = view.findViewById(R.id.profile_to_listen);
-//        toListen.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //TODO: Open ToListen Fragment
-//            }
-//        });
+        ImageView currentlyListening = view.findViewById(R.id.filler);
+        currentlyListening.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_currently_listening);
+            }
+        });
+
+        ImageView toListen = view.findViewById(R.id.filler2);
+        toListen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.nav_to_listen);
+            }
+        });
 
 
         RecyclerView topAlbumsRV = view.findViewById(R.id.profile_top_albums);
@@ -46,14 +47,11 @@ public class ProfileFragment extends Fragment {
 
         AlbumDatabase db = new AlbumDatabase(getContext());
 
-        /**
-         * TODO: Create TopGenre Adapter
-         */
-        TopAlbumsAdapter topAlbumsAdapter = new TopAlbumsAdapter(db.getAllAlbums(), getContext());
+        TopAlbumsAdapter topAlbumsAdapter = new TopAlbumsAdapter(db.getTopAlbums(5), getContext());
         topAlbumsRV.setAdapter(topAlbumsAdapter);
         topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        TopGenresAdapter topGenreAdapter = new TopGenresAdapter(db.getAllAlbums(), getContext());
+        TopGenresAdapter topGenreAdapter = new TopGenresAdapter(db.getTopGenres(5), getContext());
         topGenresRV.setAdapter(topGenreAdapter);
         topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 

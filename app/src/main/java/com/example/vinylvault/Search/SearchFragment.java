@@ -48,13 +48,17 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        recyclerView = view.findViewById(R.id.search_recycler_view);
         searchView = view.findViewById(R.id.search_searchBar);
-        albumArrayList = new ArrayList<>();
+        recyclerView = view.findViewById(R.id.search_recycler_view);
+
+//        albumArrayList = new ArrayList<>();
 
 
-
-AlbumDatabase db = new AlbumDatabase(getContext());
+        AlbumDatabase db = new AlbumDatabase(getContext());
+        // Set up RecyclerView and adapter
+        searchAdapter = new SearchAdapter(new ArrayList<>(), "", getContext());
+        recyclerView.setAdapter(searchAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Set up SearchView listener
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -67,21 +71,25 @@ AlbumDatabase db = new AlbumDatabase(getContext());
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchString = newText;
-                return false;
 
+                searchAdapter.setQuery(newText);
+                searchAdapter.setAlbums(db.getAllAlbums());
+                searchAdapter.notifyDataSetChanged();
+
+
+                String url = "https://itunes.apple.com/search?" +
+                        "country=CA&" +
+                        "media=album&" +
+                        "term=" + newText +
+                        "&entity=album";
+                System.out.println(url);
+
+                return true;
             }
+
         });
 
-        db.addAlbum(new Album("Believe", "Justin Beiber", "https://is1-ssl.mzstatic.com/image/thumb/Music/54/7e/24/mzi.ehsdnggz.jpg/60x60bb.jpg"));
-
-
-        // Set up RecyclerView and adapter
-        searchAdapter = new SearchAdapter(getContext());
-        recyclerView.setAdapter(searchAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
+//        db.addAlbum(new Album("Believe", "Justin Beiber", "https://is1-ssl.mzstatic.com/image/thumb/Music/54/7e/24/mzi.ehsdnggz.jpg/60x60bb.jpg"));
 
         return view;
     }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -32,12 +33,19 @@ public class TopAlbumsAdapter extends RecyclerView.Adapter<TopAlbumsAdapter.TopA
 
     @Override
     public void onBindViewHolder(@NonNull TopAlbumsViewHolder holder, int position) {
-        //TODO
+        Album album = albums.get(position);
+        Picasso.get()
+                .load(album.getArtwork())
+                .placeholder(R.drawable.album_placeholder)
+                .error(R.drawable.album_error_placeholder)
+                .into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        //Only displays top 5 albums, needs the rating or order by
+        if(albums != null){
+            return albums.size();
+        }
         return 5;
     }
 
