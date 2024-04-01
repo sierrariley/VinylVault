@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
 import com.example.vinylvault.api.AlbumSingleton;
@@ -31,18 +32,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     private ArrayList<Album> albums;
     private Context context;
+    private ArrayList<Album> searchedAlbums;
     private SearchView searchView;
+    private String query;
 
 
-    public SearchAdapter(ArrayList<Album> albums,Context context) {
+    public SearchAdapter(Context context) {
         this.context = context;
-        this.albums = albums;
+//        this.albums = albums;
+//        this.searchedAlbums = new ArrayList<>(albums);
+//        this.query = query;
     }
 
-    public void setSearchList(ArrayList<Album> searchList){
-        this.albums = searchList;
-        notifyDataSetChanged();
-    }
+
     @NonNull
     @Override
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,59 +54,66 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-        Album album = albums.get(position);
+        Album album = searchedAlbums.get(position);
         holder.albumName.setText(album.getName());
         holder.artistName.setText(album.getArtistName());
-        //TODO: Add protected search bar and then link here, get entered text
 
+        Picasso.get().load(album.getArtwork()).into(holder.image);
 
-        String url = "https://itunes.apple.com/search?" +
-                "country=CA&" +
-                "media=album&" +
-                "term=" + "" +
-                "&entity=album";
+            // Construct the API URL with the search query
+            String url = "https://itunes.apple.com/search?" +
+                    "country=CA&" +
+                    "media=album&" +
+                    "term=" + query +
+                    "&entity=album";
+            System.out.println(url);
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            JSONObject mainObject = response.getJSONObject(0);
-                            album.setName(mainObject.getString(""));
-                            album.setArtistName(mainObject.getString("artistName"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                JSONArray mainArray = response.getJSONArray("results");
+                                JSONObject mainObject = mainArray.getJSONObject(0);
+                                album.setName(mainObject.getString("collectionName"));
+                                album.setArtistName(mainObject.getString("artistName"));
+                                album.setArtwork(mainObject.getString("artworkUrl60"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
-            }
-        });
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
+                }
+            });
+            AlbumSingleton.getInstance(context).getRequestQueue().add(request);
 
-        AlbumSingleton.getInstance(context).getRequestQueue().add(request);
+        }
 
-    }
+
+
 
     @Override
     public int getItemCount() {
-        return 0;
+        if(searchedAlbums != null){
+            return searchedAlbums.size();
+        }
+       return  0;
     }
 
     class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected ImageView image;
         protected TextView albumName;
         protected TextView artistName;
-        protected SearchView searchView;
+
 
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.search_item_image);
             this.albumName = itemView.findViewById(R.id.albumName);
             this.artistName = itemView.findViewById(R.id.artistName);
-            this.searchView = itemView.findViewById(R.id.search_searchBar);
             itemView.setOnClickListener(this);
         }
 

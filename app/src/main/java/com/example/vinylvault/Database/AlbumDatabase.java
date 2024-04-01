@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -111,6 +112,17 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public void addAlbum(Album album){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ALBUM_NAME, album.getName());
+        values.put(COLUMN_ARTIST_NAME, album.getArtistName());
+        values.put(COLUMN_ARTWORK, album.getArtwork());
+        db.insert(TABLE_ALBUM, null, values);
+        db.close();
+        Log.d("SQL", "ALBUM added");
     }
 
     public Album getAlbum(int id){
@@ -429,5 +441,6 @@ public class AlbumDatabase extends SQLiteOpenHelper {
 
         return albums;
     }
+
 
 }
