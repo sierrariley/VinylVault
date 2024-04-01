@@ -40,7 +40,7 @@
         android:label="To Listen"
         tools:layout="@layout/fragment_to_listen" />
     <fragment
-        android:id="@+id/albumSummary"
+        android:id="@+id/nav_album_summary"
         android:name="com.example.vinylvault.AlbumSummary.AlbumSummaryFragment"
         android:label="Album Summary"
         tools:layout="@layout/fragment_album_summary" />

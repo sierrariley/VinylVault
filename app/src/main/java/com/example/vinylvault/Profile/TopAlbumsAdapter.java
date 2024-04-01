@@ -33,11 +33,12 @@ public class TopAlbumsAdapter extends RecyclerView.Adapter<TopAlbumsAdapter.TopA
     @Override
     public void onBindViewHolder(@NonNull TopAlbumsViewHolder holder, int position) {
         //TODO
+        //Only displays top 5 albums, needs the rating or order by
+
     }
 
     @Override
     public int getItemCount() {
-        //Only displays top 5 albums, needs the rating or order by
         return 5;
     }
 

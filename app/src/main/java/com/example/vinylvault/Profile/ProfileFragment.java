@@ -3,6 +3,7 @@ package com.example.vinylvault.Profile;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,7 +29,7 @@ public class ProfileFragment extends Fragment {
         currentlyListening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Open CurrentlyListening Fragment
+                Navigation.findNavController(view).navigate(R.id.nav_currently_listening);
             }
         });
 
@@ -36,7 +37,8 @@ public class ProfileFragment extends Fragment {
         toListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Open ToListen Fragment
+                Navigation.findNavController(view).navigate(R.id.nav_to_listen);
+
             }
         });
 

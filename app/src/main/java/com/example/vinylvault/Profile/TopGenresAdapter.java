@@ -38,7 +38,7 @@ public class TopGenresAdapter extends RecyclerView.Adapter<TopGenresAdapter.TopG
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 5;
     }
 
     class TopGenreViewHolder extends RecyclerView.ViewHolder{

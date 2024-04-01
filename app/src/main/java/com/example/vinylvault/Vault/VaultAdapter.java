@@ -1,11 +1,13 @@
 package com.example.vinylvault.Vault;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.Pojo.Album;
@@ -56,7 +58,17 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
 
         @Override
         public void onClick(View view) {
-            //TODO: Open up album summary
+            //TODO: Pass in a bundle
+            /*
+            Bundle extra = new Bundle();
+            extra.putInt(CreateUpdateFragment.ACTION_TYPE,
+                    CreateUpdateFragment.UPDATE);
+            extra.putParcelable(CreateUpdateFragment.LOCATION,
+                    locations.get(holder.getLayoutPosition()));
+            Navigation.findNavController(view)
+                    .navigate(R.id.createUpdateFragment, extra);
+            */
+            Navigation.findNavController(view).navigate(R.id.nav_album_summary);
         }
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.Pojo.Album;
@@ -56,7 +57,8 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
 
         @Override
         public void onClick(View view) {
-            //TODO: Open up album summary
+            //TODO: Pass in a bundle
+            Navigation.findNavController(view).navigate(R.id.nav_album_summary);
         }
     }
 }
