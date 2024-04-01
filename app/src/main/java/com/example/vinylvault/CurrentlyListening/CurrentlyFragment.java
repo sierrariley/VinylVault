@@ -3,6 +3,7 @@ package com.example.vinylvault.CurrentlyListening;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,4 +39,6 @@ public class CurrentlyFragment extends Fragment {
 
         return view;
     }
+
+
 }

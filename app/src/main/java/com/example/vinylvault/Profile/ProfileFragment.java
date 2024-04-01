@@ -38,7 +38,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.nav_to_listen);
-
             }
         });
 
