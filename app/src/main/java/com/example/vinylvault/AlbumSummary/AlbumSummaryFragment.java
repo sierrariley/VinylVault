@@ -30,6 +30,7 @@ public class AlbumSummaryFragment extends Fragment {
         RecyclerView trackList = view.findViewById(R.id.album_track_list);
 
         AlbumDatabase db = new AlbumDatabase(getContext());
+        //Should take in db.getAllTracks()
         AlbumAdapter adapter = new AlbumAdapter(db.getAllAlbums(), getContext());
         trackList.setAdapter(adapter);
         trackList.setLayoutManager(new LinearLayoutManager(getContext()));
