@@ -97,12 +97,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         protected ImageView image;
         protected TextView albumName;
         protected TextView artistName;
+        protected SearchView searchView;
 
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.search_item_image);
             this.albumName = itemView.findViewById(R.id.albumName);
             this.artistName = itemView.findViewById(R.id.artistName);
+            this.searchView = itemView.findViewById(R.id.search_searchBar);
             itemView.setOnClickListener(this);
         }
 
