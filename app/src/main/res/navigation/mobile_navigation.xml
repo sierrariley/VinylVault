@@ -58,4 +58,8 @@
         android:name="com.example.vinylvault.AlbumSummary.AlbumSummaryFragment"
         android:label="Album Summary"
         tools:layout="@layout/fragment_album_summary" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.vinylvault.SettingsFragment"
+        android:label="Settings" />
 </navigation>
