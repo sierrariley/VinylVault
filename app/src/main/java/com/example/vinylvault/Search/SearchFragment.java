@@ -28,6 +28,7 @@ import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
 import com.example.vinylvault.api.AlbumSingleton;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +42,7 @@ public class SearchFragment extends Fragment {
     private SearchView searchView;
     private ArrayList<Album> albumArrayList;
     private  SearchAdapter searchAdapter;
-    private String searchString;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,45 +52,57 @@ public class SearchFragment extends Fragment {
         searchView = view.findViewById(R.id.search_searchBar);
         recyclerView = view.findViewById(R.id.search_recycler_view);
 
-//        albumArrayList = new ArrayList<>();
-
-
-        AlbumDatabase db = new AlbumDatabase(getContext());
         // Set up RecyclerView and adapter
         searchAdapter = new SearchAdapter(new ArrayList<>(), "", getContext());
         recyclerView.setAdapter(searchAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         // Set up SearchView listener
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // Handle search query submission if needed
-                searchString = query;
+//                searchString = query;
+                // Construct the API URL with the search query
+                String url = "https://itunes.apple.com/search?" +
+                        "country=CA&" +
+                        "media=album&" +
+                        "term=" + query +
+                        "&entity=album";
+//                System.out.println(url);
+
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    JSONArray mainArray = response.getJSONArray("results");
+                                    JSONObject mainObject = mainArray.getJSONObject(0);
+                                    //TODO: sent array to adapter and to show artwork of albums
+//                                    searchAdapter.setAlbums(mainObject.getString("collectionName"));
+//                                    searchAdapter.setAlbums(mainArray.getString("artworkUrl60"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
+                    }
+                });
+                AlbumSingleton.getInstance(getContext()).getRequestQueue().add(request);
+
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                searchAdapter.setQuery(newText);
-                searchAdapter.setAlbums(db.getAllAlbums());
-                searchAdapter.notifyDataSetChanged();
-
-
-                String url = "https://itunes.apple.com/search?" +
-                        "country=CA&" +
-                        "media=album&" +
-                        "term=" + newText +
-                        "&entity=album";
-                System.out.println(url);
-
-                return true;
+                return false;
             }
-
         });
-
-//        db.addAlbum(new Album("Believe", "Justin Beiber", "https://is1-ssl.mzstatic.com/image/thumb/Music/54/7e/24/mzi.ehsdnggz.jpg/60x60bb.jpg"));
 
         return view;
     }

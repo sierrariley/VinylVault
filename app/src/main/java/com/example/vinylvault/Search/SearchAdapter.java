@@ -51,12 +51,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         this.query = query;
     }
 
-    public SearchAdapter(ArrayList<Album> albums, String query, Context context) {
-        this.albums = albums;
-        this.query = query;
-        this.context = context;
-    }
-
 
     @NonNull
     @Override
@@ -68,38 +62,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         Album album = albums.get(position);
-
-        // Construct the API URL with the search query
-        String url = "https://itunes.apple.com/search?" +
-                "country=CA&" +
-                "media=album&" +
-                "term=" + query +
-                "&entity=album";
-        System.out.println(url);
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray mainArray = response.getJSONArray("results");
-                            JSONObject mainObject = mainArray.getJSONObject(0);
-                            album.setName(mainObject.getString("collectionName"));
-                            album.setArtistName(mainObject.getString("artistName"));
-                            album.setArtwork(mainObject.getString("artworkUrl60"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
-            }
-        });
-        AlbumSingleton.getInstance(context).getRequestQueue().add(request);
         Picasso.get().load(album.getArtwork()).into(holder.image);
-
     }
 
 
@@ -127,6 +90,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
 
     }
+
 
 
 }
