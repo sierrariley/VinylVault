@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue"
+    tools:context=".Profile.ProfileFragment"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="1000dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/profile_topAlbums2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/profile_text_background"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="  Top Albums"
+            android:textColor="@color/light_purple"
+            android:textSize="72sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_top_albums"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:id="@+id/profile_topGenres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/profile_text_background"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="  Top Genres"
+            android:textColor="@color/light_purple"
+            android:textSize="72sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_top_genres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/filler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/larger_profile_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/filler2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/larger_profile_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/profile_currently_listening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="65dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="Currently\nListening"
+            android:textAlignment="center"
+            android:textColor="@color/light_purple"
+            android:textSize="96sp"
+            app:layout_constraintBottom_toBottomOf="@+id/filler"
+            app:layout_constraintEnd_toEndOf="@+id/filler"
+            app:layout_constraintStart_toStartOf="@+id/filler"
+            app:layout_constraintTop_toTopOf="@+id/filler" />
+
+        <TextView
+            android:id="@+id/profile_to_listen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="To\nListen"
+            android:textAlignment="center"
+            android:textColor="@color/light_purple"
+            android:textSize="96sp"
+            app:layout_constraintBottom_toBottomOf="@+id/filler2"
+            app:layout_constraintEnd_toEndOf="@+id/filler2"
+            app:layout_constraintStart_toStartOf="@+id/filler2"
+            app:layout_constraintTop_toTopOf="@+id/filler2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
