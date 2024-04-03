@@ -3,6 +3,7 @@ package com.example.vinylvault.Search;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,7 +46,7 @@ public class SearchFragment extends Fragment {
         // Set up RecyclerView and adapter
         searchAdapter = new SearchAdapter(new ArrayList<>(), getContext());
         recyclerView.setAdapter(searchAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
 
 
         // Set up SearchView listener
@@ -71,7 +72,7 @@ public class SearchFragment extends Fragment {
                                     for (int i = 0; i < resultsArray.length(); i++) {
                                         JSONObject albumObject = resultsArray.getJSONObject(i);
                                         String albumName = albumObject.getString("collectionName");
-                                        String albumArtwork = albumObject.getString("artworkUrl60");
+                                        String albumArtwork = albumObject.getString("artworkUrl100");
 
                                         Album album = new Album(albumName, albumArtwork);
                                         albumList.add(album);
