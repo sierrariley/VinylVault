@@ -18,6 +18,7 @@ import com.example.vinylvault.AddAnAlbumFragment;
 import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.R;
 
+//TODO: Will contain fab button that then opens AddAnAblum
 public class AlbumSummaryFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

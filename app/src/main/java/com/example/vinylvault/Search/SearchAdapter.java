@@ -35,10 +35,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private Context context;
     private String query;
 
-    public ArrayList<Album> getAlbums() {
-        return albums;
-    }
-
     public SearchAdapter(ArrayList<Album> albums, Context context) {
         this.albums = albums;
         this.context = context;
@@ -48,15 +44,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         this.albums = albums;
         notifyDataSetChanged(); // Notify adapter of dataset changes
     }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
 
     @NonNull
     @Override
@@ -68,9 +55,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         Album album = albums.get(position);
-//        Picasso.get().load(album.getArtwork()).into(holder.image);
         Picasso.get().load(album.getArtwork()).error(R.drawable.album_error_placeholder).into(holder.image);
 
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Opens up new page
+                //Passes a bundle to AlbumSummary
+            }
+        });
 
 
     }
