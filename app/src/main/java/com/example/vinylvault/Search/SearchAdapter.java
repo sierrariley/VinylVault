@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
 import com.example.vinylvault.api.AlbumSingleton;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -36,6 +37,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     public ArrayList<Album> getAlbums() {
         return albums;
+    }
+
+    public SearchAdapter(ArrayList<Album> albums, Context context) {
+        this.albums = albums;
+        this.context = context;
     }
 
     public void setAlbums(ArrayList<Album> albums) {
@@ -62,7 +68,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         Album album = albums.get(position);
-        Picasso.get().load(album.getArtwork()).into(holder.image);
+//        Picasso.get().load(album.getArtwork()).into(holder.image);
+        Picasso.get().load(album.getArtwork()).error(R.drawable.album_error_placeholder).into(holder.image);
+
+
+
     }
 
 

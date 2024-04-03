@@ -25,6 +25,11 @@ public class Album implements Parcelable {
         this.status = status;
     }
 
+    public Album(String name, String artwork) {
+        this.name = name;
+        this.artwork = artwork;
+    }
+
     public Album() {
     }
 
@@ -91,6 +96,7 @@ public class Album implements Parcelable {
     }
 
     public String getArtwork() {
+
         return artwork;
     }
 
