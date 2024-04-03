@@ -46,12 +46,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
 
     @Override
     public void onBindViewHolder(@NonNull AlbumSummaryViewHolder holder, int position) {
-//        Album album = albums.get(position);
         Track track = tracks.get(position);
 
         holder.number.setText(position);
         holder.name.setText(track.getName());
-//        holder.length.setText(track.getLength());
 
         //Make a new API Search
         //Would return array
@@ -59,8 +57,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
         String url =
                 "https://itunes.apple.com/lookup?id=" +
                         track.getAlbum() + "&entity=song";
-
-
         //Make a request
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -82,7 +78,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
                     }
                 });
         AlbumSingleton.getInstance(context).getRequestQueue().add(request);
-        //TODO: With collectionId from album, make new api search for track list
     }
 
     @Override

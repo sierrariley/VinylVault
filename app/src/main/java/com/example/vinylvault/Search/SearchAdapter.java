@@ -1,6 +1,7 @@
 package com.example.vinylvault.Search;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -17,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.vinylvault.AlbumSummary.AlbumSummaryFragment;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
 import com.example.vinylvault.api.AlbumSingleton;
@@ -33,7 +36,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     private ArrayList<Album> albums;
     private Context context;
-    private String query;
 
     public SearchAdapter(ArrayList<Album> albums, Context context) {
         this.albums = albums;
@@ -60,14 +62,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Opens up new page
-                //Passes a bundle to AlbumSummary
+                Bundle extra = new Bundle();
+                extra.putParcelable(AlbumSummaryFragment.ALBUM, albums.get(holder.getLayoutPosition()));
+                Navigation.findNavController(view).navigate(R.id.nav_album_summary, extra);
             }
         });
-
-
     }
-
 
     @Override
     public int getItemCount() {
@@ -79,7 +79,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected ImageView image;
-
 
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);

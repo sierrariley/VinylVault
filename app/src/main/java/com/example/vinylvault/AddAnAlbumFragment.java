@@ -22,9 +22,6 @@ import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.Pojo.Album;
 import com.squareup.picasso.Picasso;
 
-/**
- * TODO: Opens based on fab button, If album status and fab button is hit...
- */
 public class AddAnAlbumFragment extends Fragment {
 
     public static final int UPDATE = 1;
@@ -34,7 +31,6 @@ public class AddAnAlbumFragment extends Fragment {
     public static final String ALBUM = "album";
 
     Album album;
-    int albumStatus;
     ImageView image;
     TextView artist, albumName, genre;
     SeekBar seekBar;
@@ -66,7 +62,7 @@ public class AddAnAlbumFragment extends Fragment {
                 albumName.setText(album.getName());
                 genre.setText(album.getGenre());
                 seekBar.setProgress(album.getRating());
-//                review.setText(album.getReview()); TODO: Fix once Database has this implemented
+                review.setText(album.getReview());
                 submit.setText("Update Album");
 
             } else if (getArguments().getInt(ACTION_TYPE) == CREATE) {
@@ -78,23 +74,14 @@ public class AddAnAlbumFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //dismiss the keyboard
-                if(view.requestFocus()){
-                    InputMethodManager inputMethodManager =
-                            (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
+                dismissKeyboard(view);
 
-                if (done.isChecked()) {
-                    album.setStatus(3);
-                } else if (currentlyListening.isChecked()) {
-                    album.setStatus(1);
-                } else if (toListen.isChecked()) {
-                    album.setStatus(2);
-                }
+                if (done.isChecked()) album.setStatus(3);
+                if (currentlyListening.isChecked()) album.setStatus(1);
+                if (toListen.isChecked()) album.setStatus(2);
 
                 album.setRating(seekBar.getProgress());
-//                album.setReview(reivew.getText());
+                album.setReview(review.getText().toString());
 
                 AlbumDatabase db = new AlbumDatabase(getContext());
                 if (getArguments().getInt(ACTION_TYPE) == UPDATE) {
@@ -109,5 +96,16 @@ public class AddAnAlbumFragment extends Fragment {
         });
 
         return view;
+    }
+
+    /**
+     * Dismiss the keyboard
+     * @param view - View
+     */
+    public void dismissKeyboard(View view){
+        if(view.requestFocus()){
+            InputMethodManager inputMethodManager = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
