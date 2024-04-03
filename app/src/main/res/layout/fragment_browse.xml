@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".Browse.BrowseFragment">
 
-<!--    Needs a viewpager host -->
     <TextView
         android:id="@+id/browse_album_name"
         android:layout_width="match_parent"
