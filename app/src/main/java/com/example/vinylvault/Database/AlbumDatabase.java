@@ -29,6 +29,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_RATING = "star_rating";
     public static final String COLUMN_ALBUM_GENRE = "ablum_genre";
     public static final String COLUMN_ALBUM_STATUS = "album_status";
+    public static final String COLUMN_ALBUM_REVIEW = "album_review";
 
 
     public static final String TABLE_ARTIST = "artist";
@@ -58,7 +59,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                                                     COLUMN_ALBUM_NAME + " TEXT," +
                                                     COLUMN_ALBUM_GENRE + " INT," +
                                                     COLUMN_ARTWORK + " TEXT," +
-                                                    COLUMN_RATING + " INT," + COLUMN_ALBUM_STATUS + " INT, " +
+                                                    COLUMN_RATING + " INT," + COLUMN_ALBUM_REVIEW + " TEXT," + COLUMN_ALBUM_STATUS + " INT, " +
                                                     " FOREIGN KEY (" + COLUMN_ALBUM_GENRE + ")" +
                                                     " REFERENCES " + TABLE_GENRE + "(" + COLUMN_GENRE_ID + "))";
 
@@ -129,7 +130,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Album album = null;
         Cursor cursor = db.query(TABLE_ALBUM, new String[]{
-                                COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING, COLUMN_ALBUM_STATUS}, COLUMN_ALBUM_ID + "= ?",
+                                COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING, COLUMN_ALBUM_STATUS, COLUMN_ALBUM_REVIEW }, COLUMN_ALBUM_ID + "= ?",
                                 new String[]{String.valueOf(id)}, null, null, null);
         if(cursor.moveToFirst()){
             album = new Album(
@@ -139,7 +140,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(3),
                     cursor.getString(4),
                     cursor.getInt(5),
-                    cursor.getInt(6));
+                    cursor.getString(6),
+                    cursor.getInt(7));
         }
         db.close();
         return album;
@@ -258,7 +260,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(3),
                     cursor.getString(4),
                     cursor.getInt(5),
-                    cursor.getInt(6)));
+                    cursor.getString(6),
+                    cursor.getInt(7)));
         }
         db.close();
         return albums;
@@ -295,6 +298,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         values.put(COLUMN_ALBUM_NAME, album.getName());
         values.put(COLUMN_ALBUM_GENRE, album.getGenre());
         values.put(COLUMN_ARTWORK, album.getArtwork());
+        values.put(COLUMN_ALBUM_REVIEW , album.getReview());
 
         return db.update(TABLE_ALBUM, values, COLUMN_ALBUM_ID + "=?",
                 new String[]{String.valueOf(album.getId())});
@@ -346,7 +350,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         ArrayList<Album> topAlbums = new ArrayList<>();
 
         Cursor cursor = db.query(TABLE_ALBUM, new String[]{
-                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING}, null, null, null, null, COLUMN_RATING + " DESC", String.valueOf(top));
+                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING, COLUMN_ALBUM_REVIEW }, null, null, null, null, COLUMN_RATING + " DESC", String.valueOf(top));
        while(cursor.moveToNext()) {
            topAlbums.add(new Album(
                    cursor.getInt(0),
@@ -355,7 +359,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                    cursor.getString(3),
                    cursor.getString(4),
                    cursor.getInt(5),
-                   cursor.getInt(6)));
+                   cursor.getString(6),
+                   cursor.getInt(7)));
        }
 
        cursor.close();
@@ -420,7 +425,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
 
 
         Cursor cursor = db.query(TABLE_ALBUM, new String[]{
-                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING},
+                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_RATING, COLUMN_ALBUM_REVIEW, COLUMN_ALBUM_STATUS},
                 COLUMN_ALBUM_GENRE + "=?",
                 new String[]{String.valueOf(genreId)},
                 null, null, null);
@@ -434,7 +439,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(3),
                     cursor.getString(4),
                     cursor.getInt(5),
-                    cursor.getInt(6)));
+                    cursor.getString(6),
+                    cursor.getInt(7)));
         }
 
         db.close();
