@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+import kotlin.text.UStringsKt;
+
 public class Album implements Parcelable {
     private int id;
     private String name;
@@ -12,16 +14,18 @@ public class Album implements Parcelable {
     private String genre;
     private String artwork;
     private int rating;
+    private String review;
     private int status;  // 1 = Listening to, 2 = To listen to, 3 = Finished
 
 
-    public Album(int id, String name, String artistName, String genre, String artwork, int rating, int status) {
+    public Album(int id, String name, String artistName, String genre, String artwork, int rating, String review, int status) {
         this.id = id;
         this.name = name;
         this.artistName = artistName;
         this.genre = genre;
         this.artwork = artwork;
         this.rating = rating;
+        this.review = review;
         this.status = status;
     }
 
@@ -98,6 +102,14 @@ public class Album implements Parcelable {
         this.artwork = artwork;
     }
 
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -123,6 +135,7 @@ public class Album implements Parcelable {
         dest.writeString(this.artistName);
         dest.writeString(this.genre);
         dest.writeString(this.artwork);
+        dest.writeString(this.review);
         dest.writeInt(this.rating);
         dest.writeInt(this.status);
     }
@@ -134,6 +147,7 @@ public class Album implements Parcelable {
         this.genre = source.readString();
         this.artwork = source.readString();
         this.rating = source.readInt();
+        this.review = source.readString();
         this.status = source.readInt();
     }
 
