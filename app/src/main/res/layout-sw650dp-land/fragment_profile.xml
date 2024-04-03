@@ -9,8 +9,9 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="800dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -51,64 +52,46 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/filler"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/larger_profile_background"
-            app:layout_constraintBottom_toTopOf="@+id/filler2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/filler2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="TODO"
-            android:src="@drawable/larger_profile_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filler" />
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/profile_currently_listening"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginBottom="65dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/darker_purple"
             android:fontFamily="@font/josefin_sans_semibold"
+            android:paddingLeft="100dp"
+            android:paddingTop="75dp"
+            android:paddingRight="100dp"
+            android:paddingBottom="75dp"
             android:text="Currently\nListening"
             android:textAlignment="center"
             android:textColor="@color/light_purple"
             android:textSize="48sp"
-            app:layout_constraintBottom_toBottomOf="@+id/filler"
-            app:layout_constraintEnd_toEndOf="@+id/filler"
-            app:layout_constraintStart_toStartOf="@+id/filler"
-            app:layout_constraintTop_toTopOf="@+id/filler" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/profile_to_listen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginBottom="32dp"
+            android:background="@color/darker_purple"
             android:fontFamily="@font/josefin_sans_semibold"
+            android:paddingLeft="100dp"
+            android:paddingTop="75dp"
+            android:paddingRight="100dp"
+            android:paddingBottom="75dp"
             android:text="To\nListen"
             android:textAlignment="center"
             android:textColor="@color/light_purple"
             android:textSize="48sp"
-            app:layout_constraintBottom_toBottomOf="@+id/filler2"
-            app:layout_constraintEnd_toEndOf="@+id/filler2"
-            app:layout_constraintStart_toStartOf="@+id/filler2"
-            app:layout_constraintTop_toTopOf="@+id/filler2" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/profile_currently_listening"
+            app:layout_constraintStart_toStartOf="@+id/profile_currently_listening" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
