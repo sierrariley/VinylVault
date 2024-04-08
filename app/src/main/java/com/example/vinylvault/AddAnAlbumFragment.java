@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.vinylvault.Pojo.Album;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddAnAlbumFragment#newInstance} factory method to
@@ -55,6 +57,12 @@ public class AddAnAlbumFragment extends Fragment {
         }
     }
 
+    public static final int UPDATE = 1;
+    public static final int CREATE= 2;
+    public static final String ALBUM = "album";
+    public static final String ACTION_TYPE = "action_type";
+
+    Album album;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
