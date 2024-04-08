@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -61,7 +62,9 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                 }else if(currentFragment.getId() == R.id.nav_profile){
                     share(MainActivity.this, screenShot());
+
                 }
+
             }
         });
 
@@ -114,17 +117,39 @@ public class MainActivity extends AppCompatActivity {
      * starts intent
      */
     private void share(Context context, Bitmap bitmap){
-        String path=
-                MediaStore.Images.Media.insertImage(context.getContentResolver(),
-                        bitmap,"title", null);
+
+        //Make sure screenshot is taking
+        Bitmap screenshot = screenShot();
+        if (screenshot == null) {
+            Toast.makeText(context, "Failed to capture screenshot", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //Save screenshot
+        String path= MediaStore.Images.Media.insertImage(context.getContentResolver(),
+
+                    screenshot,"App Screenshot", null);
+        //Check to see if path is empty
+        if (path == null) {
+            Toast.makeText(context, "Failed to insert image into MediaStore", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Uri uri = Uri.parse(path);
+
+        //Intent -> Share screenshot through app of choice
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setData(Uri.parse("smsto:"));
         i.setType("image/*");
         i.putExtra(Intent.EXTRA_SUBJECT, "Vinyl Vault App");
         i.putExtra(Intent.EXTRA_TEXT, "Hey! Check out my top albums I've listened to so far. If you download the Vinyl Vault app, you can track your albums too! ");
         i.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(i);
+
+        if (i.resolveActivity(context.getPackageManager()) != null) {
+            startActivity(i);
+        } else {
+            // Handle the case when no activity is found to handle the intent
+            Toast.makeText(context, "No app found to handle the intent", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
