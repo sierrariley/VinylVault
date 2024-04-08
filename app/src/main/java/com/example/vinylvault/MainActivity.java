@@ -1,8 +1,12 @@
 package com.example.vinylvault;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     NavController navController;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                     Uri webPage = Uri.parse(url);
                     Intent i = new Intent(Intent.ACTION_VIEW, webPage);
                     startActivity(i);
+                }else if(currentFragment.getId() == R.id.nav_profile){
+                    share(MainActivity.this, screenShot());
                 }
             }
         });
@@ -83,7 +90,44 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
+
+    /**
+     * author: Sierra Riley
+     *
+     * @return bitmap
+     */
+    private Bitmap screenShot() {
+        View root = getWindow().getDecorView().getRootView();
+        root.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(root.getDrawingCache());
+        root.setWillNotDraw(false);
+        return bitmap;
+    }
+
+    /**
+     * author: Sierra Riley
+     * @param context
+     * @param bitmap
+     * starts intent
+     */
+    private void share(Context context, Bitmap bitmap){
+        String path=
+                MediaStore.Images.Media.insertImage(context.getContentResolver(),
+                        bitmap,"title", null);
+        Uri uri = Uri.parse(path);
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setData(Uri.parse("smsto:"));
+        i.setType("image/*");
+        i.putExtra(Intent.EXTRA_SUBJECT, "Vinyl Vault App");
+        i.putExtra(Intent.EXTRA_TEXT, "Hey! Check out my top albums I've listened to so far. If you download the Vinyl Vault app, you can track your albums too! ");
+        i.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(i);
+    }
+
+
 
     /**
      * @author Sierra Riley
