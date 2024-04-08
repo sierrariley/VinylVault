@@ -35,18 +35,11 @@ public class BrowseTrackAdapter extends RecyclerView.Adapter<BrowseTrackAdapter.
     @Override
     public void onBindViewHolder(@NonNull BrowseTrackViewHolder holder, int position) {
         //TODO: With collectionId from album, make new api search for track list
-        Album album = albums.get(position);
-
-        holder.number.setText(position);
-//        holder.length.setText();
-//        holder.name.setText();
     }
 
     @Override
     public int getItemCount() {
-        if(albums != null){
-            return albums.size();
-        }
+        //TODO: Length of Array provided with track info
         return 0;
     }
 

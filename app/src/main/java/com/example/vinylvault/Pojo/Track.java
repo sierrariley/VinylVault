@@ -6,11 +6,13 @@ import android.os.Parcelable;
 public class Track implements Parcelable {
     private int id;
     private String name;
+    private String length;
     private Album album;
 
-    public Track(int id, String name, Album album) {
+    public Track(int id, String name, String length, Album album) {
         this.id = id;
         this.name = name;
+        this.length = length;
         this.album = album;
     }
 
@@ -22,9 +24,11 @@ public class Track implements Parcelable {
     public Track() {
     }
 
+
     protected Track(Parcel in) {
         id = in.readInt();
         name = in.readString();
+        length = in.readString();
         album = in.readParcelable(Album.class.getClassLoader());
     }
 
@@ -64,15 +68,24 @@ public class Track implements Parcelable {
         this.name = name;
     }
 
+    public String getLength() {
+        return length;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeParcelable(album, flags);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(length);
+        parcel.writeParcelable(album, i);
     }
 }

@@ -15,11 +15,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.Pojo.Artist;
+import com.example.vinylvault.Pojo.Track;
 import com.example.vinylvault.R;
 import com.example.vinylvault.api.AlbumSingleton;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
@@ -58,26 +61,32 @@ public class SearchFragment extends Fragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 ArrayList<Album> albumList = new ArrayList<>();
+                                ArrayList<String> trackURLS = new ArrayList<>();
                                 JSONArray resultsArray = response.getJSONArray("results");
 
                                 for (int i = 0; i < resultsArray.length(); i++) {
                                     JSONObject albumObject = resultsArray.getJSONObject(i);
+
+                                    //Album Storing
                                     String albumName = albumObject.getString("collectionName");
                                     String albumArtwork = albumObject.getString("artworkUrl100");
                                     Album album = new Album(albumName, albumArtwork);
-
                                     String albumArtist = albumObject.getString("artistName");
                                     String albumGenre = albumObject.getString("primaryGenreName");
-                                    String albumCollectionId = albumObject.getString("collectionId");
                                     album.setArtistName(albumArtist);
                                     album.setGenre(albumGenre);
-                                    //This is used for track list
-//                                    album.setCollectionId(albumCollectionId);
+
+                                    //Tracklist Storing
+                                    String albumCollectionId = albumObject.getString("collectionId");
+                                    album.setCollectionId("https://itunes.apple.com/lookup?id=" + albumCollectionId + "&entity=song");
+
                                     albumList.add(album);
+
 
                                 }
                                 //Sends to adapter
                                 searchAdapter.setAlbums(albumList);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -96,6 +105,7 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
+
         return view;
     }
 }

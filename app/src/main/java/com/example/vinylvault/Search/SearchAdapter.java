@@ -2,6 +2,7 @@ package com.example.vinylvault.Search;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vinylvault.AlbumSummary.AlbumSummaryFragment;
 import com.example.vinylvault.Pojo.Album;
+import com.example.vinylvault.Pojo.Track;
 import com.example.vinylvault.R;
 import com.example.vinylvault.api.AlbumSingleton;
 import com.squareup.picasso.Callback;
@@ -64,7 +66,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             public void onClick(View view) {
                 Bundle extra = new Bundle();
                 //TODO: Also pass that it's new -> delete button should not appear
-                extra.putParcelable(AlbumSummaryFragment.ALBUM, albums.get(holder.getLayoutPosition()));
+                extra.putParcelable(AlbumSummaryFragment.ALBUM, album);
                 Navigation.findNavController(view).navigate(R.id.nav_album_summary, extra);
             }
         });

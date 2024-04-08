@@ -27,7 +27,6 @@ import java.util.ArrayList;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummaryViewHolder> {
 
-    private ArrayList<Album> albums;
     private ArrayList<Track> tracks;
     private Context context;
 
@@ -36,6 +35,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
         this.context = context;
     }
 
+    public void setTracks(ArrayList<Track> newTracks) {
+        if (tracks == null) {
+            tracks = new ArrayList<>();
+        }
+        tracks.addAll(newTracks);
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -48,36 +54,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumSummary
     public void onBindViewHolder(@NonNull AlbumSummaryViewHolder holder, int position) {
         Track track = tracks.get(position);
 
-        holder.number.setText(position);
+        holder.number.setText(String.valueOf(position + 1) + ".");
         holder.name.setText(track.getName());
-
-        //Make a new API Search
-        //Would return array
-        //https://itunes.apple.com/lookup?id=COLLECTIONID&entity=song
-        String url =
-                "https://itunes.apple.com/lookup?id=" +
-                        track.getAlbum() + "&entity=song";
-        //Make a request
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject mainObject = response.getJSONObject("results");
-                            //Update the trackName
-                            track.setName(mainObject.getString("trackName"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
-                    }
-                });
-        AlbumSingleton.getInstance(context).getRequestQueue().add(request);
+        holder.length.setText(track.getLength());
+        Log.d("RV_TRACK_NAME " + position, track.getName());
     }
 
     @Override

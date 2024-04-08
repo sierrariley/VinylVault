@@ -141,7 +141,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(4),
                     cursor.getInt(5),
                     cursor.getString(6),
-                    cursor.getInt(7));
+                    cursor.getInt(7),
+                    cursor.getString(8));
         }
         db.close();
         return album;
@@ -233,6 +234,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         db.close();
         return albumArtist;
     }
+
     public AlbumTrack getAlbumTrack(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         AlbumTrack albumTrack = null;
@@ -261,7 +263,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(4),
                     cursor.getInt(5),
                     cursor.getString(6),
-                    cursor.getInt(7)));
+                    cursor.getInt(7),
+                    cursor.getString(8)));
         }
         db.close();
         return albums;
@@ -360,7 +363,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                    cursor.getString(4),
                    cursor.getInt(5),
                    cursor.getString(6),
-                   cursor.getInt(7)));
+                   cursor.getInt(7),
+                   cursor.getString(8)));
        }
 
        cursor.close();
@@ -440,7 +444,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getString(4),
                     cursor.getInt(5),
                     cursor.getString(6),
-                    cursor.getInt(7)));
+                    cursor.getInt(7),
+                    cursor.getString(8)));
         }
 
         db.close();
