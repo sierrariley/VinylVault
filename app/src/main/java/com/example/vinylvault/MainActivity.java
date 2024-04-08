@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 NavDestination currentFragment = navController.getCurrentDestination();
                 //If we are on album summary fragment
-                if(currentFragment.getId() == R.id.nav_album_summary){
+                if(currentFragment.getId() == R.id.nav_album_summary || currentFragment.getId() == R.id.nav_browse){
                     Bundle extra = new Bundle();
                     extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
                     //Go to the add album fragment in create mode
@@ -89,8 +89,11 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 if(destination.getId() == R.id.nav_search){
                     binding.fab.setImageResource(R.drawable.ic_baseline_screen_search_desktop_24);
+                }else if(destination.getId() == R.id.nav_profile){
+                    binding.fab.setImageResource(R.drawable.ic_baseline_ios_share_24);
+                }else{
+                    binding.fab.setImageResource(R.drawable.ic_baseline_add_24);
                 }
-
             }
         });
 
