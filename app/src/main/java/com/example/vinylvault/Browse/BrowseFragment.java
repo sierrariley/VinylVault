@@ -80,13 +80,12 @@ public class BrowseFragment extends Fragment {
             genre.setText(genreParam);
             image.setImageResource(imageParam);
 
-            /**
-             * TODO: Fix this once db has collectionId
-             * AlbumDatabase db = new AlbumDatabase(getContext());
-             * AlbumAdapter adapter = new AlbumAdapter(db.getCollectionId(), getContext());
-             * recyclerView.setAdapter(adapter);
-             * recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-             */
+            //TODO: Fix this once db has collectionId
+//            AlbumDatabase db = new AlbumDatabase(getContext());
+//            AlbumAdapter adapter = new AlbumAdapter(db.getCollectionId(), getContext());
+//            recyclerView.setAdapter(adapter);
+//            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         }
 

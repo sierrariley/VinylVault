@@ -47,6 +47,8 @@ public class ProfileFragment extends Fragment {
 
         AlbumDatabase db = new AlbumDatabase(getContext());
 
+        //TODO: Bug with this as album is empty
+        /*
         TopAlbumsAdapter topAlbumsAdapter = new TopAlbumsAdapter(db.getTopAlbums(5), getContext());
         topAlbumsRV.setAdapter(topAlbumsAdapter);
         topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -54,7 +56,7 @@ public class ProfileFragment extends Fragment {
         TopGenresAdapter topGenreAdapter = new TopGenresAdapter(db.getTopGenres(5), getContext());
         topGenresRV.setAdapter(topGenreAdapter);
         topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
+        */
 
         return view;
     }

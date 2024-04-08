@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vinylvault.Pojo.Album;
+import com.example.vinylvault.Pojo.Artist;
 import com.example.vinylvault.R;
 import com.example.vinylvault.api.AlbumSingleton;
 import org.json.JSONArray;
@@ -63,9 +64,17 @@ public class SearchFragment extends Fragment {
                                     JSONObject albumObject = resultsArray.getJSONObject(i);
                                     String albumName = albumObject.getString("collectionName");
                                     String albumArtwork = albumObject.getString("artworkUrl100");
-
                                     Album album = new Album(albumName, albumArtwork);
+
+                                    String albumArtist = albumObject.getString("artistName");
+                                    String albumGenre = albumObject.getString("primaryGenreName");
+                                    String albumCollectionId = albumObject.getString("collectionId");
+                                    album.setArtistName(albumArtist);
+                                    album.setGenre(albumGenre);
+                                    //This is used for track list
+//                                    album.setCollectionId(albumCollectionId);
                                     albumList.add(album);
+
                                 }
                                 //Sends to adapter
                                 searchAdapter.setAlbums(albumList);

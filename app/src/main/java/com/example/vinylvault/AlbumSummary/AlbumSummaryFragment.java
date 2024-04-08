@@ -43,12 +43,16 @@ public class AlbumSummaryFragment extends Fragment {
 
         if (getArguments() != null) {
             album = getArguments().getParcelable(ALBUM);
-            Picasso.get().load(album.getArtwork()).error(R.drawable.album_error_placeholder).into(image);
+            // Resizes Album Image to be larger - API allows for this
+            String modifiedURL = album.getArtwork().replace("100x100bb.jpg", "400x400bb.jpg");
+            Picasso.get().load(modifiedURL).error(R.drawable.album_error_placeholder).into(image);
             album_name.setText(album.getName());
             artist.setText(album.getArtistName());
             genre.setText(album.getGenre());
         }
 
+        //TODO: Do we need this delete button here? - maybe add a long click option somewhere
+        delete.setVisibility(View.INVISIBLE);
         //Delete the selected album from the database
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +76,8 @@ public class AlbumSummaryFragment extends Fragment {
 
         RecyclerView trackList = view.findViewById(R.id.album_track_list);
         AlbumDatabase db = new AlbumDatabase(getContext());
-        AlbumAdapter adapter = new AlbumAdapter(db.getTracksByAlbum(album.getId()), getContext());
-        trackList.setAdapter(adapter);
+//        AlbumAdapter adapter = new AlbumAdapter(db.getTracksByAlbum(album.getCollectionId()), getContext());
+//        trackList.setAdapter(adapter);
         trackList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return view;
