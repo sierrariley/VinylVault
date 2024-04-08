@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.Pojo.Album;
 import com.squareup.picasso.Picasso;
-import com.example.vinylvault.Pojo.Album;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,19 +56,25 @@ public class AddAnAlbumFragment extends Fragment {
         done = view.findViewById(R.id.add_album_radio3);
         submit = view.findViewById(R.id.add_album_button);
 
+
         if (getArguments() != null) {
+            album = getArguments().getParcelable(ALBUM);
+            Log.d("ALBUM", album.getName());
+            Log.d("GENRE", album.getGenre());
+
+            Picasso.get().load(album.getArtwork()).error(R.drawable.album_error_placeholder).into(image);
+            artist.setText(album.getArtistName());
+            albumName.setText(album.getName());
+            genre.setText(album.getGenre());
+
+            //TODO: Not actually accepting Bundle
+            Log.d("ARGUMENTS", String.valueOf(getArguments().getInt(ACTION_TYPE)));
             if (getArguments().getInt(ACTION_TYPE) == UPDATE) {
-                album = getArguments().getParcelable(ALBUM);
-                Picasso.get().load(album.getArtwork()).error(R.drawable.album_error_placeholder).into(image);
-                artist.setText(album.getArtistName());
-                albumName.setText(album.getName());
-                genre.setText(album.getGenre());
                 seekBar.setProgress(album.getRating());
                 review.setText(album.getReview());
                 submit.setText("Update Album");
 
             } else if (getArguments().getInt(ACTION_TYPE) == CREATE) {
-                album = new Album();
                 submit.setText("Add Album");
             }
         }

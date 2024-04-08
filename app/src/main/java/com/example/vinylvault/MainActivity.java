@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.vinylvault.AlbumSummary.AlbumSummaryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //TODO: Implement Fab Button
         /**
          * Author: Sierra Riley
          * This on click listener allows the fab button to navigate to a specific fragment
@@ -50,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 NavDestination currentFragment = navController.getCurrentDestination();
                 //If we are on album summary fragment
-                if(currentFragment.getId() == R.id.nav_album_summary || currentFragment.getId() == R.id.nav_browse){
+                if (currentFragment.getId() == R.id.nav_album_summary || currentFragment.getId() == R.id.nav_browse){
                     Bundle extra = new Bundle();
                     extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
+
                     //Go to the add album fragment in create mode
                     navController.navigate(R.id.nav_add_album, extra);
                 }else if(currentFragment.getId() == R.id.nav_search){

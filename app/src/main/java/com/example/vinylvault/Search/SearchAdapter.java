@@ -65,7 +65,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             @Override
             public void onClick(View view) {
                 Bundle extra = new Bundle();
-                //TODO: Also pass that it's new -> delete button should not appear
                 extra.putParcelable(AlbumSummaryFragment.ALBUM, album);
                 Navigation.findNavController(view).navigate(R.id.nav_album_summary, extra);
             }

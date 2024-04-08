@@ -227,7 +227,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:fontFamily="@font/josefin_sans_semibold"
-        android:text="Add Album"
+        android:text="-----"
         android:textColor="@color/light_purple"
         android:textSize="20sp" />
 

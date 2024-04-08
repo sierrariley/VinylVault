@@ -27,7 +27,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_ALBUM_NAME = "album_name";
     public static final String COLUMN_ARTWORK = "album_artwork";
     public static final String COLUMN_RATING = "star_rating";
-    public static final String COLUMN_ALBUM_GENRE = "ablum_genre";
+    public static final String COLUMN_ALBUM_GENRE = "album_genre";
     public static final String COLUMN_ALBUM_STATUS = "album_status";
     public static final String COLUMN_ALBUM_REVIEW = "album_review";
 
@@ -119,7 +119,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_ALBUM_NAME, album.getName());
-        values.put(COLUMN_ARTIST_NAME, album.getArtistName());
+//        values.put(COLUMN_ARTIST_NAME, album.getArtistName());
         values.put(COLUMN_ARTWORK, album.getArtwork());
         db.insert(TABLE_ALBUM, null, values);
         db.close();

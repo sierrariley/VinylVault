@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavBackStackEntry;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,10 +27,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vinylvault.AddAnAlbumFragment;
 import com.example.vinylvault.Database.AlbumDatabase;
+import com.example.vinylvault.MainActivity;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.Pojo.Track;
 import com.example.vinylvault.R;
 import com.example.vinylvault.api.AlbumSingleton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -36,17 +41,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-//TODO: Will contain fab button that then opens AddAnAlbum
 public class AlbumSummaryFragment extends Fragment {
 
     public static final String ALBUM = "album";
-    public static final String TRACKS = "tracks";
-
 
     Album album;
     ImageView image, delete;
     TextView album_name, artist, genre;
     RecyclerView trackList;
+    FloatingActionButton fabButton;
     ArrayList<Track> tracks;
     private AlbumAdapter adapter;
 
@@ -61,6 +64,8 @@ public class AlbumSummaryFragment extends Fragment {
         genre = view.findViewById(R.id.album_genre);
         delete = view.findViewById(R.id.album_delete);
         trackList = view.findViewById(R.id.album_track_list);
+        fabButton = getActivity().findViewById(R.id.fab);
+
 
         adapter = new AlbumAdapter(new ArrayList<>(), getContext());
         trackList.setAdapter(adapter);
@@ -119,31 +124,32 @@ public class AlbumSummaryFragment extends Fragment {
                             Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
                         }
                     });
+
+            fabButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle extra = new Bundle();
+                    extra.putParcelable(AddAnAlbumFragment.ALBUM, album);
+
+                    AlbumDatabase db = new AlbumDatabase(getContext());
+
+                    if (db.getAlbum(album.getId()) != null) {
+                        //Update
+                        extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.UPDATE);
+                    } else {
+                        //Create
+                        extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
+
+                    }
+                    Navigation.findNavController(view).navigate(R.id.nav_add_album, extra);
+                }
+            });
+
             AlbumSingleton.getInstance(getContext()).getRequestQueue().add(request);
         }
 
         //TODO: Do we need this delete button here? - maybe add a long click option somewhere
         delete.setVisibility(View.INVISIBLE);
-        //Delete the selected album from the database
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(getContext())
-                        .setTitle("Delete")
-                        .setMessage("Are you sure you want to delete " + album.getName() + "?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                AlbumDatabase db = new AlbumDatabase(getContext());
-                                db.deleteAlbum(album.getId());
-                                db.close();
-                            }
-                        })
-                        .setNegativeButton("No", null) //don't do anything
-                        .show();
-            }
-        });
 
         return view;
     }
