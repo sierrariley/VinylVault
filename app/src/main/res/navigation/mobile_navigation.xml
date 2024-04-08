@@ -62,4 +62,13 @@
             android:id="@+id/action_nav_album_summary_to_nav_add_album"
             app:destination="@id/nav_add_album" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.vinylvault.SettingsFragment"
+        android:label="Settings" />
+    <fragment
+        android:id="@+id/nav_credits"
+        android:name="com.example.vinylvault.CreditsFragment"
+        android:label="App Credits"
+        tools:layout="@layout/fragment_credits" />
 </navigation>

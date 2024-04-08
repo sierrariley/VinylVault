@@ -17,11 +17,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.Pojo.Album;
 import com.squareup.picasso.Picasso;
+import com.example.vinylvault.Pojo.Album;
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
 public class AddAnAlbumFragment extends Fragment {
 
     public static final int UPDATE = 1;
