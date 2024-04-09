@@ -38,6 +38,7 @@ public class CurrentlyFragment extends Fragment {
         }
         CurrentlyAdapter adapter = new CurrentlyAdapter(currentListenAlbums, getContext());
         recyclerView.setAdapter(adapter);
+
         //Settings: If changing view layout based on user choice in settings
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         Boolean gridPreference = preferences.getBoolean("grid_view", true);
@@ -46,7 +47,6 @@ public class CurrentlyFragment extends Fragment {
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
-
 
         return view;
     }
