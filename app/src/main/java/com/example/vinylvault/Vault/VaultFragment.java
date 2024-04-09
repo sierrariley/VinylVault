@@ -34,6 +34,7 @@ public class VaultFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         AlbumDatabase db = new AlbumDatabase(getContext());
+        db.clea
 
         vaultAlbums = new ArrayList<>();
         ArrayList<Album> albums = db.getAllAlbums();
