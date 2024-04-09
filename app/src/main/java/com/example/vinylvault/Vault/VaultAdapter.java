@@ -26,18 +26,26 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
         this.context = context;
     }
 
+    public void setAlbums(ArrayList<Album> albums) {
+        this.albums = albums;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public VaultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_item, parent, false);
         return new VaultViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VaultViewHolder holder, int position) {
         Album album = albums.get(position);
-//        holder.image.setImageResource(album.getArtwork());
-        //Picasso.get().load(LINK TO ARTWORK).placeholder(R.drawable.user_placeholder).error(R.drawable.user_placeholder_error).into(imageView);
+        Picasso.get()
+                .load(album.getArtwork())
+                .placeholder(R.drawable.album_placeholder)
+                .error(R.drawable.album_error_placeholder)
+                .into(holder.image);
 
     }
 
@@ -54,7 +62,7 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
 
         public VaultViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.image = itemView.findViewById(R.id.search_item_image);
+            this.image = itemView.findViewById(R.id.profile_item_image);
             itemView.setOnClickListener(this);
         }
 

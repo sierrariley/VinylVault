@@ -25,11 +25,13 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     public static final String TABLE_ALBUM = "album";
     public static final String COLUMN_ALBUM_ID = "album_id";
     public static final String COLUMN_ALBUM_NAME = "album_name";
+    public static final String COLUMN_ALBUM_ARTIST = "album_artist";
     public static final String COLUMN_ARTWORK = "album_artwork";
     public static final String COLUMN_RATING = "star_rating";
     public static final String COLUMN_ALBUM_GENRE = "album_genre";
     public static final String COLUMN_ALBUM_STATUS = "album_status";
     public static final String COLUMN_ALBUM_REVIEW = "album_review";
+    public static final String COLUMN_ALBUM_COLLECTION = "album_collection";
 
 
     public static final String TABLE_ARTIST = "artist";
@@ -54,46 +56,69 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_AT_ALBUM = "at_album";
     public static final String COLUMN_AT_TRACK = "at_track";
 
-    public static final String CREATE_ALBUM_TABLE = "CREATE TABLE " +
+    //OLD DATABASE
+//    public static final String CREATE_ALBUM_TABLE = "CREATE TABLE " +
+//                                                    TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + " INTEGER PRIMARY KEY," +
+//                                                    COLUMN_ALBUM_NAME + " TEXT," +
+//                                                    COLUMN_ALBUM_ARTIST + " TEXT," +
+//                                                    COLUMN_ALBUM_GENRE + " INT," +
+//                                                    COLUMN_ARTWORK + " TEXT," +
+//                                                    COLUMN_RATING + " INT," +
+//                                                    COLUMN_ALBUM_REVIEW + " TEXT," +
+//                                                    COLUMN_ALBUM_STATUS + " INT, " +
+//                                                    COLUMN_ALBUM_COLLECTION + " INT, " +
+//                                                    " FOREIGN KEY (" + COLUMN_ALBUM_GENRE + ")" +
+//                                                    " REFERENCES " + TABLE_GENRE + "(" + COLUMN_GENRE_ID + ")," +
+//                                                    " FOREIGN KEY (" + COLUMN_ALBUM_ARTIST + ")" +
+//                                                    " REFERENCES " + TABLE_ARTIST + "(" + COLUMN_ARTIST_ID + "))";
+
+//    public static final String CREATE_ARTIST_TABLE = "CREATE TABLE " +
+//                                                    TABLE_ARTIST + "(" + COLUMN_ARTIST_ID + " INTEGER PRIMARY KEY," +
+//                                                    COLUMN_ARTIST_NAME+ " TEXT)";
+//
+//    public static final String CREATE_GENRE_TABLE = "CREATE TABLE " +
+//                                                    TABLE_GENRE + "(" + COLUMN_GENRE_ID + " INTEGER PRIMARY KEY," +
+//                                                    COLUMN_GENRE_NAME + " TEXT)";
+//
+//    public static final String CREATE_TRACK_TABLE = "CREATE TABLE " +
+//                                                    TABLE_TRACK + "(" + COLUMN_TRACK_ID + " INTEGER PRIMARY KEY," +
+//                                                    COLUMN_TRACK_NAME + " TEXT)";
+//
+//    public static final String CREATE_AA_TABLE = "CREATE TABLE " +
+//                                                 TABLE_ALBUM_ARTIST + "(" +
+//                                                 COLUMN_AA_ID + " INTEGER PRIMARY KEY," +
+//                                                 COLUMN_AA_ALBUM + " INT, " +
+//                                                 COLUMN_AA_ARTIST + " INT, " +
+//                                                 " FOREIGN KEY (" + COLUMN_AA_ALBUM + ") " +
+//                                                 " REFERENCES " + TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + ")," +
+//                                                 " FOREIGN KEY (" + COLUMN_AA_ARTIST + ") " +
+//                                                 " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + "))";
+//
+//    public static final String CREATE_AT_TABLE = "CREATE TABLE " +
+//                                                 TABLE_ALBUM_TRACK + "(" +
+//                                                 COLUMN_AT_ID + " INTEGER PRIMARY KEY," +
+//                                                 COLUMN_AT_ALBUM + " INT," +
+//                                                 COLUMN_AT_TRACK + " INT," +
+//                                                 " FOREIGN KEY (" + COLUMN_AT_ALBUM + ") " +
+//                                                 " REFERENCES " + TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + ")," +
+//                                                 " FOREIGN KEY (" + COLUMN_AT_TRACK + ") " +
+//                                                 " REFERENCES " + TABLE_TRACK + "(" + COLUMN_TRACK_ID + "))";
+
+    //NEW DATABASE - NOT NORMALIZED
+        public static final String CREATE_ALBUM_TABLE = "CREATE TABLE " +
                                                     TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + " INTEGER PRIMARY KEY," +
                                                     COLUMN_ALBUM_NAME + " TEXT," +
-                                                    COLUMN_ALBUM_GENRE + " INT," +
+                                                    COLUMN_ALBUM_ARTIST + " TEXT," +
+                                                    COLUMN_ALBUM_GENRE + " TEXT," +
                                                     COLUMN_ARTWORK + " TEXT," +
-                                                    COLUMN_RATING + " INT," + COLUMN_ALBUM_REVIEW + " TEXT," + COLUMN_ALBUM_STATUS + " INT, " +
+                                                    COLUMN_RATING + " INT," +
+                                                    COLUMN_ALBUM_REVIEW + " TEXT," +
+                                                    COLUMN_ALBUM_STATUS + " INT, " +
+                                                    COLUMN_ALBUM_COLLECTION + " TEXT, " +
                                                     " FOREIGN KEY (" + COLUMN_ALBUM_GENRE + ")" +
-                                                    " REFERENCES " + TABLE_GENRE + "(" + COLUMN_GENRE_ID + "))";
-
-    public static final String CREATE_ARTIST_TABLE = "CREATE TABLE " +
-                                                    TABLE_ARTIST + "(" + COLUMN_ARTIST_ID + " INTEGER PRIMARY KEY," +
-                                                    COLUMN_ARTIST_NAME+ " TEXT)";
-
-    public static final String CREATE_GENRE_TABLE = "CREATE TABLE " +
-                                                    TABLE_GENRE + "(" + COLUMN_GENRE_ID + " INTEGER PRIMARY KEY," +
-                                                    COLUMN_GENRE_NAME + " TEXT)";
-
-    public static final String CREATE_TRACK_TABLE = "CREATE TABLE " +
-                                                    TABLE_TRACK + "(" + COLUMN_TRACK_ID + " INTEGER PRIMARY KEY," +
-                                                    COLUMN_TRACK_NAME + " TEXT)";
-
-    public static final String CREATE_AA_TABLE = "CREATE TABLE " +
-                                                 TABLE_ALBUM_ARTIST + "(" +
-                                                 COLUMN_AA_ID + " INTEGER PRIMARY KEY," +
-                                                 COLUMN_AA_ALBUM + " INT, " +
-                                                 COLUMN_AA_ARTIST + " INT, " +
-                                                 " FOREIGN KEY (" + COLUMN_AA_ALBUM + ") " +
-                                                 " REFERENCES " + TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + ")," +
-                                                 " FOREIGN KEY (" + COLUMN_AA_ARTIST + ") " +
-                                                 " REFERENCES " + TABLE_ARTIST+ "(" + COLUMN_ARTIST_ID + "))";
-
-    public static final String CREATE_AT_TABLE = "CREATE TABLE " +
-                                                 TABLE_ALBUM_TRACK + "(" +
-                                                 COLUMN_AT_ID + " INTEGER PRIMARY KEY," +
-                                                 COLUMN_AT_ALBUM + " INT," +
-                                                 COLUMN_AT_TRACK + " INT," +
-                                                 " FOREIGN KEY (" + COLUMN_AT_ALBUM + ") " +
-                                                 " REFERENCES " + TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + ")," +
-                                                 " FOREIGN KEY (" + COLUMN_AT_TRACK + ") " +
-                                                 " REFERENCES " + TABLE_TRACK + "(" + COLUMN_TRACK_ID + "))";
+                                                    " REFERENCES " + TABLE_GENRE + "(" + COLUMN_GENRE_ID + ")," +
+                                                    " FOREIGN KEY (" + COLUMN_ALBUM_ARTIST + ")" +
+                                                    " REFERENCES " + TABLE_ARTIST + "(" + COLUMN_ARTIST_ID + "))";
 
 
     public AlbumDatabase(@Nullable Context context) {
@@ -103,11 +128,11 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_ALBUM_TABLE);
-        db.execSQL(CREATE_ARTIST_TABLE);
-        db.execSQL(CREATE_GENRE_TABLE);
-        db.execSQL(CREATE_TRACK_TABLE);
-        db.execSQL(CREATE_AA_TABLE);
-        db.execSQL(CREATE_AT_TABLE);
+//        db.execSQL(CREATE_ARTIST_TABLE);
+//        db.execSQL(CREATE_GENRE_TABLE);
+//        db.execSQL(CREATE_TRACK_TABLE);
+//        db.execSQL(CREATE_AA_TABLE);
+//        db.execSQL(CREATE_AT_TABLE);
     }
 
     @Override
@@ -119,8 +144,9 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_ALBUM_NAME, album.getName());
-//        values.put(COLUMN_ARTIST_NAME, album.getArtistName());
+        values.put(COLUMN_ARTIST_NAME, album.getArtistName());
         values.put(COLUMN_ARTWORK, album.getArtwork());
+        values.put(COLUMN_ALBUM_STATUS, album.getStatus());
         db.insert(TABLE_ALBUM, null, values);
         db.close();
         Log.d("SQL", "ALBUM added");
@@ -251,12 +277,16 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         return albumTrack;
     }
 
+    //TODO: Rewrite this function to support new DB
     public ArrayList<Album> getAllAlbums(){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Album> albums = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALBUM,null);
+        int columnCount = cursor.getColumnCount();
+        Log.d("Cursor", "Number of columns: " + columnCount);
         while(cursor.moveToNext()){
-            albums.add(new Album( cursor.getInt(0),
+            albums.add(new Album(
+                    cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
@@ -264,7 +294,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                     cursor.getInt(5),
                     cursor.getString(6),
                     cursor.getInt(7),
-                    cursor.getString(8)));
+                    cursor.getString(8)
+            ));
         }
         db.close();
         return albums;
@@ -282,6 +313,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         return artists;
     }
 
+    //TODO: Rewrite this function to support new DB
     public ArrayList<Genre> getAllGenres(){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Genre> genres = new ArrayList<>();

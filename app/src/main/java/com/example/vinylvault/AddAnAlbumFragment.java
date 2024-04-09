@@ -35,9 +35,6 @@ public class AddAnAlbumFragment extends Fragment {
     Album album;
     ImageView image;
     TextView artist, albumName, genre;
-    SeekBar seekBar;
-    EditText review;
-    RadioButton currentlyListening, done, toListen;
     Button submit;
 
     @Override
@@ -49,13 +46,12 @@ public class AddAnAlbumFragment extends Fragment {
         artist = view.findViewById(R.id.add_album_artist);
         albumName = view.findViewById(R.id.add_album_album);
         genre = view.findViewById(R.id.add_album_genre);
-        seekBar = view.findViewById(R.id.add_album_seek_bar);
-        review = view.findViewById(R.id.add_album_review);
-        currentlyListening = view.findViewById(R.id.add_album_radio1);
-        toListen = view.findViewById(R.id.add_album_radio2);
-        done = view.findViewById(R.id.add_album_radio3);
+        SeekBar seekBar = view.findViewById(R.id.add_album_seek_bar);
+        EditText review = view.findViewById(R.id.add_album_review);
+        RadioButton currentlyListening = view.findViewById(R.id.add_album_radio1);
+        RadioButton toListen = view.findViewById(R.id.add_album_radio2);
+        RadioButton done = view.findViewById(R.id.add_album_radio3);
         submit = view.findViewById(R.id.add_album_button);
-
 
         if (getArguments() != null) {
             album = getArguments().getParcelable(ALBUM);
@@ -84,12 +80,18 @@ public class AddAnAlbumFragment extends Fragment {
             public void onClick(View view) {
                 dismissKeyboard(view);
 
-                if (done.isChecked()) album.setStatus(3);
-                if (currentlyListening.isChecked()) album.setStatus(1);
-                if (toListen.isChecked()) album.setStatus(2);
+                if (done.isChecked()) {
+                    album.setStatus(3);
+                }
+                else if (toListen.isChecked()) {
+                    album.setStatus(2);
+                } else if (currentlyListening.isChecked()) {
+                    album.setStatus(1);
+                }
 
                 album.setRating(seekBar.getProgress());
                 album.setReview(review.getText().toString());
+                Log.d("ALBUM_STATUS", String.valueOf(album.getStatus()));
 
                 AlbumDatabase db = new AlbumDatabase(getContext());
                 if (getArguments().getInt(ACTION_TYPE) == UPDATE) {
