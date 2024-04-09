@@ -5,7 +5,15 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="grid_view"
+            android:summary="Default is List View"
             android:title="Grid View" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Reset Database">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="delete_vault"
+            android:title="Delete Albums in Vault?" />
     </PreferenceCategory>
 
 </PreferenceScreen>

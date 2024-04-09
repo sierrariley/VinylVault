@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_search)
                 .build();
 
-
-
         //TODO: Add Animations to RecyclerViews
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
@@ -100,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 
@@ -156,9 +153,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    //Clear out saved albums
-    //Layout of recycler views
 
     /**
      * @author Sierra Riley
