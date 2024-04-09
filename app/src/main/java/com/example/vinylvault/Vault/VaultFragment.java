@@ -34,18 +34,15 @@ public class VaultFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         AlbumDatabase db = new AlbumDatabase(getContext());
-        db.clea
 
         vaultAlbums = new ArrayList<>();
         ArrayList<Album> albums = db.getAllAlbums();
         for (int i = 0; i < albums.size(); i++) {
             Album album = albums.get(i);
-            Log.d("STATUS", String.valueOf(album.getStatus()));
             if (album.getStatus() == 3) {
                 vaultAlbums.add(album);
             }
         }
-        Log.d("ALBUMS", db.getAllAlbums().toString());
 
         adapter.setAlbums(vaultAlbums);
 

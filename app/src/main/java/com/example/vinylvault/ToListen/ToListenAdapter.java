@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,9 @@ public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToList
         this.context = context;
     }
 
+    public void setAlbums(ArrayList<Album> albums) {
+        this.albums = albums;
+    }
 
     @NonNull
     @Override
@@ -35,9 +39,11 @@ public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToList
     @Override
     public void onBindViewHolder(@NonNull ToListenViewHolder holder, int position) {
         Album album = albums.get(position);
-//        holder.image.setImageResource(album.getArtwork());
-        //Picasso.get().load(LINK TO ARTWORK).placeholder(R.drawable.user_placeholder).error(R.drawable.user_placeholder_error).into(imageView);
-
+        Picasso.get()
+                .load(album.getArtwork())
+                .placeholder(R.drawable.album_placeholder)
+                .error(R.drawable.album_error_placeholder)
+                .into(holder.image);
     }
 
     @Override

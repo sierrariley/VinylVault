@@ -19,23 +19,29 @@ import java.util.ArrayList;
 
 public class CurrentlyFragment extends Fragment {
 
+    RecyclerView recyclerView;
+    CurrentlyAdapter adapter;
+    ArrayList<Album> currentListenAlbums;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_currently, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.currently_listening_recycler_view);
+        recyclerView = view.findViewById(R.id.currently_listening_recycler_view);
+        adapter = new CurrentlyAdapter(new ArrayList<>(), getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         AlbumDatabase db = new AlbumDatabase(getContext());
-        ArrayList<Album> currentListenAlbums = new ArrayList<>();
+        currentListenAlbums = new ArrayList<>();
+
         for (Album album : db.getAllAlbums()) {
             if (album.getStatus() == 1) {
                 currentListenAlbums.add(album);
             }
         }
-        CurrentlyAdapter adapter = new CurrentlyAdapter(currentListenAlbums, getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
+        adapter.setAlbums(currentListenAlbums);
 
         return view;
     }
