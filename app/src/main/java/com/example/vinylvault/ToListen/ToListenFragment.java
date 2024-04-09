@@ -1,9 +1,12 @@
 package com.example.vinylvault.ToListen;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -35,7 +38,15 @@ public class ToListenFragment extends Fragment {
 
         ToListenAdapter adapter = new ToListenAdapter(toListenAlbums, getContext());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        //Settings: If changing view layout based on user choice in settings
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Boolean gridPreference = preferences.getBoolean("grid_view", true);
+        if(gridPreference){
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        }else{
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
+
 
         return view;
     }

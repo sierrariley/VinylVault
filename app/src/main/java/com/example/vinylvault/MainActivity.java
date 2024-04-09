@@ -2,6 +2,7 @@ package com.example.vinylvault;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
@@ -23,8 +24,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.example.vinylvault.databinding.ActivityMainBinding;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -120,14 +124,12 @@ public class MainActivity extends AppCompatActivity {
      * starts intent
      */
     private void share(Context context, Bitmap bitmap){
-
         //Make sure screenshot is taking
         Bitmap screenshot = screenShot();
         if (screenshot == null) {
             Toast.makeText(context, "Failed to capture screenshot", Toast.LENGTH_SHORT).show();
             return;
         }
-
         //Save screenshot
         String path= MediaStore.Images.Media.insertImage(context.getContentResolver(),
 
@@ -137,9 +139,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(context, "Failed to insert image into MediaStore", Toast.LENGTH_SHORT).show();
             return;
         }
-        Uri uri = Uri.parse(path);
-
         //Intent -> Share screenshot through app of choice
+        Uri uri = Uri.parse(path);
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setData(Uri.parse("smsto:"));
         i.setType("image/*");
@@ -153,9 +154,11 @@ public class MainActivity extends AppCompatActivity {
             // Handle the case when no activity is found to handle the intent
             Toast.makeText(context, "No app found to handle the intent", Toast.LENGTH_SHORT).show();
         }
+
     }
 
-
+    //Clear out saved albums
+    //Layout of recycler views
 
     /**
      * @author Sierra Riley
