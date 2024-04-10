@@ -1,6 +1,7 @@
 package com.example.vinylvault.CurrentlyListening;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.vinylvault.AlbumSummary.AlbumSummaryFragment;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -24,18 +27,35 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
         this.context = context;
     }
 
+    public void setAlbums(ArrayList<Album> albums) {
+        this.albums = albums;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public CurrentlyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_item, parent, false);
         return new CurrentlyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CurrentlyViewHolder holder, int position) {
         Album album = albums.get(position);
-        //Picasso.get().load(LINK TO ARTWORK).placeholder(R.drawable.user_placeholder).error(R.drawable.user_placeholder_error).into(imageView);
+        Picasso.get()
+                .load(album.getArtwork())
+                .placeholder(R.drawable.album_placeholder)
+                .error(R.drawable.album_error_placeholder)
+                .into(holder.image);
 
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle extra = new Bundle();
+                extra.putParcelable(AlbumSummaryFragment.ALBUM, album);
+                Navigation.findNavController(view).navigate(R.id.nav_album_summary, extra);
+            }
+        });
     }
 
     @Override
@@ -46,18 +66,12 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
         return 0;
     }
 
-    class CurrentlyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class CurrentlyViewHolder extends RecyclerView.ViewHolder {
         protected ImageView image;
 
         public CurrentlyViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.image = itemView.findViewById(R.id.search_item_image);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            Navigation.findNavController(view).navigate(R.id.nav_album_summary);
+            this.image = itemView.findViewById(R.id.profile_item_image);
         }
     }
 }

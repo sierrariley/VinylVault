@@ -1,97 +1,149 @@
 package com.example.vinylvault.AlbumSummary;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavBackStackEntry;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.vinylvault.AddAnAlbumFragment;
 import com.example.vinylvault.Database.AlbumDatabase;
+import com.example.vinylvault.MainActivity;
+import com.example.vinylvault.Pojo.Album;
+import com.example.vinylvault.Pojo.Track;
 import com.example.vinylvault.R;
+import com.example.vinylvault.api.AlbumSingleton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class AlbumSummaryFragment extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_ALBUM_ID = "param1";
-    private static final String ARG_ALBUM_NAME = "param2";
-    private static final String ARG_ALBUM_IMAGE = "param3";
-    private static final String ARG_ALBUM_ARTIST = "param4";
-    private static final String ARG_ALBUM_GENRE = "param5";
+    public static final String ALBUM = "album";
 
-    private int mAlbum;
-    private String mName;
-    private int mImage;
-    private String mArtist;
-    private String mGenre;
-
-    public AlbumSummaryFragment(){}
-
-    public static AlbumSummaryFragment newInstance(int album, String name, int image, String artist, String genre){
-        AlbumSummaryFragment fragment = new AlbumSummaryFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_ALBUM_ID, album);
-        args.putString(ARG_ALBUM_NAME, name);
-        args.putInt(ARG_ALBUM_IMAGE, image);
-        args.putString(ARG_ALBUM_ARTIST, artist);
-        args.putString(ARG_ALBUM_GENRE, genre);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mAlbum = getArguments().getInt(ARG_ALBUM_ID);
-            mName = getArguments().getString(ARG_ALBUM_NAME);
-            mImage = getArguments().getInt(ARG_ALBUM_IMAGE);
-            mArtist = getArguments().getString(ARG_ALBUM_ARTIST);
-            mGenre = getArguments().getString(ARG_ALBUM_GENRE);
-        }
-    }
+    Album album;
+    ImageView image;
+    TextView album_name, artist, genre;
+    RecyclerView trackList;
+    FloatingActionButton fabButton;
+    ArrayList<Track> tracks;
+    private AlbumAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_album_summary, container, false);
 
-        ImageView album = view.findViewById(R.id.album_image);
-        TextView album_name = view.findViewById(R.id.album_name);
-        TextView artist = view.findViewById(R.id.album_artist_name);
-        TextView genre = view.findViewById(R.id.album_genre);
+        image = view.findViewById(R.id.album_image);
+        album_name = view.findViewById(R.id.album_name);
+        artist = view.findViewById(R.id.album_artist_name);
+        genre = view.findViewById(R.id.album_genre);
+        trackList = view.findViewById(R.id.album_track_list);
+        fabButton = getActivity().findViewById(R.id.fab);
 
-        if (mName != null && mImage != 0 && mArtist != null && mGenre != null) {
-            album.setImageResource(mImage);
-            album_name.setText(mName);
-            artist.setText(mArtist);
-            genre.setText(mGenre);
-        }
-
-        ImageView delete = view.findViewById(R.id.album_delete);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: Delete this from the database
-            }
-        });
-
-
-
-        RecyclerView trackList = view.findViewById(R.id.album_track_list);
-
-        AlbumDatabase db = new AlbumDatabase(getContext());
-        AlbumAdapter adapter = new AlbumAdapter(db.getTracksByAlbum(mAlbum), getContext());
+        adapter = new AlbumAdapter(new ArrayList<>(), getContext());
         trackList.setAdapter(adapter);
         trackList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if (getArguments() != null) {
+            album = getArguments().getParcelable(ALBUM);
+
+            // Resizes Album Image to be larger - API allows for this
+            String modifiedURL = album.getArtwork().replace("100x100bb.jpg", "400x400bb.jpg");
+            Picasso.get().load(modifiedURL).error(R.drawable.album_error_placeholder).into(image);
+            album_name.setText(album.getName());
+            artist.setText(album.getArtistName());
+            genre.setText(album.getGenre());
+
+            //Make a request
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, album.getCollectionId(), null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Log.d("ALBUM_COLLECTION_URL", album.getCollectionId());
+                                Log.d("RESPONSE_JSON", response.toString());
+
+                                tracks = new ArrayList<>();
+                                JSONArray trackArray = response.getJSONArray("results");
+
+                                for (int i = 1; i < trackArray.length(); i++){
+                                    JSONObject trackObject = trackArray.getJSONObject(i);
+                                    String trackName = trackObject.getString("trackName");
+
+                                    //Convert milliseconds to formatted minutes
+                                    int lengthTemp = trackObject.getInt("trackTimeMillis");
+                                    int minutes = lengthTemp / (1000 * 60);
+                                    int seconds = (lengthTemp / 1000) % 60;
+                                    String trackLength = String.format("%d:%02d", minutes, seconds);
+
+                                    Track track = new Track();
+                                    track.setName(trackName);
+                                    track.setLength(trackLength);
+                                    track.setAlbum(album);
+                                    tracks.add(track);
+                                }
+
+                                //Sends to adapter
+                                adapter.setTracks(tracks);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
+                        }
+                    });
+
+            fabButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle extra = new Bundle();
+                    extra.putParcelable(AddAnAlbumFragment.ALBUM, album);
+
+                    AlbumDatabase db = new AlbumDatabase(getContext());
+
+                    if (db.getAlbum(album.getId()) != null) {
+                        //Update
+                        extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.UPDATE);
+                    } else {
+                        //Create
+                        extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
+                    }
+                    Navigation.findNavController(view).navigate(R.id.nav_add_album, extra);
+                }
+            });
+
+            AlbumSingleton.getInstance(getContext()).getRequestQueue().add(request);
+        }
 
         return view;
     }

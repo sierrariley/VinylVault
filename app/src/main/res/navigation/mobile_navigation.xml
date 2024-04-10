@@ -30,8 +30,8 @@
         android:label="Search"
         tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_nav_search_to_nav_add_album"
-            app:destination="@id/nav_add_album" />
+            android:id="@+id/action_nav_search_to_nav_album_summary"
+            app:destination="@id/nav_album_summary" />
     </fragment>
     <fragment
         android:id="@+id/nav_browse"
@@ -57,7 +57,11 @@
         android:id="@+id/nav_album_summary"
         android:name="com.example.vinylvault.AlbumSummary.AlbumSummaryFragment"
         android:label="Album Summary"
-        tools:layout="@layout/fragment_album_summary" />
+        tools:layout="@layout/fragment_album_summary" >
+        <action
+            android:id="@+id/action_nav_album_summary_to_nav_add_album"
+            app:destination="@id/nav_add_album" />
+    </fragment>
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.vinylvault.SettingsFragment"

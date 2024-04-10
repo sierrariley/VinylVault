@@ -21,12 +21,18 @@ import java.util.ArrayList;
 
 public class ToListenFragment extends Fragment {
 
+    RecyclerView recyclerView;
+    ToListenAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_to_listen, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.to_listen_recycler_view);
+        recyclerView = view.findViewById(R.id.to_listen_recycler_view);
+        adapter = new ToListenAdapter(new ArrayList<>(), getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         AlbumDatabase db = new AlbumDatabase(getContext());
         ArrayList<Album> toListenAlbums = new ArrayList<>();
@@ -35,6 +41,7 @@ public class ToListenFragment extends Fragment {
                 toListenAlbums.add(album);
             }
         }
+
 
         ToListenAdapter adapter = new ToListenAdapter(toListenAlbums, getContext());
         recyclerView.setAdapter(adapter);
@@ -46,6 +53,7 @@ public class ToListenFragment extends Fragment {
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
+
 
 
         return view;

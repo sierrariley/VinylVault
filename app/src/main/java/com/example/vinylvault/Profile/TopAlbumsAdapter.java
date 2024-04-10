@@ -1,6 +1,7 @@
 package com.example.vinylvault.Profile;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,16 +38,20 @@ public class TopAlbumsAdapter extends RecyclerView.Adapter<TopAlbumsAdapter.TopA
         Picasso.get()
                 .load(album.getArtwork())
                 .placeholder(R.drawable.album_placeholder)
-                .error(R.drawable.album_error_placeholder)
+                .error(R.drawable.profile_error_placeholder)
                 .into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        if(albums != null){
+        if (albums.size() != 0){
+            Log.d("ARRAY", String.valueOf(albums.size()));
+            return albums.size();
+        } else {
+            albums.add(new Album("Add Albums!", "https://placehold.co/400x400"));
+            Log.d("EMPTY_ARRAY", String.valueOf(albums.size()));
             return albums.size();
         }
-        return 5;
     }
 
     class TopAlbumsViewHolder extends RecyclerView.ViewHolder{

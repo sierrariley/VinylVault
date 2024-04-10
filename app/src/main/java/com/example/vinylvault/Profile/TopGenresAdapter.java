@@ -1,6 +1,7 @@
 package com.example.vinylvault.Profile;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,11 @@ import java.util.ArrayList;
 
 public class TopGenresAdapter extends RecyclerView.Adapter<TopGenresAdapter.TopGenreViewHolder>{
 
-    private ArrayList<Genre> genres;
+    private ArrayList<Album> albums;
     private Context context;
 
-    public TopGenresAdapter(ArrayList<Genre> genres, Context context) {
-        this.genres = genres;
+    public TopGenresAdapter(ArrayList<Album> albums, Context context) {
+        this.albums = albums;
         this.context = context;
     }
 
@@ -36,16 +37,18 @@ public class TopGenresAdapter extends RecyclerView.Adapter<TopGenresAdapter.TopG
 
     @Override
     public void onBindViewHolder(@NonNull TopGenreViewHolder holder, int position) {
-        Genre genre = genres.get(position);
-        holder.name.setText(genre.getName());
+        Album album = albums.get(position);
+        holder.name.setText(album.getGenre());
     }
 
     @Override
     public int getItemCount() {
-        if(genres != null){
-            return genres.size();
+        if (albums.size() != 0){
+            return albums.size();
+        } else {
+            albums.add(new Album("Add Albums!"));
+            return albums.size();
         }
-        return 5;
     }
 
     class TopGenreViewHolder extends RecyclerView.ViewHolder{
