@@ -1,20 +1,16 @@
 package com.example.vinylvault.Profile;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.Pojo.Album;
-import com.example.vinylvault.Pojo.Genre;
 import com.example.vinylvault.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 

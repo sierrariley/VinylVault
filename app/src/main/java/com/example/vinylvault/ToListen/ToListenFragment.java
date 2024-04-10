@@ -19,6 +19,9 @@ import com.example.vinylvault.R;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class ToListenFragment extends Fragment {
 
     RecyclerView recyclerView;
@@ -41,7 +44,6 @@ public class ToListenFragment extends Fragment {
                 toListenAlbums.add(album);
             }
         }
-
 
         ToListenAdapter adapter = new ToListenAdapter(toListenAlbums, getContext());
         recyclerView.setAdapter(adapter);

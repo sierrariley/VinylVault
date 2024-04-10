@@ -30,6 +30,9 @@ import com.example.vinylvault.databinding.ActivityMainBinding;
 
 import java.io.File;
 
+/**
+ * Author: Sierra
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -80,10 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_vault,
                 R.id.nav_search)
                 .build();
-
-
-        //TODO: Add Animations to RecyclerViews
-
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

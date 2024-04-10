@@ -41,6 +41,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class AlbumSummaryFragment extends Fragment {
 
     public static final String ALBUM = "album";
@@ -65,7 +68,7 @@ public class AlbumSummaryFragment extends Fragment {
         trackList = view.findViewById(R.id.album_track_list);
         fabButton = getActivity().findViewById(R.id.fab);
 
-        adapter = new AlbumAdapter(new ArrayList<>(), getContext());
+        adapter = new AlbumAdapter(new ArrayList<>());
         trackList.setAdapter(adapter);
         trackList.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -85,9 +88,6 @@ public class AlbumSummaryFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Log.d("ALBUM_COLLECTION_URL", album.getCollectionId());
-                                Log.d("RESPONSE_JSON", response.toString());
-
                                 tracks = new ArrayList<>();
                                 JSONArray trackArray = response.getJSONArray("results");
 
@@ -114,7 +114,6 @@ public class AlbumSummaryFragment extends Fragment {
                                 e.printStackTrace();
                             }
                         }
-
                     },
                     new Response.ErrorListener() {
                         @Override
@@ -141,10 +140,8 @@ public class AlbumSummaryFragment extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.nav_add_album, extra);
                 }
             });
-
             AlbumSingleton.getInstance(getContext()).getRequestQueue().add(request);
         }
-
         return view;
     }
 }

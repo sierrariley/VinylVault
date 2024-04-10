@@ -13,6 +13,11 @@ import com.example.vinylvault.Pojo.Album;
 
 import java.util.ArrayList;
 
+/**
+ * Authors: Sierra & Sage
+ *
+ * Sage - edited topAlbum & topGenre methods, edited CREATE_ALBUM_TABLE
+ */
 public class AlbumDatabase extends SQLiteOpenHelper {
     public static final int DB_VERSION = 1;
     public static final String DB_NAME = "vinylvault";

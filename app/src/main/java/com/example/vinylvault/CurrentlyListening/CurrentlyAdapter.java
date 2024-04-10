@@ -1,6 +1,8 @@
 package com.example.vinylvault.CurrentlyListening;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +13,16 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.AlbumSummary.AlbumSummaryFragment;
+import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.CurrentlyViewHolder> {
 
     private ArrayList<Album> albums;
@@ -48,6 +54,7 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
                 .error(R.drawable.album_error_placeholder)
                 .into(holder.image);
 
+        //Navigate
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,12 +73,39 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
         return 0;
     }
 
-    class CurrentlyViewHolder extends RecyclerView.ViewHolder {
+    class CurrentlyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         protected ImageView image;
 
         public CurrentlyViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.profile_item_image);
+            image.setOnLongClickListener(this);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            //Delete a single album from the database
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete")
+                    .setMessage("Are you sure you want to delete " +
+                            albums.get(getLayoutPosition()).getName() + "?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            AlbumDatabase db = new AlbumDatabase(context);
+                            //Delete it from the database
+                            db.deleteAlbum(albums.get(getLayoutPosition()).getId());
+                            //Delete it from the arraylist
+                            albums.remove(getLayoutPosition());
+                            //notify the recyclerview the item has been deleted.
+                            notifyItemRemoved(getAdapterPosition());
+                            db.close();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+            return false;
         }
     }
 }

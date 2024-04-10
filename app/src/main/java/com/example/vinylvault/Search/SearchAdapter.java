@@ -34,6 +34,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sierra
+ */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
     private ArrayList<Album> albums;
