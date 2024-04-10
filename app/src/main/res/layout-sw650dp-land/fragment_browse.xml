@@ -47,7 +47,8 @@
             android:id="@+id/browse_tracks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:layoutAnimation="@anim/track_layout_animation" />
     </LinearLayout>
 
     <ImageView
