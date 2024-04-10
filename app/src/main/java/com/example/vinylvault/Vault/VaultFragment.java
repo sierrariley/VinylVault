@@ -1,7 +1,5 @@
 package com.example.vinylvault.Vault;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -11,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +19,9 @@ import com.example.vinylvault.R;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class VaultFragment extends Fragment {
 
     RecyclerView recyclerView;
@@ -49,7 +49,6 @@ public class VaultFragment extends Fragment {
             }
         }
 
-
         VaultAdapter adapter = new VaultAdapter(vaultAlbums, getContext());
         recyclerView.setAdapter(adapter);
 
@@ -63,29 +62,6 @@ public class VaultFragment extends Fragment {
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
-
-        //Clear out saved albums
-//        SharedPreferences deletePreference = PreferenceManager.getDefaultSharedPreferences(getContext());
-//        Boolean deleteCheckBox = deletePreference.getBoolean("delete_vault", false);
-//        if(!deleteCheckBox){
-//            new AlertDialog.Builder(getContext())
-//                    .setTitle("Delete All Albums")
-//                    .setMessage("Are you sure you want to delete all Albums?")
-//                    .setIcon(R.drawable.ic_baseline_warning_amber_24)
-//                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            //TODO: Delete all albums in vault code
-//                        }
-//                    })
-//                    .setNegativeButton("No", null)
-//                    .show();
-//        }
-
-
-
-
-
 
         return view;
     }

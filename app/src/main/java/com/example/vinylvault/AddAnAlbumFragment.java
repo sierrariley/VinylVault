@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Author: Sage
  */
 public class AddAnAlbumFragment extends Fragment {
 

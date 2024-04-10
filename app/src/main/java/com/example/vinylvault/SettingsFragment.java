@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.preference.PreferenceFragmentCompat;
 
+/**
+ * Author: Sierra
+ */
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override

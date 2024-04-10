@@ -18,6 +18,7 @@ import com.example.vinylvault.R;
 /**
  * Used for the ProfilePage - aka HomePage
  * A simple {@link Fragment} subclass.
+ * Author: Sage
  */
 public class ProfileFragment extends Fragment {
 

@@ -30,6 +30,9 @@ import com.example.vinylvault.databinding.ActivityMainBinding;
 
 import java.io.File;
 
+/**
+ * Author: Sierra
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;

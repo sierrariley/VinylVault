@@ -26,12 +26,15 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
+/**
+ * Author: Sage
+ */
 public class BrowseVPAdapter extends FragmentStateAdapter {
 
-    private Context context;
-    private ArrayList<Album> albums = new ArrayList<>();
+    private final Context context;
+    private final ArrayList<Album> albums = new ArrayList<>();
 
-    private String[] randomTerms = {
+    private final String[] randomTerms = {
             "Taylor Swift",
             "Beyonce",
             "Mac Miller",
@@ -58,17 +61,16 @@ public class BrowseVPAdapter extends FragmentStateAdapter {
     public BrowseVPAdapter(@NonNull FragmentActivity fragmentActivity, Context context) {
         super(fragmentActivity);
         this.context = context;
-        fetchAlbumData(); // Fetch album data when adapter is created
+        //Fetch albums when adapter is called
+        fetchAlbumData();
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        // Return a fragment with the corresponding album data
         if (position < albums.size()) {
             return BrowseFragment.newInstance(albums.get(position));
         } else {
-            // Handle out-of-bounds position if needed
             return null;
         }
     }
@@ -106,18 +108,18 @@ public class BrowseVPAdapter extends FragmentStateAdapter {
                                 Album album = new Album();
                                 String albumName = albumObject.getString("collectionName");
                                 String albumArtwork = albumObject.getString("artworkUrl100");
-                                album.setName(albumName);
-                                album.setArtwork(albumArtwork);
                                 String albumArtist = albumObject.getString("artistName");
                                 String albumGenre = albumObject.getString("primaryGenreName");
+
+                                album.setName(albumName);
+                                album.setArtwork(albumArtwork);
                                 album.setArtistName(albumArtist);
                                 album.setGenre(albumGenre);
 
-                                // Tracklist Storing
+                                // Track List Storing
                                 String albumCollectionId = albumObject.getString("collectionId");
                                 album.setCollectionId("https://itunes.apple.com/lookup?id=" + albumCollectionId + "&entity=song");
 
-                                // Add the album to the list
                                 albums.add(album);
                             }
 

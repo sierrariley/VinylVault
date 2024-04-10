@@ -31,6 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class BrowseFragment extends Fragment {
 
     public static final String ALBUM = "album";
@@ -71,7 +74,7 @@ public class BrowseFragment extends Fragment {
         recyclerView = view.findViewById(R.id.browse_tracks);
         fabButton = getActivity().findViewById(R.id.fab);
 
-        adapter = new BrowseTrackAdapter(new ArrayList<>(), getContext());
+        adapter = new BrowseTrackAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

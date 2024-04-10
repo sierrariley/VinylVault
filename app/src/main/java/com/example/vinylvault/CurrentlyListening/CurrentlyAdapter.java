@@ -20,6 +20,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.CurrentlyViewHolder> {
 
     private ArrayList<Album> albums;
@@ -51,6 +54,7 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
                 .error(R.drawable.album_error_placeholder)
                 .into(holder.image);
 
+        //Navigate
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +84,7 @@ public class CurrentlyAdapter extends RecyclerView.Adapter<CurrentlyAdapter.Curr
 
         @Override
         public boolean onLongClick(View view) {
+            //Delete a single album from the database
             new AlertDialog.Builder(context)
                     .setTitle("Delete")
                     .setMessage("Are you sure you want to delete " +

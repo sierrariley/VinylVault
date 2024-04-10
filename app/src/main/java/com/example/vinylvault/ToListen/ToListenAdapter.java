@@ -20,6 +20,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class ToListenAdapter extends RecyclerView.Adapter<ToListenAdapter.ToListenViewHolder> {
 
     private ArrayList<Album> albums;

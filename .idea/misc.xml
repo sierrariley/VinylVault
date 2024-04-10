@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/layout/fragment_album_summary.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/fragment_browse.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/fragment_browse_view_pager_host.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/fragment_credits.xml" value="0.30211181640625007" />
         <entry key="app/src/main/res/layout/fragment_currently.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2405980428059896" />

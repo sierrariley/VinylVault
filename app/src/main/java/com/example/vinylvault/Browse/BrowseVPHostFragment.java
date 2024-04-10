@@ -13,6 +13,7 @@ import com.example.vinylvault.R;
 
 /**
  * ViewPager Host
+ * Author: Sage
  */
 public class BrowseVPHostFragment extends Fragment {
 
@@ -28,6 +29,9 @@ public class BrowseVPHostFragment extends Fragment {
         return view;
     }
 
+    /**
+     * From Android Studio
+     */
     public static class ZoomOutPageTransformer implements ViewPager2.PageTransformer {
         private static final float MIN_SCALE = 0.85f;
         private static final float MIN_ALPHA = 0.5f;

@@ -98,6 +98,7 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
                     })
                     .setNegativeButton("No", null)
                     .show();
-            return false;        }
+            return false;
+        }
     }
 }
