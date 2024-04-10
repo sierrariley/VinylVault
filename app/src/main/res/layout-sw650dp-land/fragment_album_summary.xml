@@ -84,13 +84,6 @@
             android:layout_margin="20dp"
             android:src="@drawable/album_placeholder" />
 
-        <ImageView
-            android:id="@+id/album_delete"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/ic_baseline_delete_24" />
-
     </LinearLayout>
 
 </ScrollView>
