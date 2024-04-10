@@ -26,10 +26,15 @@ Download the project [here](https://github.com/sierrariley/VinylVault.git).
 ## Compatibility
 
 ## Authors
+- Sage Lawrence : [@sagelawrence04](https://github.com/sagelawrence04)
+- Sierra Riley : [@sierrariley](https://github.com/sierrariley)
 
 ## License
 
 ## Credits
+- iTunes API
+- Picasso
+- Canva
 
 ## Acknowledgements
 
