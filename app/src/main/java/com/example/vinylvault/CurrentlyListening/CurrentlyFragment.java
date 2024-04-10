@@ -43,7 +43,7 @@ public class CurrentlyFragment extends Fragment {
                 currentListenAlbums.add(album);
             }
         }
-<<<<<<< HEAD
+
         CurrentlyAdapter adapter = new CurrentlyAdapter(currentListenAlbums, getContext());
         recyclerView.setAdapter(adapter);
 
@@ -55,10 +55,7 @@ public class CurrentlyFragment extends Fragment {
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
-=======
 
-        adapter.setAlbums(currentListenAlbums);
->>>>>>> development
 
         return view;
     }
