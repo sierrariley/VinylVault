@@ -10,11 +10,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.example.vinylvault.Pojo.Album;
-import com.example.vinylvault.Pojo.AlbumArtist;
-import com.example.vinylvault.Pojo.AlbumTrack;
-import com.example.vinylvault.Pojo.Artist;
-import com.example.vinylvault.Pojo.Genre;
-import com.example.vinylvault.Pojo.Track;
 
 import java.util.ArrayList;
 
@@ -33,8 +28,277 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_ALBUM_REVIEW = "album_review";
     public static final String COLUMN_ALBUM_COLLECTION = "album_collection";
 
-    //OLD DATABASE
+    //NEW DATABASE - NOT NORMALIZED
+        public static final String CREATE_ALBUM_TABLE = "CREATE TABLE " +
+                                                    TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + " INTEGER PRIMARY KEY," +
+                                                    COLUMN_ALBUM_NAME + " TEXT," +
+                                                    COLUMN_ALBUM_ARTIST + " TEXT," +
+                                                    COLUMN_ALBUM_GENRE + " TEXT," +
+                                                    COLUMN_ARTWORK + " TEXT," +
+                                                    COLUMN_ALBUM_RATING + " INT," +
+                                                    COLUMN_ALBUM_REVIEW + " TEXT," +
+                                                    COLUMN_ALBUM_STATUS + " INT, " +
+                                                    COLUMN_ALBUM_COLLECTION + " TEXT)";
 
+    public AlbumDatabase(@Nullable Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_ALBUM_TABLE);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+
+    /**
+     * Add an Album
+     * @param album
+     */
+    public void addAlbum(Album album){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ALBUM_NAME, album.getName());
+        values.put(COLUMN_ALBUM_ARTIST, album.getArtistName());
+        values.put(COLUMN_ALBUM_GENRE, album.getGenre());
+        values.put(COLUMN_ARTWORK, album.getArtwork());
+        values.put(COLUMN_ALBUM_RATING, album.getRating());
+        values.put(COLUMN_ALBUM_STATUS, album.getStatus());
+        values.put(COLUMN_ALBUM_COLLECTION, album.getCollectionId());
+        values.put(COLUMN_ALBUM_REVIEW , album.getReview());
+        db.insert(TABLE_ALBUM, null, values);
+        db.close();
+        Log.d("SQL", "ALBUM added");
+    }
+
+    /**
+     * Update an Album
+     * @param album
+     */
+    public void updateAlbum(Album album){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ALBUM_NAME, album.getName());
+        values.put(COLUMN_ALBUM_ARTIST, album.getArtistName());
+        values.put(COLUMN_ALBUM_GENRE, album.getGenre());
+        values.put(COLUMN_ARTWORK, album.getArtwork());
+        values.put(COLUMN_ALBUM_RATING, album.getRating());
+        values.put(COLUMN_ALBUM_STATUS, album.getStatus());
+        values.put(COLUMN_ALBUM_COLLECTION, album.getCollectionId());
+        values.put(COLUMN_ALBUM_REVIEW , album.getReview());
+
+        db.update(TABLE_ALBUM, values, COLUMN_ALBUM_ID + "=?",
+                new String[]{String.valueOf(album.getId())});
+    }
+
+    /**
+     * Returns one album
+     * @param id
+     * @return
+     */
+    public Album getAlbum(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Album album = null;
+        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
+                        COLUMN_ALBUM_ID,
+                        COLUMN_ALBUM_NAME,
+                        COLUMN_ALBUM_ARTIST,
+                        COLUMN_ALBUM_GENRE,
+                        COLUMN_ARTWORK,
+                        COLUMN_ALBUM_RATING,
+                        COLUMN_ALBUM_REVIEW,
+                        COLUMN_ALBUM_STATUS,
+                        COLUMN_ALBUM_COLLECTION }, COLUMN_ALBUM_ID + "= ?",
+                                new String[]{String.valueOf(id)}, null, null, null);
+        if(cursor.moveToFirst()){
+            album = new Album(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getInt(5),
+                    cursor.getString(6),
+                    cursor.getInt(7),
+                    cursor.getString(8));
+        }
+        db.close();
+        return album;
+    }
+
+    /**
+     * Delete a Single Album
+     * @param album
+     */
+    public void deleteAlbum(int album){
+    SQLiteDatabase db = this.getWritableDatabase();
+    db.delete(TABLE_ALBUM, COLUMN_ALBUM_ID + "=?", new String[]{String.valueOf(album)});
+    db.close();
+    }
+
+    /**
+     * Clears all data from Album DB
+     */
+    public void clearDatabase(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.rawQuery("DELETE FROM " + TABLE_ALBUM, null);
+        db.close();
+    }
+
+    /**
+     * Returns all Albums
+     * @return
+     */
+    public ArrayList<Album> getAllAlbums(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Album> albums = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALBUM,null);
+        int columnCount = cursor.getColumnCount();
+        Log.d("Cursor", "Number of columns: " + columnCount);
+        while(cursor.moveToNext()){
+            albums.add(new Album(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getInt(5),
+                    cursor.getString(6),
+                    cursor.getInt(7),
+                    cursor.getString(8)
+            ));
+        }
+        db.close();
+        return albums;
+    }
+
+    /**
+     * Returns Top Albums
+     * ArrayList<Album> topAlbums = albumDatabase.getTopAlbums(10);
+     * @param top
+     * @return
+     */
+    public ArrayList<Album> getTopAlbums(int top){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Album> topAlbums = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
+                COLUMN_ALBUM_ID,
+                COLUMN_ALBUM_NAME,
+                COLUMN_ALBUM_ARTIST,
+                COLUMN_ALBUM_GENRE,
+                COLUMN_ARTWORK,
+                COLUMN_ALBUM_RATING,
+                COLUMN_ALBUM_REVIEW,
+                COLUMN_ALBUM_STATUS,
+                COLUMN_ALBUM_COLLECTION
+        }, null, null, null, null, COLUMN_ALBUM_RATING + " DESC", String.valueOf(top));
+       while(cursor.moveToNext()) {
+           topAlbums.add(new Album(
+                   cursor.getInt(0),
+                   cursor.getString(1),
+                   cursor.getString(2),
+                   cursor.getString(3),
+                   cursor.getString(4),
+                   cursor.getInt(5),
+                   cursor.getString(6),
+                   cursor.getInt(7),
+                   cursor.getString(8)));
+       }
+
+       cursor.close();
+       db.close();
+
+       return topAlbums;
+    }
+
+    /**
+     * Returns all Distinct Genres
+     * @return
+     */
+    public ArrayList<String> getAllGenres(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> genres = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT DISTINCT " + COLUMN_ALBUM_GENRE + " FROM " + TABLE_ALBUM, null);
+        while(cursor.moveToNext()){
+            genres.add(cursor.getString(0));
+        }
+        db.close();
+        return genres;
+    }
+
+    /**
+     * This method creates an arraylist of Top genres.
+     * Top genres are based on the number of albums each genres has that the user has listened to
+     * @param top
+     * @return topGenres
+     */
+    public ArrayList<Album> getTopGenres(int top){
+        ArrayList<String> allGenres = getAllGenres();
+        ArrayList<Album> topGenres = new ArrayList<>();
+        int maxCount = 0;
+
+        for(String genre : allGenres) {
+            ArrayList<Album> albums = topGenres(genre);
+            int albumCount = albums.size();
+
+            if(albumCount > maxCount){
+                maxCount = albumCount;
+                topGenres.clear();
+                topGenres.addAll(albums);
+            } else if(albumCount == maxCount){
+                topGenres.addAll(albums);
+            }
+
+            if(topGenres.size() >= top){
+                break;
+            }
+        }
+
+        return topGenres;
+    }
+
+    /**
+     * This method is used to sort topGenres
+     * It grabs the albums associated with each genre
+     * @param genre
+     * @return albums
+     */
+    private ArrayList<Album> topGenres(String genre){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Album> albums = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
+                COLUMN_ALBUM_ID,
+                COLUMN_ALBUM_NAME,
+                COLUMN_ALBUM_ARTIST,
+                COLUMN_ALBUM_GENRE,
+                COLUMN_ARTWORK,
+                COLUMN_ALBUM_RATING,
+                COLUMN_ALBUM_REVIEW,
+                COLUMN_ALBUM_STATUS,
+                COLUMN_ALBUM_COLLECTION
+        }, COLUMN_ALBUM_GENRE + "=?", new String[]{genre}, null, null, null);
+
+        while (cursor.moveToNext()) {
+            albums.add(new Album(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getInt(5),
+                    cursor.getString(6),
+                    cursor.getInt(7),
+                    cursor.getString(8)));
+        }
+        db.close();
+        return albums;
+    }
+}
+
+//OLD DATABASE FUNCTIONS
 //    public static final String TABLE_ARTIST = "artist";
 //    public static final String COLUMN_ARTIST_ID = "artist_id";
 //    public static final String COLUMN_ARTIST_NAME = "artist_name";
@@ -104,107 +368,21 @@ public class AlbumDatabase extends SQLiteOpenHelper {
 //                                                 " FOREIGN KEY (" + COLUMN_AT_TRACK + ") " +
 //                                                 " REFERENCES " + TABLE_TRACK + "(" + COLUMN_TRACK_ID + "))";
 
-    //NEW DATABASE - NOT NORMALIZED
-        public static final String CREATE_ALBUM_TABLE = "CREATE TABLE " +
-                                                    TABLE_ALBUM + "(" + COLUMN_ALBUM_ID + " INTEGER PRIMARY KEY," +
-                                                    COLUMN_ALBUM_NAME + " TEXT," +
-                                                    COLUMN_ALBUM_ARTIST + " TEXT," +
-                                                    COLUMN_ALBUM_GENRE + " TEXT," +
-                                                    COLUMN_ARTWORK + " TEXT," +
-                                                    COLUMN_ALBUM_RATING + " INT," +
-                                                    COLUMN_ALBUM_REVIEW + " TEXT," +
-                                                    COLUMN_ALBUM_STATUS + " INT, " +
-                                                    COLUMN_ALBUM_COLLECTION + " TEXT)";
-
-    public AlbumDatabase(@Nullable Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_ALBUM_TABLE);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
-
-    /**
-     * Add an Album
-     * @param album
-     */
-    public void addAlbum(Album album){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_ALBUM_NAME, album.getName());
-        values.put(COLUMN_ALBUM_ARTIST, album.getArtistName());
-        values.put(COLUMN_ALBUM_GENRE, album.getGenre());
-        values.put(COLUMN_ARTWORK, album.getArtwork());
-        values.put(COLUMN_ALBUM_RATING, album.getRating());
-        values.put(COLUMN_ALBUM_STATUS, album.getStatus());
-        values.put(COLUMN_ALBUM_COLLECTION, album.getCollectionId());
-        values.put(COLUMN_ALBUM_REVIEW , album.getReview());
-        db.insert(TABLE_ALBUM, null, values);
-        db.close();
-        Log.d("SQL", "ALBUM added");
-    }
-
-    /**
-     * Update an Album
-     * @param album
-     * @return
-     */
-    public int updateAlbum(Album album){
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_ALBUM_NAME, album.getName());
-        values.put(COLUMN_ALBUM_ARTIST, album.getArtistName());
-        values.put(COLUMN_ALBUM_GENRE, album.getGenre());
-        values.put(COLUMN_ARTWORK, album.getArtwork());
-        values.put(COLUMN_ALBUM_RATING, album.getRating());
-        values.put(COLUMN_ALBUM_STATUS, album.getStatus());
-        values.put(COLUMN_ALBUM_COLLECTION, album.getCollectionId());
-        values.put(COLUMN_ALBUM_REVIEW , album.getReview());
-
-        return db.update(TABLE_ALBUM, values, COLUMN_ALBUM_ID + "=?",
-                new String[]{String.valueOf(album.getId())});
-    }
-
-    /**
-     * Returns one album
-     * @param id
-     * @return
-     */
-    public Album getAlbum(int id){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Album album = null;
-        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
-                        COLUMN_ALBUM_ID,
-                        COLUMN_ALBUM_NAME,
-                        COLUMN_ALBUM_ARTIST,
-                        COLUMN_ALBUM_GENRE,
-                        COLUMN_ARTWORK,
-                        COLUMN_ALBUM_RATING,
-                        COLUMN_ALBUM_REVIEW,
-                        COLUMN_ALBUM_STATUS,
-                        COLUMN_ALBUM_COLLECTION }, COLUMN_ALBUM_ID + "= ?",
-                                new String[]{String.valueOf(id)}, null, null, null);
-        if(cursor.moveToFirst()){
-            album = new Album(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getInt(5),
-                    cursor.getString(6),
-                    cursor.getInt(7),
-                    cursor.getString(8));
-        }
-        db.close();
-        return album;
-    }
+//    public void deleteArtist(int artist){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(TABLE_ARTIST, COLUMN_ARTIST_ID + "=?", new String[]{String.valueOf(artist)});
+//        db.close();
+//    }
+//    public void deleteTrack(int track){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(TABLE_TRACK, COLUMN_TRACK_ID + "=?", new String[]{String.valueOf(track)});
+//        db.close();
+//    }
+//    public void deleteGenre(int genre){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(TABLE_GENRE, COLUMN_GENRE_ID + "=?", new String[]{String.valueOf(genre)});
+//        db.close();
+//    }
 
 //    public Artist getArtist(int id){
 //        SQLiteDatabase db = this.getReadableDatabase();
@@ -304,30 +482,6 @@ public class AlbumDatabase extends SQLiteOpenHelper {
 //        return albumTrack;
 //    }
 
-    //TODO: Rewrite this function to support new DB
-    public ArrayList<Album> getAllAlbums(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Album> albums = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALBUM,null);
-        int columnCount = cursor.getColumnCount();
-        Log.d("Cursor", "Number of columns: " + columnCount);
-        while(cursor.moveToNext()){
-            albums.add(new Album(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getInt(5),
-                    cursor.getString(6),
-                    cursor.getInt(7),
-                    cursor.getString(8)
-            ));
-        }
-        db.close();
-        return albums;
-    }
-
 //    public ArrayList<Artist> getAllArtists(){
 //        SQLiteDatabase db = this.getReadableDatabase();
 //        ArrayList<Artist> artists = new ArrayList<>();
@@ -338,19 +492,6 @@ public class AlbumDatabase extends SQLiteOpenHelper {
 //        }
 //        db.close();
 //        return artists;
-//    }
-
-    //TODO: Rewrite this function to support new DB
-//    public ArrayList<Genre> getAllGenres(){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        ArrayList<Genre> genres = new ArrayList<>();
-//        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_GENRE,null);
-//        while(cursor.moveToNext()){
-//            genres.add(new Genre( cursor.getInt(0),
-//                    cursor.getString(1)));
-//        }
-//        db.close();
-//        return genres;
 //    }
 
 //    public int updateArtist(Artist artist){
@@ -370,146 +511,3 @@ public class AlbumDatabase extends SQLiteOpenHelper {
 //        return db.update(TABLE_GENRE, values, COLUMN_GENRE_ID+ "=?",
 //                new String[]{String.valueOf(genre.getId())});
 //    }
-
-    //Delete an Album
-    public void deleteAlbum(int album){
-    SQLiteDatabase db = this.getWritableDatabase();
-    db.delete(TABLE_ALBUM, COLUMN_ALBUM_ID + "=?", new String[]{String.valueOf(album)});
-    db.close();
-    }
-
-    /**
-     * Clears all data from Album DB
-     */
-    public void clearDatabase(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("DELETE FROM " + TABLE_ALBUM, null);
-        db.close();
-    }
-
-
-//    public void deleteArtist(int artist){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.delete(TABLE_ARTIST, COLUMN_ARTIST_ID + "=?", new String[]{String.valueOf(artist)});
-//        db.close();
-//    }
-//    public void deleteTrack(int track){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.delete(TABLE_TRACK, COLUMN_TRACK_ID + "=?", new String[]{String.valueOf(track)});
-//        db.close();
-//    }
-//    public void deleteGenre(int genre){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.delete(TABLE_GENRE, COLUMN_GENRE_ID + "=?", new String[]{String.valueOf(genre)});
-//        db.close();
-//    }
-
-    public ArrayList<Album> getTopAlbums(int top){
-        SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Album> topAlbums = new ArrayList<>();
-
-        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
-                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_ALBUM_RATING, COLUMN_ALBUM_REVIEW }, null, null, null, null, COLUMN_ALBUM_RATING + " DESC", String.valueOf(top));
-       while(cursor.moveToNext()) {
-           topAlbums.add(new Album(
-                   cursor.getInt(0),
-                   cursor.getString(1),
-                   cursor.getString(2),
-                   cursor.getString(3),
-                   cursor.getString(4),
-                   cursor.getInt(5),
-                   cursor.getString(6),
-                   cursor.getInt(7),
-                   cursor.getString(8)));
-       }
-
-       cursor.close();
-       db.close();
-
-       return topAlbums;
-
-       //ArrayList<Album> topAlbums = albumDatabase.getTopAlbums(10); call this when we want to retreive topAlbums
-    }
-
-    /**
-     * This method creates an arraylist of Top genres.
-     * Top genres are based on the number of albums each genres has that the user has listened to
-     * @param top
-     * @return topGenres
-     */
-    //TODO: Rewrite this
-//    public ArrayList<Genre> getTopGenres(int top){
-//        //Get the genres
-//       ArrayList<Genre> genres = getAllGenres();
-//       //create arraylist to hold top genres
-//       ArrayList<Genre> topGenres = new ArrayList<>();
-//       int maxCount = 0; //Track top genres ans associated album count
-//
-//       for(Genre genre : genres){
-//           ArrayList<Album> albums = topGenres(genre.getId());
-//           int albumCount = albums.size();
-//
-//           // If the current genre has more albums than the current maximum,
-//           // clear the existing top genres and add the current genre as the new top genre
-//           if(albumCount > maxCount){
-//               maxCount = albumCount;
-//               topGenres.clear();
-//               topGenres.add(genre);
-//           }
-//           // If the current genre has the same number of albums as the current maximum,
-//           // add it to the list of top genres
-//           else if(albumCount == maxCount){
-//               topGenres.add(genre);
-//           }
-//
-//           // Limit the number of top genres
-//           if(topGenres.size() >= top){
-//               break;
-//           }
-//       }
-//
-//        return topGenres;
-//
-//       //ArrayList<Genre> topGenres = albumDatabase.getTopGenres(5); use this to retrieve top genres
-//
-//    }
-
-    /**
-     * This method is used to sort topGenres
-     * It grabs the albums associated with each genre
-     * @param genreId
-     * @return albums
-     */
-    //TODO: Rewrite this
-//    private ArrayList<Album> topGenres(int genreId){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        ArrayList<Album> albums = new ArrayList<>();
-//
-//
-//        Cursor cursor = db.query(TABLE_ALBUM, new String[]{
-//                        COLUMN_ALBUM_ID, COLUMN_ALBUM_NAME, COLUMN_ALBUM_GENRE, COLUMN_ARTWORK, COLUMN_ALBUM_RATING, COLUMN_ALBUM_REVIEW, COLUMN_ALBUM_STATUS},
-//                COLUMN_ALBUM_GENRE + "=?",
-//                new String[]{String.valueOf(genreId)},
-//                null, null, null);
-//
-//
-//        while (cursor.moveToNext()) {
-//            albums.add(new Album(
-//                    cursor.getInt(0),
-//                    cursor.getString(1),
-//                    cursor.getString(2),
-//                    cursor.getString(3),
-//                    cursor.getString(4),
-//                    cursor.getInt(5),
-//                    cursor.getString(6),
-//                    cursor.getInt(7),
-//                    cursor.getString(8)));
-//        }
-//
-//        db.close();
-//
-//        return albums;
-//    }
-
-
-}

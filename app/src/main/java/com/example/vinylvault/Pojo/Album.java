@@ -36,6 +36,10 @@ public class Album implements Parcelable {
         this.artwork = artwork;
     }
 
+    public Album(String genre) {
+        this.genre = genre;
+    }
+
     public Album() {
     }
 
@@ -72,7 +76,6 @@ public class Album implements Parcelable {
     }
 
     public String getArtwork() {
-
         return artwork;
     }
 

@@ -1,5 +1,6 @@
 package com.example.vinylvault.Profile;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,12 +21,15 @@ import com.example.vinylvault.R;
  */
 public class ProfileFragment extends Fragment {
 
+    ImageView currentlyListening, toListen;
+    RecyclerView topAlbumsRV, topGenresRV;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        ImageView currentlyListening = view.findViewById(R.id.filler);
+        currentlyListening = view.findViewById(R.id.filler);
         currentlyListening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,7 +37,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        ImageView toListen = view.findViewById(R.id.filler2);
+        toListen = view.findViewById(R.id.filler2);
         toListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,13 +46,11 @@ public class ProfileFragment extends Fragment {
         });
 
 
-        RecyclerView topAlbumsRV = view.findViewById(R.id.profile_top_albums);
-        RecyclerView topGenresRV = view.findViewById(R.id.profile_top_genres);
+        topAlbumsRV = view.findViewById(R.id.profile_top_albums);
+        topGenresRV = view.findViewById(R.id.profile_top_genres);
 
         AlbumDatabase db = new AlbumDatabase(getContext());
 
-        //TODO: Bug with this as album is empty
-        /*
         TopAlbumsAdapter topAlbumsAdapter = new TopAlbumsAdapter(db.getTopAlbums(5), getContext());
         topAlbumsRV.setAdapter(topAlbumsAdapter);
         topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -56,7 +58,6 @@ public class ProfileFragment extends Fragment {
         TopGenresAdapter topGenreAdapter = new TopGenresAdapter(db.getTopGenres(5), getContext());
         topGenresRV.setAdapter(topGenreAdapter);
         topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        */
 
         return view;
     }
