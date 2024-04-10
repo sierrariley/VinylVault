@@ -101,10 +101,13 @@ public class AlbumSummaryFragment extends Fragment {
                                     int seconds = (lengthTemp / 1000) % 60;
                                     String trackLength = String.format("%d:%02d", minutes, seconds);
 
+                                    String trackMP3 = trackObject.getString("previewUrl");
+
                                     Track track = new Track();
                                     track.setName(trackName);
                                     track.setLength(trackLength);
                                     track.setAlbum(album);
+                                    track.setMp3(trackMP3);
                                     tracks.add(track);
                                 }
 

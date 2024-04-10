@@ -27,7 +27,7 @@
         android:text="song name"
         android:textColor="@color/dark_purple"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/track_length"
+        app:layout_constraintEnd_toStartOf="@+id/playButton"
         app:layout_constraintStart_toEndOf="@+id/track_number"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,4 +42,13 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/track_length"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_play_circle_outline_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
