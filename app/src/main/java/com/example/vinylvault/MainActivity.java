@@ -1,6 +1,7 @@
 package com.example.vinylvault;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -10,11 +11,13 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -187,6 +190,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+////    Clear out saved albums
+//        SharedPreferences deletePreference = PreferenceManager.getDefaultSharedPreferences(context);
+//        Boolean deleteCheckBox = deletePreference.getBoolean("delete_vault", false);
+//        if(deleteCheckBox){
+//            new AlertDialog.Builder(context)
+//                    .setTitle("Delete All Albums")
+//                    .setMessage("Are you sure you want to delete all Albums?")
+//                    .setIcon(R.drawable.ic_baseline_warning_amber_24)
+//                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            clearDatabase();
+//                        }
+//                    })
+//                    .setNegativeButton("No", null)
+//                    .show();
+//        }
 
     //TODO: Ideas
     //Add calendar event?

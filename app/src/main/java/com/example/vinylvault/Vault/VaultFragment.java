@@ -64,23 +64,7 @@ public class VaultFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
-        //Clear out saved albums
-//        SharedPreferences deletePreference = PreferenceManager.getDefaultSharedPreferences(getContext());
-//        Boolean deleteCheckBox = deletePreference.getBoolean("delete_vault", false);
-//        if(!deleteCheckBox){
-//            new AlertDialog.Builder(getContext())
-//                    .setTitle("Delete All Albums")
-//                    .setMessage("Are you sure you want to delete all Albums?")
-//                    .setIcon(R.drawable.ic_baseline_warning_amber_24)
-//                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            //TODO: Delete all albums in vault code
-//                        }
-//                    })
-//                    .setNegativeButton("No", null)
-//                    .show();
-//        }
+
 
 
 

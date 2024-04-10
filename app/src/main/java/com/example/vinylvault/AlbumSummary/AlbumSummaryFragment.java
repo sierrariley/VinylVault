@@ -137,6 +137,7 @@ public class AlbumSummaryFragment extends Fragment {
                     if (db.getAlbum(album.getId()) != null) {
                         //Update
                         extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.UPDATE);
+
                     } else {
                         //Create
                         extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);

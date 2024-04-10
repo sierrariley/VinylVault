@@ -142,7 +142,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
      */
     public void clearDatabase(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("DELETE FROM " + TABLE_ALBUM, null);
+        db.execSQL("DELETE FROM " + TABLE_ALBUM);
+        Log.d("Cleared","Albums Cleared");
         db.close();
     }
 
