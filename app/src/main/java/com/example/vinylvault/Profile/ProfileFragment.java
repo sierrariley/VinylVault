@@ -41,10 +41,9 @@ public class ProfileFragment extends Fragment {
         toListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.nav_to_listen);
+                Navigation.findNavController(view).navigate(R.id.action_nav_profile_to_nav_to_listen);
             }
         });
-
 
         topAlbumsRV = view.findViewById(R.id.profile_top_albums);
         topGenresRV = view.findViewById(R.id.profile_top_genres);
