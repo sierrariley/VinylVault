@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //TODO: Implement Fab Button
+
         /**
          * Author: Sierra Riley
          * This on click listener allows the fab button to navigate to a specific fragment
