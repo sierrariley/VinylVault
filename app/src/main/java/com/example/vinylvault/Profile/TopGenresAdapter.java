@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 public class TopGenresAdapter extends RecyclerView.Adapter<TopGenresAdapter.TopGenreViewHolder>{
 
-    private ArrayList<Album> albums;
+    private ArrayList<String> genres;
     private Context context;
 
-    public TopGenresAdapter(ArrayList<Album> albums, Context context) {
-        this.albums = albums;
+    public TopGenresAdapter(ArrayList<String> genres, Context context) {
+        this.genres = genres;
         this.context = context;
     }
 
@@ -33,17 +33,17 @@ public class TopGenresAdapter extends RecyclerView.Adapter<TopGenresAdapter.TopG
 
     @Override
     public void onBindViewHolder(@NonNull TopGenreViewHolder holder, int position) {
-        Album album = albums.get(position);
-        holder.name.setText(album.getGenre());
+        String album = genres.get(position);
+        holder.name.setText(album);
     }
 
     @Override
     public int getItemCount() {
-        if (albums.size() != 0){
-            return albums.size();
+        if (genres.size() != 0){
+            return genres.size();
         } else {
-            albums.add(new Album("Add Albums!"));
-            return albums.size();
+            genres.add("Add Albums!");
+            return genres.size();
         }
     }
 
