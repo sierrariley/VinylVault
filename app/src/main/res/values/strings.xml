@@ -24,4 +24,12 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="grid_view">Grid View</string>
     <string name="linear_view">Linear View</string>
+
+    <!--Credits-->
+    <string name="Picasso"><a href="http://www.apache.org/licenses/LICENSE-2.0">Picasso</a></string>
+    <string name="itunes"><a href="https://developer.apple.com/documentation/applemusicapi/">iTunes API</a></string>
+    <string name="itunes_descript">This api was used to access and gather albums and artists for the app.</string>
+    <string name="picasso_descript">All images are uploaded through picasso.</string>
+    <string name="canva_descript">The Vinyl Vault Logo was created using canva (pro)</string>
+
 </resources>

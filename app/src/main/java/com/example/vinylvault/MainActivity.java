@@ -184,4 +184,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    //TODO: Ideas
+    //Add calendar event?
+    //have a toast notification pop up when adding album to a specific location
+
 }

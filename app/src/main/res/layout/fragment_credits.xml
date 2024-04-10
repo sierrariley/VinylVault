@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,19 +8,82 @@
     tools:context=".CreditsFragment">
 
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/josefin_sans_semibold"
-        android:text="Credits"
-        android:textColor="@color/darker_purple"
-        android:textSize="34sp"
-        android:textStyle="bold" />
+        android:layout_weight="0"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="Credits"
+            android:textColor="@color/darker_purple"
+            android:textSize="38sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/itunes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/itunes"
+            android:textColor="@color/dark_purple"
+            android:textColorLink="@color/light_purple"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/itunes_descript"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/picasso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Picasso"
+            android:textColor="@color/dark_purple"
+            android:textColorLink="@color/light_purple"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/picasso_descript"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/canva"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Canva"
+            android:textColor="@color/dark_purple"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/canva_descript"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/emailButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email Support" />
+        android:layout_marginTop="400dp"
+        android:layout_weight="0"
+        android:text="Email Support"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

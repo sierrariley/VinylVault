@@ -7,6 +7,12 @@
             android:key="grid_view"
             android:summary="Default is List View"
             android:title="Grid View" />
+        <ListPreference
+            android:defaultValue="3"
+            android:entries="@array/grid_view_menu"
+            android:entryValues="@array/grid_view_value"
+            android:key="grid_rows"
+            android:title="Grid Row Size" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Reset Database">
 
