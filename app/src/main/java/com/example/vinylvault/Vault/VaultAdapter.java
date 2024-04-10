@@ -90,11 +90,8 @@ public class VaultAdapter extends RecyclerView.Adapter<VaultAdapter.VaultViewHol
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             AlbumDatabase db = new AlbumDatabase(context);
-                            //Delete it from the database
                             db.deleteAlbum(albums.get(getLayoutPosition()).getId());
-                            //Delete it from the arraylist
                             albums.remove(getLayoutPosition());
-                            //notify the recyclerview the item has been deleted.
                             notifyItemRemoved(getAdapterPosition());
                             db.close();
                         }
