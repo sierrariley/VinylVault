@@ -6,32 +6,69 @@
     app:startDestination="@id/nav_profile">
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.vinylvault.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/nav_browse"
-        android:name="com.example.vinylvault.BrowseFragment"
-        android:label="fragment_browse"
-        tools:layout="@layout/fragment_browse" />
+        android:name="com.example.vinylvault.Profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_nav_profile_to_nav_currently_listening"
+            app:destination="@id/nav_currently_listening" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_to_listen"
+            app:destination="@id/nav_to_listen" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_album_summary"
+            app:destination="@id/nav_album_summary" />
+    </fragment>
     <fragment
         android:id="@+id/nav_vault"
-        android:name="com.example.vinylvault.VaultFragment"
-        android:label="fragment_vault"
+        android:name="com.example.vinylvault.Vault.VaultFragment"
+        android:label="Vault"
         tools:layout="@layout/fragment_vault" />
     <fragment
-        android:id="@+id/nav_listen"
-        android:name="com.example.vinylvault.ToListenFragment"
-        android:label="fragment_to_listen"
-        tools:layout="@layout/fragment_to_listen" />
+        android:id="@+id/nav_search"
+        android:name="com.example.vinylvault.Search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_nav_search_to_nav_album_summary"
+            app:destination="@id/nav_album_summary" />
+    </fragment>
     <fragment
-        android:id="@+id/nav_current"
-        android:name="com.example.vinylvault.CurrentlyFragment"
-        android:label="fragment_currently"
+        android:id="@+id/nav_browse"
+        android:name="com.example.vinylvault.Browse.BrowseVPHostFragment"
+        android:label="Browse Albums"
+        tools:layout="@layout/fragment_browse_view_pager_host" />
+    <fragment
+        android:id="@+id/nav_add_album"
+        android:name="com.example.vinylvault.AddAnAlbumFragment"
+        android:label="Add An Album"
+        tools:layout="@layout/fragment_add_an_album" />
+    <fragment
+        android:id="@+id/nav_currently_listening"
+        android:name="com.example.vinylvault.CurrentlyListening.CurrentlyFragment"
+        android:label="Currently Listening"
         tools:layout="@layout/fragment_currently" />
     <fragment
-        android:id="@+id/nav_search"
-        android:name="com.example.vinylvault.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        android:id="@+id/nav_to_listen"
+        android:name="com.example.vinylvault.ToListen.ToListenFragment"
+        android:label="To Listen"
+        tools:layout="@layout/fragment_to_listen" />
+    <fragment
+        android:id="@+id/nav_album_summary"
+        android:name="com.example.vinylvault.AlbumSummary.AlbumSummaryFragment"
+        android:label="Album Summary"
+        tools:layout="@layout/fragment_album_summary" >
+        <action
+            android:id="@+id/action_nav_album_summary_to_nav_add_album"
+            app:destination="@id/nav_add_album" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.vinylvault.SettingsFragment"
+        android:label="Settings" />
+    <fragment
+        android:id="@+id/nav_credits"
+        android:name="com.example.vinylvault.CreditsFragment"
+        android:label="App Credits"
+        tools:layout="@layout/fragment_credits" />
 </navigation>
