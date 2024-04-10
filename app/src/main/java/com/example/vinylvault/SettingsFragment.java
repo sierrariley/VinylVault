@@ -11,6 +11,9 @@ import androidx.preference.PreferenceManager;
 
 import com.example.vinylvault.Database.AlbumDatabase;
 
+/**
+ * Author: Sierra
+ */
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override

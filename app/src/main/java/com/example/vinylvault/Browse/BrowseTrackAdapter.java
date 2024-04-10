@@ -16,14 +16,15 @@ import com.example.vinylvault.Pojo.Track;
 import com.example.vinylvault.R;
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class BrowseTrackAdapter extends RecyclerView.Adapter<BrowseTrackAdapter.BrowseTrackViewHolder> {
 
     private ArrayList<Track> tracks;
-    private Context context;
 
-    public BrowseTrackAdapter(ArrayList<Track> tracks, Context context) {
+    public BrowseTrackAdapter(ArrayList<Track> tracks) {
         this.tracks = tracks;
-        this.context = context;
     }
 
     public void setTracks(ArrayList<Track> newTracks) {

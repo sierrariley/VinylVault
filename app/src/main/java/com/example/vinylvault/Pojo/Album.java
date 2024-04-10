@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 import kotlin.text.UStringsKt;
 
+/**
+ * Author: Sierra
+ */
 public class Album implements Parcelable {
     private int id;
     private String name;

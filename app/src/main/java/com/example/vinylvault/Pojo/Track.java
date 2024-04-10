@@ -3,6 +3,9 @@ package com.example.vinylvault.Pojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Author: Sierra
+ */
 public class Track implements Parcelable {
     private int id;
     private String name;

@@ -13,20 +13,25 @@ import com.example.vinylvault.R;
 
 /**
  * ViewPager Host
+ * Author: Sage
  */
 public class BrowseVPHostFragment extends Fragment {
 
+    ViewPager2 viewPager2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse_view_pager_host, container, false);
-        ViewPager2 viewPager2 = view.findViewById(R.id.browseViewPager);
-        viewPager2.setAdapter(new BrowseVPAdapter(getActivity()));
+        viewPager2 = view.findViewById(R.id.browseViewPager);
+        viewPager2.setAdapter(new BrowseVPAdapter(getActivity(), getContext()));
         viewPager2.setPageTransformer(new ZoomOutPageTransformer());
         return view;
     }
 
+    /**
+     * From Android Studio
+     */
     public static class ZoomOutPageTransformer implements ViewPager2.PageTransformer {
         private static final float MIN_SCALE = 0.85f;
         private static final float MIN_ALPHA = 0.5f;

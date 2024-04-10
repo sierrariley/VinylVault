@@ -1,7 +1,5 @@
 package com.example.vinylvault.Vault;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -11,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +19,9 @@ import com.example.vinylvault.R;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class VaultFragment extends Fragment {
 
     RecyclerView recyclerView;
@@ -49,7 +49,6 @@ public class VaultFragment extends Fragment {
             }
         }
 
-
         VaultAdapter adapter = new VaultAdapter(vaultAlbums, getContext());
         recyclerView.setAdapter(adapter);
 
@@ -64,6 +63,7 @@ public class VaultFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
+<<<<<<< HEAD
 
 
 
@@ -71,6 +71,8 @@ public class VaultFragment extends Fragment {
 
 
 
+=======
+>>>>>>> development
         return view;
     }
 }

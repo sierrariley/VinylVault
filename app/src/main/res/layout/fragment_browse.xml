@@ -54,6 +54,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/browse_tracks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layoutAnimation="@anim/track_layout_animation" />
 
 </LinearLayout>

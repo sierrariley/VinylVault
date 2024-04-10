@@ -21,6 +21,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
+/**
+ * Author: Sierra
+ * + some minor edits from Sage
+ */
 public class SearchFragment extends Fragment {
 
     RecyclerView recyclerView;
