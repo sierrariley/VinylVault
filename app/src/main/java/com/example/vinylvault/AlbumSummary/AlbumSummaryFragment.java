@@ -46,7 +46,7 @@ public class AlbumSummaryFragment extends Fragment {
     public static final String ALBUM = "album";
 
     Album album;
-    ImageView image, delete;
+    ImageView image;
     TextView album_name, artist, genre;
     RecyclerView trackList;
     FloatingActionButton fabButton;
@@ -62,10 +62,8 @@ public class AlbumSummaryFragment extends Fragment {
         album_name = view.findViewById(R.id.album_name);
         artist = view.findViewById(R.id.album_artist_name);
         genre = view.findViewById(R.id.album_genre);
-        delete = view.findViewById(R.id.album_delete);
         trackList = view.findViewById(R.id.album_track_list);
         fabButton = getActivity().findViewById(R.id.fab);
-
 
         adapter = new AlbumAdapter(new ArrayList<>(), getContext());
         trackList.setAdapter(adapter);
@@ -139,7 +137,6 @@ public class AlbumSummaryFragment extends Fragment {
                     } else {
                         //Create
                         extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
-
                     }
                     Navigation.findNavController(view).navigate(R.id.nav_add_album, extra);
                 }
@@ -147,9 +144,6 @@ public class AlbumSummaryFragment extends Fragment {
 
             AlbumSingleton.getInstance(getContext()).getRequestQueue().add(request);
         }
-
-        //TODO: Do we need this delete button here? - maybe add a long click option somewhere
-        delete.setVisibility(View.INVISIBLE);
 
         return view;
     }

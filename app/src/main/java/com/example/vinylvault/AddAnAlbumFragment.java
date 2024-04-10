@@ -63,7 +63,6 @@ public class AddAnAlbumFragment extends Fragment {
             albumName.setText(album.getName());
             genre.setText(album.getGenre());
 
-            //TODO: Not actually accepting Bundle
             Log.d("ARGUMENTS", String.valueOf(getArguments().getInt(ACTION_TYPE)));
             if (getArguments().getInt(ACTION_TYPE) == UPDATE) {
                 seekBar.setProgress(album.getRating());

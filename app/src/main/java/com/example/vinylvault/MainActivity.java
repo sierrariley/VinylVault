@@ -50,13 +50,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 NavDestination currentFragment = navController.getCurrentDestination();
                 //If we are on album summary fragment
-                if (currentFragment.getId() == R.id.nav_album_summary || currentFragment.getId() == R.id.nav_browse){
+                if (currentFragment.getId() == R.id.nav_browse){
                     Bundle extra = new Bundle();
                     extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
 
                     //Go to the add album fragment in create mode
                     navController.navigate(R.id.nav_add_album, extra);
-                }else if(currentFragment.getId() == R.id.nav_search){
+                }
+                if(currentFragment.getId() == R.id.nav_search){
                     String url = "https://www.ticketmaster.ca/discover/concerts?landing=c&awtrc=true&c=SEM_TMBRAND_ggl_6619616063_137379093082_ticketmaster&GCID=0&&gad_source=1&gclid=Cj0KCQjwiMmwBhDmARIsABeQ7xSC8NgZSWyUxtCT6yGxUrflbhNZSAuPKrKFMtZPweWV0XqMij0t3JUaAlNiEALw_wcB&gclsrc=aw.ds";
                     Uri webPage = Uri.parse(url);
                     Intent i = new Intent(Intent.ACTION_VIEW, webPage);

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.vinylvault.Pojo.Album;
 import com.example.vinylvault.R;
 
 public class BrowseVPAdapter extends FragmentStateAdapter {
@@ -19,11 +20,11 @@ public class BrowseVPAdapter extends FragmentStateAdapter {
         switch (position) {
             //TODO: Add the proper cases based on a genre. Most common genre in database
             case 0:
-                return BrowseFragment.newInstance("Album Name 0", "Artist Name", "Genre", R.drawable.album_placeholder, "null");
+                return BrowseFragment.newInstance(new Album());
             case 1:
-                return BrowseFragment.newInstance("Album Name 1", "Artist Name", "Genre", R.drawable.album_placeholder, "null");
+                return BrowseFragment.newInstance(new Album());
             default:
-                return BrowseFragment.newInstance("Album Name", "Artist Name", "Genre", R.drawable.album_placeholder, "null");
+                return BrowseFragment.newInstance(new Album());
         }
     }
 
