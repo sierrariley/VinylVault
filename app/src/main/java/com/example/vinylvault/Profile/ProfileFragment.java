@@ -4,6 +4,7 @@ import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,11 +31,13 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
+
         currentlyListening = view.findViewById(R.id.filler);
         currentlyListening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.nav_currently_listening);
+                Navigation.findNavController(view).navigate(R.id.nav_currently_listening, null, options);
             }
         });
 
@@ -42,7 +45,7 @@ public class ProfileFragment extends Fragment {
         toListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_profile_to_nav_to_listen);
+                Navigation.findNavController(view).navigate(R.id.action_nav_profile_to_nav_to_listen, null, options);
             }
         });
 

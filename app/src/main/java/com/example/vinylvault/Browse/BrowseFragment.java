@@ -3,6 +3,7 @@ package com.example.vinylvault.Browse;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,6 +67,8 @@ public class BrowseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse, container, false);
+
+        NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
 
         albumName = view.findViewById(R.id.browse_album_name);
         artistName = view.findViewById(R.id.browse_artist_name);
