@@ -51,7 +51,9 @@ public class ToListenFragment extends Fragment {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         Boolean gridPreference = preferences.getBoolean("grid_view", true);
         if(gridPreference){
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            SharedPreferences rowPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String selectedValue = rowPreferences.getString("grid_rows", "3");
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), Integer.parseInt(selectedValue)));
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }

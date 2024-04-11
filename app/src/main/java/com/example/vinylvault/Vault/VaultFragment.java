@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +33,8 @@ public class VaultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_vault, container, false);
+
+        NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
 
         recyclerView = view.findViewById(R.id.vault_recycler_view);
         adapter = new VaultAdapter(new ArrayList<>(), getContext());
@@ -62,6 +65,7 @@ public class VaultFragment extends Fragment {
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
+
 
         return view;
     }

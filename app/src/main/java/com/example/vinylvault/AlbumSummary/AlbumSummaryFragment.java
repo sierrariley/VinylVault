@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,7 +69,7 @@ public class AlbumSummaryFragment extends Fragment {
         trackList = view.findViewById(R.id.album_track_list);
         fabButton = getActivity().findViewById(R.id.fab);
 
-        adapter = new AlbumAdapter(new ArrayList<>());
+        adapter = new AlbumAdapter(new ArrayList<>(), getContext());
         trackList.setAdapter(adapter);
         trackList.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -101,10 +102,13 @@ public class AlbumSummaryFragment extends Fragment {
                                     int seconds = (lengthTemp / 1000) % 60;
                                     String trackLength = String.format("%d:%02d", minutes, seconds);
 
+                                    String trackMP3 = trackObject.getString("previewUrl");
+
                                     Track track = new Track();
                                     track.setName(trackName);
                                     track.setLength(trackLength);
                                     track.setAlbum(album);
+                                    track.setMp3(trackMP3);
                                     tracks.add(track);
                                 }
 
@@ -121,7 +125,7 @@ public class AlbumSummaryFragment extends Fragment {
                             Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
                         }
                     });
-
+            NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
             fabButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -133,11 +137,12 @@ public class AlbumSummaryFragment extends Fragment {
                     if (db.getAlbum(album.getId()) != null) {
                         //Update
                         extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.UPDATE);
+
                     } else {
                         //Create
                         extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
                     }
-                    Navigation.findNavController(view).navigate(R.id.nav_add_album, extra);
+                    Navigation.findNavController(view).navigate(R.id.nav_add_album, extra, options);
                 }
             });
             AlbumSingleton.getInstance(getContext()).getRequestQueue().add(request);

@@ -19,7 +19,8 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="delete_vault"
-            android:title="Delete Albums in Vault?" />
+            android:title="Delete Albums in Vault?"
+            app:defaultValue="false" />
     </PreferenceCategory>
 
 </PreferenceScreen>
