@@ -1,6 +1,7 @@
 
 
 # Welcome to Vinyl Vault
+![App heading](app/src/main/res/drawable-v24/heading.png)
 
 ## Description
 Vinyl Vault is the ultimate companion app for music enthusiasts alike.
@@ -24,18 +25,18 @@ To run Vinyl Vault, you'll need:
 ## Screenshots
 
 <table>
-<td><img src="app/src/main/res/drawable-v24/profile.png" alt=""></td>
-<td><img src="app/src/main/res/drawable-v24/vault.png" alt=""></td>
-<td><img src="app/src/main/res/drawable-v24/search.png" alt=""></td>
+<td><img src="app/src/main/res/drawable-v24/profile.png" alt="Screenshot of Profile page"></td>
+<td><img src="app/src/main/res/drawable-v24/vault.png" alt="Screenshot of Vault page"></td>
+<td><img src="app/src/main/res/drawable-v24/search.png" alt="Screenshot of Search page"></td>
 </table>
 <table>
-<td><img src="app/src/main/res/drawable-v24/album.png" alt=""></td>
-<td><img src="app/src/main/res/drawable-v24/add.png" alt=""></td>
-<td><img src="app/src/main/res/drawable-v24/browse.png" alt=""></td>
+<td><img src="app/src/main/res/drawable-v24/album.png" alt="Screenshot of Album Summary page"></td>
+<td><img src="app/src/main/res/drawable-v24/add.png" alt="Tablet Screenshot of Add Album page"></td>
+<td><img src="app/src/main/res/drawable-v24/browse.png" alt="Tablet Screenshot of Browse page"></td>
 </table>
 
 ## Database Schema
-![](app/src/main/res/drawable-v24/table.png)
+![Database Table](app/src/main/res/drawable-v24/table.png)
 
 ## Compatibility
 Vinyl Vault is compatible with a wide range of Android devices, including smartphones and tablets. It has been tested on various screen sizes and resolutions to ensure a seamless user experience across different devices.
