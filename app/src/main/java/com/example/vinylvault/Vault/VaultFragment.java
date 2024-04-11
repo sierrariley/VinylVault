@@ -63,16 +63,7 @@ public class VaultFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
-<<<<<<< HEAD
 
-
-
-
-
-
-
-=======
->>>>>>> development
         return view;
     }
 }
