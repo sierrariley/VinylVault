@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".Browse.BrowseFragment">
 
-<!--    Needs a viewpager host -->
     <TextView
         android:id="@+id/browse_album_name"
         android:layout_width="match_parent"
@@ -55,6 +54,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/browse_tracks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layoutAnimation="@anim/track_layout_animation" />
 
 </LinearLayout>

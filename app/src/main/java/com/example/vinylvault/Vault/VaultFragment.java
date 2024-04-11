@@ -1,11 +1,10 @@
 package com.example.vinylvault.Vault;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,18 +20,33 @@ import com.example.vinylvault.R;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class VaultFragment extends Fragment {
+
+    RecyclerView recyclerView;
+    VaultAdapter adapter;
+    ArrayList<Album> vaultAlbums;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_vault, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.vault_recycler_view);
+        NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
+
+        recyclerView = view.findViewById(R.id.vault_recycler_view);
+        adapter = new VaultAdapter(new ArrayList<>(), getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         AlbumDatabase db = new AlbumDatabase(getContext());
-        ArrayList<Album> vaultAlbums = new ArrayList<>();
-        for (Album album : db.getAllAlbums()) {
+
+        vaultAlbums = new ArrayList<>();
+        ArrayList<Album> albums = db.getAllAlbums();
+        for (int i = 0; i < albums.size(); i++) {
+            Album album = albums.get(i);
             if (album.getStatus() == 3) {
                 vaultAlbums.add(album);
             }
@@ -51,27 +65,6 @@ public class VaultFragment extends Fragment {
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
-
-        //Clear out saved albums
-        SharedPreferences deletePreference = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Boolean deleteCheckBox = deletePreference.getBoolean("delete_vault", false);
-        if(!deleteCheckBox){
-            new AlertDialog.Builder(getContext())
-                    .setTitle("Delete All Albums")
-                    .setMessage("Are you sure you want to delete all Albums?")
-                    .setIcon(R.drawable.ic_baseline_warning_amber_24)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //TODO: Delete all albums in vault code
-                        }
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
-        }
-
-
-
 
 
         return view;

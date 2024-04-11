@@ -3,15 +3,23 @@ package com.example.vinylvault.Pojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Author: Sierra
+ */
 public class Track implements Parcelable {
     private int id;
     private String name;
+    private String length;
     private Album album;
+    private String mp3;
 
-    public Track(int id, String name, Album album) {
+    public Track(int id, String name, String length, Album album, String mp3) {
         this.id = id;
         this.name = name;
+        this.length = length;
         this.album = album;
+        this.mp3 = mp3;
+
     }
 
     public Track(int id, String name) {
@@ -22,10 +30,13 @@ public class Track implements Parcelable {
     public Track() {
     }
 
+
     protected Track(Parcel in) {
         id = in.readInt();
         name = in.readString();
+        length = in.readString();
         album = in.readParcelable(Album.class.getClassLoader());
+        mp3 = in.readString();
     }
 
     public static final Creator<Track> CREATOR = new Creator<Track>() {
@@ -64,6 +75,22 @@ public class Track implements Parcelable {
         this.name = name;
     }
 
+    public String getLength() {
+        return length;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
+    }
+
+    public String getMp3() {
+        return mp3;
+    }
+
+    public void setMp3(String mp3) {
+        this.mp3 = mp3;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -73,6 +100,8 @@ public class Track implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
+        dest.writeString(length);
         dest.writeParcelable(album, flags);
+        dest.writeString(mp3);
     }
 }

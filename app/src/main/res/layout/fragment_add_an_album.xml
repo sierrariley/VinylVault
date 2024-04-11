@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/light_blue"
     android:orientation="vertical"
+
     tools:context=".AddAnAlbumFragment">
 
     <ImageView
@@ -202,6 +203,18 @@
                 android:buttonTint="@color/dark_blue"
                 android:checked="false"
                 android:fontFamily="@font/josefin_sans_semibold"
+                android:text="To Listen"
+                android:textColor="@color/darker_purple"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/add_album_radio3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:buttonTint="@color/dark_blue"
+                android:checked="false"
+                android:fontFamily="@font/josefin_sans_semibold"
                 android:text="Done"
                 android:textColor="@color/darker_purple"
                 android:textSize="16sp" />
@@ -215,7 +228,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:fontFamily="@font/josefin_sans_semibold"
-        android:text="Add Album"
+        android:text="-----"
         android:textColor="@color/light_purple"
         android:textSize="20sp" />
 

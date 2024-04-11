@@ -1,6 +1,7 @@
 package com.example.vinylvault.Browse;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +12,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.AlbumSummary.AlbumAdapter;
 import com.example.vinylvault.Pojo.Album;
+import com.example.vinylvault.Pojo.Track;
 import com.example.vinylvault.R;
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class BrowseTrackAdapter extends RecyclerView.Adapter<BrowseTrackAdapter.BrowseTrackViewHolder> {
 
-    private ArrayList<Album> albums;
-    private Context context;
+    private ArrayList<Track> tracks;
 
-    public BrowseTrackAdapter(ArrayList<Album> albums, Context context) {
-        this.albums = albums;
-        this.context = context;
+    public BrowseTrackAdapter(ArrayList<Track> tracks) {
+        this.tracks = tracks;
+    }
+
+    public void setTracks(ArrayList<Track> newTracks) {
+        if (tracks == null) {
+            tracks = new ArrayList<>();
+        }
+        tracks.addAll(newTracks);
+        notifyDataSetChanged();
     }
 
 
@@ -34,12 +45,19 @@ public class BrowseTrackAdapter extends RecyclerView.Adapter<BrowseTrackAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull BrowseTrackViewHolder holder, int position) {
-        //TODO: With collectionId from album, make new api search for track list
+        Track track = tracks.get(position);
+
+        holder.number.setText(String.valueOf(position + 1) + ".");
+        holder.name.setText(track.getName());
+        holder.length.setText(track.getLength());
+        Log.d("RV_TRACK_NAME " + position, track.getName());
     }
 
     @Override
     public int getItemCount() {
-        //TODO: Length of Array provided with track info
+        if(tracks != null){
+            return tracks.size();
+        }
         return 0;
     }
 

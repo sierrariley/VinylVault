@@ -19,14 +19,23 @@ import com.example.vinylvault.R;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Sage
+ */
 public class ToListenFragment extends Fragment {
+
+    RecyclerView recyclerView;
+    ToListenAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_to_listen, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.to_listen_recycler_view);
+        recyclerView = view.findViewById(R.id.to_listen_recycler_view);
+        adapter = new ToListenAdapter(new ArrayList<>(), getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         AlbumDatabase db = new AlbumDatabase(getContext());
         ArrayList<Album> toListenAlbums = new ArrayList<>();
@@ -42,10 +51,13 @@ public class ToListenFragment extends Fragment {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         Boolean gridPreference = preferences.getBoolean("grid_view", true);
         if(gridPreference){
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            SharedPreferences rowPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String selectedValue = rowPreferences.getString("grid_rows", "3");
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), Integer.parseInt(selectedValue)));
         }else{
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
+
 
 
         return view;

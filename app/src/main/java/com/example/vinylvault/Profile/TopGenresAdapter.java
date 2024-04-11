@@ -4,25 +4,22 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinylvault.Pojo.Album;
-import com.example.vinylvault.Pojo.Genre;
 import com.example.vinylvault.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class TopGenresAdapter extends RecyclerView.Adapter<TopGenresAdapter.TopGenreViewHolder>{
 
-    private ArrayList<Genre> genres;
+    private ArrayList<String> genres;
     private Context context;
 
-    public TopGenresAdapter(ArrayList<Genre> genres, Context context) {
+    public TopGenresAdapter(ArrayList<String> genres, Context context) {
         this.genres = genres;
         this.context = context;
     }
@@ -36,16 +33,18 @@ public class TopGenresAdapter extends RecyclerView.Adapter<TopGenresAdapter.TopG
 
     @Override
     public void onBindViewHolder(@NonNull TopGenreViewHolder holder, int position) {
-        Genre genre = genres.get(position);
-        holder.name.setText(genre.getName());
+        String album = genres.get(position);
+        holder.name.setText(album);
     }
 
     @Override
     public int getItemCount() {
-        if(genres != null){
+        if (genres.size() != 0){
+            return genres.size();
+        } else {
+            genres.add("Add Albums!");
             return genres.size();
         }
-        return 5;
     }
 
     class TopGenreViewHolder extends RecyclerView.ViewHolder{

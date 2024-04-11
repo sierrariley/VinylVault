@@ -4,7 +4,13 @@ import android.content.Context;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.vinylvault.Pojo.Track;
 
+import java.util.ArrayList;
+
+/**
+ * Author: Sierra
+ */
 public class AlbumSingleton {
 
     public static AlbumSingleton instance;
@@ -13,10 +19,10 @@ public class AlbumSingleton {
 
     private AlbumSingleton(Context context) {
         this.context = context;
+        requestQueue = Volley.newRequestQueue(context.getApplicationContext());
     }
 
     /**
-     *
      * @param context
      * @return instance
      */

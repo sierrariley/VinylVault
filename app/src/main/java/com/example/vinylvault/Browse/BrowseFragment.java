@@ -1,64 +1,65 @@
 package com.example.vinylvault.Browse;
 
 import android.os.Bundle;
-
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.vinylvault.AlbumSummary.AlbumAdapter;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.vinylvault.AddAnAlbumFragment;
 import com.example.vinylvault.Database.AlbumDatabase;
+import com.example.vinylvault.Pojo.Album;
+import com.example.vinylvault.Pojo.Track;
 import com.example.vinylvault.R;
+import com.example.vinylvault.api.AlbumSingleton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link BrowseFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Author: Sage
  */
 public class BrowseFragment extends Fragment {
 
-    private static final String ARG_ALBUMNAME = "param1";
-    private static final String ARG_ARTISTNAME = "param2";
-    private static final String ARG_GENRE = "param3";
-    private static final String ARG_IMAGE = "param4";
-    public static final String ARG_TRACKLIST = "param5";
+    public static final String ALBUM = "album";
 
-    private String albumNameParam;
-    private String artistNameParam;
-    private String genreParam;
-    private int imageParam;
-    private String trackListParam;
+    private Album album;
+    TextView albumName, artistName, genre;
+    ImageView image;
+    RecyclerView recyclerView;
+    BrowseTrackAdapter adapter;
+    FloatingActionButton fabButton;
+    ArrayList<Track> tracks;
 
-    public BrowseFragment() {}
-
-    public static BrowseFragment newInstance(String albumNameParam, String artistNameParam, String genreParam, int imageParam, String trackListParam) {
-        BrowseFragment fragment = new BrowseFragment();
+    public static BrowseFragment newInstance(Album album) {
         Bundle args = new Bundle();
-        args.putString(ARG_ALBUMNAME, albumNameParam);
-        args.putString(ARG_ARTISTNAME, artistNameParam);
-        args.putString(ARG_GENRE, genreParam);
-        args.putInt(ARG_IMAGE, imageParam);
-        args.putString(ARG_TRACKLIST, trackListParam);
+        BrowseFragment fragment = new BrowseFragment();
+        args.putParcelable(ALBUM, album);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            albumNameParam = getArguments().getString(ARG_ALBUMNAME);
-            artistNameParam = getArguments().getString(ARG_ARTISTNAME);
-            genreParam = getArguments().getString(ARG_GENRE);
-            imageParam = getArguments().getInt(ARG_IMAGE);
-            trackListParam = getArguments().getString(ARG_TRACKLIST);
+            album = getArguments().getParcelable(ALBUM);
         }
     }
 
@@ -66,28 +67,95 @@ public class BrowseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse, container, false);
-        if (albumNameParam != null && artistNameParam != null && genreParam != null && imageParam != 0){
-            // && trackListParam != null
-            TextView albumName = view.findViewById(R.id.browse_album_name);
-            TextView artistName = view.findViewById(R.id.browse_artist_name);
-            TextView genre = view.findViewById(R.id.browse_genre);
-            ImageView image = view.findViewById(R.id.browse_album_image);
-            RecyclerView recyclerView = view.findViewById(R.id.browse_tracks);
 
+        NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
 
-            albumName.setText(albumNameParam);
-            artistName.setText(artistNameParam);
-            genre.setText(genreParam);
-            image.setImageResource(imageParam);
+        albumName = view.findViewById(R.id.browse_album_name);
+        artistName = view.findViewById(R.id.browse_artist_name);
+        genre = view.findViewById(R.id.browse_genre);
+        image = view.findViewById(R.id.browse_album_image);
+        recyclerView = view.findViewById(R.id.browse_tracks);
+        fabButton = getActivity().findViewById(R.id.fab);
 
-            /**
-             * TODO: Fix this once db has collectionId
-             * AlbumDatabase db = new AlbumDatabase(getContext());
-             * AlbumAdapter adapter = new AlbumAdapter(db.getCollectionId(), getContext());
-             * recyclerView.setAdapter(adapter);
-             * recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-             */
+        adapter = new BrowseTrackAdapter(new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        if (album != null) {
+            album = getArguments().getParcelable(ALBUM);
+
+            Log.d("PASSED_ALBUM", album.getName());
+
+            albumName.setText(album.getName());
+            artistName.setText(album.getArtistName());
+            genre.setText(album.getGenre());
+                String modifiedURL = album.getArtwork().replace("100x100bb.jpg", "400x400bb.jpg");
+                Picasso.get().load(modifiedURL).placeholder(R.drawable.album_placeholder).error(R.drawable.album_error_placeholder).into(image);
+
+            //Make a request
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, album.getCollectionId(), null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Log.d("ALBUM_COLLECTION_URL", album.getCollectionId());
+                            Log.d("RESPONSE_JSON", response.toString());
+
+                            tracks = new ArrayList<>();
+                            JSONArray trackArray = response.getJSONArray("results");
+
+                            for (int i = 1; i < trackArray.length(); i++){
+                                JSONObject trackObject = trackArray.getJSONObject(i);
+                                String trackName = trackObject.getString("trackName");
+
+                                //Convert milliseconds to formatted minutes
+                                int lengthTemp = trackObject.getInt("trackTimeMillis");
+                                int minutes = lengthTemp / (1000 * 60);
+                                int seconds = (lengthTemp / 1000) % 60;
+                                String trackLength = String.format("%d:%02d", minutes, seconds);
+
+                                Track track = new Track();
+                                track.setName(trackName);
+                                track.setLength(trackLength);
+                                track.setAlbum(album);
+                                tracks.add(track);
+                            }
+
+                            //Sends to adapter
+                            adapter.setTracks(tracks);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", error.getLocalizedMessage());
+                    }
+                }
+            );
+
+            fabButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle extra = new Bundle();
+                    extra.putParcelable(AddAnAlbumFragment.ALBUM, album);
+
+                    AlbumDatabase db = new AlbumDatabase(getContext());
+
+                    if (db.getAlbum(album.getId()) != null) {
+                        //Update
+                        extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.UPDATE);
+                    } else {
+                        //Create
+                        extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
+                    }
+                    Navigation.findNavController(view).navigate(R.id.nav_add_album, extra);
+                }
+            });
+
+            AlbumSingleton.getInstance(getContext()).getRequestQueue().add(request);
         }
 
         return view;

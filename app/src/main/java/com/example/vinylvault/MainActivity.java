@@ -1,23 +1,26 @@
 package com.example.vinylvault;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -30,6 +33,9 @@ import com.example.vinylvault.databinding.ActivityMainBinding;
 
 import java.io.File;
 
+/**
+ * Author: Sierra
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -54,12 +60,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 NavDestination currentFragment = navController.getCurrentDestination();
                 //If we are on album summary fragment
-                if(currentFragment.getId() == R.id.nav_album_summary || currentFragment.getId() == R.id.nav_browse){
+                if (currentFragment.getId() == R.id.nav_browse){
                     Bundle extra = new Bundle();
                     extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
+
                     //Go to the add album fragment in create mode
                     navController.navigate(R.id.nav_add_album, extra);
-                }else if(currentFragment.getId() == R.id.nav_search){
+                }
+                if(currentFragment.getId() == R.id.nav_search){
                     String url = "https://www.ticketmaster.ca/discover/concerts?landing=c&awtrc=true&c=SEM_TMBRAND_ggl_6619616063_137379093082_ticketmaster&GCID=0&&gad_source=1&gclid=Cj0KCQjwiMmwBhDmARIsABeQ7xSC8NgZSWyUxtCT6yGxUrflbhNZSAuPKrKFMtZPweWV0XqMij0t3JUaAlNiEALw_wcB&gclsrc=aw.ds";
                     Uri webPage = Uri.parse(url);
                     Intent i = new Intent(Intent.ACTION_VIEW, webPage);
@@ -79,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_vault,
                 R.id.nav_search)
                 .build();
-
-        //TODO: Add Animations to RecyclerViews
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -185,8 +191,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //TODO: Ideas
-    //Add calendar event?
-    //have a toast notification pop up when adding album to a specific location
 
 }

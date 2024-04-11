@@ -1,8 +1,10 @@
 package com.example.vinylvault.Profile;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,33 +19,38 @@ import com.example.vinylvault.R;
 /**
  * Used for the ProfilePage - aka HomePage
  * A simple {@link Fragment} subclass.
+ * Author: Sage
  */
 public class ProfileFragment extends Fragment {
+
+    ImageView currentlyListening, toListen;
+    RecyclerView topAlbumsRV, topGenresRV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        ImageView currentlyListening = view.findViewById(R.id.filler);
+        NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
+
+        currentlyListening = view.findViewById(R.id.filler);
         currentlyListening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.nav_currently_listening);
+                Navigation.findNavController(view).navigate(R.id.nav_currently_listening, null, options);
             }
         });
 
-        ImageView toListen = view.findViewById(R.id.filler2);
+        toListen = view.findViewById(R.id.filler2);
         toListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.nav_to_listen);
+                Navigation.findNavController(view).navigate(R.id.action_nav_profile_to_nav_to_listen, null, options);
             }
         });
 
-
-        RecyclerView topAlbumsRV = view.findViewById(R.id.profile_top_albums);
-        RecyclerView topGenresRV = view.findViewById(R.id.profile_top_genres);
+        topAlbumsRV = view.findViewById(R.id.profile_top_albums);
+        topGenresRV = view.findViewById(R.id.profile_top_genres);
 
         AlbumDatabase db = new AlbumDatabase(getContext());
 
@@ -51,10 +58,9 @@ public class ProfileFragment extends Fragment {
         topAlbumsRV.setAdapter(topAlbumsAdapter);
         topAlbumsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        TopGenresAdapter topGenreAdapter = new TopGenresAdapter(db.getTopGenres(5), getContext());
+        TopGenresAdapter topGenreAdapter = new TopGenresAdapter(db.getAllGenres(), getContext());
         topGenresRV.setAdapter(topGenreAdapter);
         topGenresRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
 
         return view;
     }
