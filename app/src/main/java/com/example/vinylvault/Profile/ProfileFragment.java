@@ -38,6 +38,8 @@ public class ProfileFragment extends Fragment {
         NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
 
         Button currentlyListening = view.findViewById(R.id.profile_currentlyListening);
+        Log.d("Debug", "Button currentyListening is " + (currentlyListening == null ? "null" : "not null"));
+
         currentlyListening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

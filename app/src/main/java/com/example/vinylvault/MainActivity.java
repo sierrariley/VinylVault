@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * author: Sierra Riley
-     *
      * @return bitmap
      */
     private Bitmap screenShot() {
