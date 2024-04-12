@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.R;
+import com.google.android.material.textview.MaterialTextView;
 
 /**
  * Used for the ProfilePage - aka HomePage
@@ -23,7 +25,6 @@ import com.example.vinylvault.R;
  */
 public class ProfileFragment extends Fragment {
 
-    ImageView currentlyListening, toListen;
     RecyclerView topAlbumsRV, topGenresRV;
 
     @Override
@@ -33,7 +34,7 @@ public class ProfileFragment extends Fragment {
 
         NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
 
-        currentlyListening = view.findViewById(R.id.filler);
+        TextView currentlyListening = view.findViewById(R.id.profile_currently_listening);
         currentlyListening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,7 +42,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        toListen = view.findViewById(R.id.filler2);
+        TextView toListen = view.findViewById(R.id.profile_to_listen);
         toListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
