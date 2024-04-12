@@ -8,13 +8,18 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.vinylvault.Database.AlbumDatabase;
 import com.example.vinylvault.R;
+import com.google.android.material.textview.MaterialTextView;
 
 /**
  * Used for the ProfilePage - aka HomePage
@@ -23,7 +28,6 @@ import com.example.vinylvault.R;
  */
 public class ProfileFragment extends Fragment {
 
-    ImageView currentlyListening, toListen;
     RecyclerView topAlbumsRV, topGenresRV;
 
     @Override
@@ -33,19 +37,23 @@ public class ProfileFragment extends Fragment {
 
         NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
 
-        currentlyListening = view.findViewById(R.id.filler);
+        Button currentlyListening = view.findViewById(R.id.profile_currentlyListening);
+        Log.d("Debug", "Button currentyListening is " + (currentlyListening == null ? "null" : "not null"));
+
         currentlyListening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.nav_currently_listening, null, options);
+
             }
         });
 
-        toListen = view.findViewById(R.id.filler2);
+        Button toListen = view.findViewById(R.id.profile_toListen);
         toListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_profile_to_nav_to_listen, null, options);
+                Navigation.findNavController(view).navigate(R.id.nav_to_listen, null, options);
+
             }
         });
 

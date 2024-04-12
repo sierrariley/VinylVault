@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * author: Sierra Riley
-     *
      * @return bitmap
      */
     private Bitmap screenShot() {
@@ -190,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
+    @Override public boolean onSupportNavigateUp() {
+        return navController.navigateUp() || super.onSupportNavigateUp();
+    }
 }
