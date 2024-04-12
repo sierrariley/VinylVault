@@ -8,9 +8,12 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,19 +37,21 @@ public class ProfileFragment extends Fragment {
 
         NavOptions options = new NavOptions.Builder().setExitAnim(R.anim.enter_in).build();
 
-        TextView currentlyListening = view.findViewById(R.id.profile_currently_listening);
+        Button currentlyListening = view.findViewById(R.id.profile_currentlyListening);
         currentlyListening.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.nav_currently_listening, null, options);
+
             }
         });
 
-        TextView toListen = view.findViewById(R.id.profile_to_listen);
+        Button toListen = view.findViewById(R.id.profile_toListen);
         toListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_profile_to_nav_to_listen, null, options);
+                Navigation.findNavController(view).navigate(R.id.nav_to_listen, null, options);
+
             }
         });
 

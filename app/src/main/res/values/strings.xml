@@ -31,5 +31,7 @@
     <string name="itunes_descript">This API was used to access and gather albums and artists for the app.</string>
     <string name="picasso_descript">All images are uploaded first through Picasso.</string>
     <string name="canva_descript">The Vinyl Vault Logo was created using canva (pro)</string>
+    <string name="currently_nlistening">Currently\nListening</string>
+    <string name="to_nlisten">To\nListen</string>
 
 </resources>
