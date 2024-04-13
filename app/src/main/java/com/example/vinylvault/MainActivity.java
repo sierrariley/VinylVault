@@ -92,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        /**
+         * Changes fab icon based on destination
+         */
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
@@ -159,11 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * @author Sierra Riley
-     * @param menu
-     * @return true
-     */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -173,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * @author Sierra Riley
+     * this method navigates to either settings or credits page based on whats selected
      * @param item
      * @return Option Item Selected
      */

@@ -35,18 +35,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Author: Sierra
+ * Author: Sierra + Sage
  */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
     private ArrayList<Album> albums;
     private Context context;
 
+    //Constructor
     public SearchAdapter(ArrayList<Album> albums, Context context) {
         this.albums = albums;
         this.context = context;
     }
 
+    //Used to hold arraylist from search fragment
     public void setAlbums(ArrayList<Album> albums) {
         this.albums = albums;
         notifyDataSetChanged(); // Notify adapter of dataset changes
@@ -62,8 +64,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         Album album = albums.get(position);
+        //Picasso used to load images
         Picasso.get().load(album.getArtwork()).error(R.drawable.album_error_placeholder).into(holder.image);
 
+        //Navigate to Album summary when image is pressed
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

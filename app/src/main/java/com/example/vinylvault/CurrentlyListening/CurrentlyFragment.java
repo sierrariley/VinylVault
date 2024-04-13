@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 /**
  * Author: Sage
+ *  + minor additions from Sierra (Shared Preferences)
  */
 public class CurrentlyFragment extends Fragment {
 
