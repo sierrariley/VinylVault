@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Author: Sierra
+ * Used when connecting to API
  */
 public class AlbumSingleton {
 

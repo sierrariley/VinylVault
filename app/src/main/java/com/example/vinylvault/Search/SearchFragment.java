@@ -44,7 +44,7 @@ public class SearchFragment extends Fragment {
         recyclerView.setAdapter(searchAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
 
-        // Set up SearchView listener
+        // Set up SearchView listener when enter is pressed
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
