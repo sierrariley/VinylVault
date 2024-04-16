@@ -3,4 +3,35 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_vault">Vault</string>
+    <string name="title_browse">Browse</string>
+    <string name="title_search">Search</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="grid_view">Grid View</string>
+    <string name="linear_view">Linear View</string>
+
+    <!--Credits-->
+    <string name="Picasso"><a href="http://www.apache.org/licenses/LICENSE-2.0">Picasso</a></string>
+    <string name="itunes"><a href="https://developer.apple.com/documentation/applemusicapi/">iTunes API</a></string>
+    <string name="itunes_descript">This API was used to access and gather albums and artists for the app.</string>
+    <string name="picasso_descript">All images are uploaded first through Picasso.</string>
+    <string name="canva_descript">The Vinyl Vault Logo was created using canva (pro)</string>
+    <string name="currently_nlistening">Currently\nListening</string>
+    <string name="to_nlisten">To\nListen</string>
+
 </resources>

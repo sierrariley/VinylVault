@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue"
+    android:orientation="vertical"
+    tools:context=".Browse.BrowseFragment">
+
+    <TextView
+        android:id="@+id/browse_album_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/josefin_sans_semibold"
+        android:text="Album Name"
+        android:textColor="@color/light_purple"
+        android:textSize="34sp" />
+
+    <TextView
+        android:id="@+id/browse_artist_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="@font/noto_sans"
+        android:text="Artist Name"
+        android:textColor="@color/dark_purple"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/browse_genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="@font/noto_sans"
+        android:text="TextView"
+        android:textColor="@color/dark_purple"
+        android:textSize="16sp"
+        android:textStyle="italic" />
+
+    <ImageView
+        android:id="@+id/browse_album_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/browse_album_background"
+        android:padding="5dp"
+        android:src="@drawable/album_placeholder" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/browse_tracks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutAnimation="@anim/track_layout_animation" />
+
+</LinearLayout>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue"
+    android:orientation="vertical"
+
+    tools:context=".AddAnAlbumFragment">
+
+    <ImageView
+        android:id="@+id/add_album_image"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/album_placeholder" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:columnCount="2">
+
+        <TextView
+            android:id="@+id/filler_artistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="Artist Name:"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/add_album_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="TextView"
+            android:textAlignment="textStart"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            app:layout_gravity="fill_horizontal" />
+
+        <TextView
+            android:id="@+id/filler_albumName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="Album Name:"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/add_album_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="TextView"
+            android:textAlignment="textStart"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            app:layout_gravity="fill_horizontal" />
+
+        <View
+            android:id="@+id/filler_lineBreak"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/darker_purple"
+            app:layout_columnSpan="2" />
+
+        <TextView
+            android:id="@+id/filler_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="Genre:"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/add_album_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="TextView"
+            android:textAlignment="textStart"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            app:layout_gravity="fill_horizontal" />
+
+        <TextView
+            android:id="@+id/filler_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="Rating:"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <SeekBar
+            android:id="@+id/add_album_seek_bar"
+            style="@style/Theme.VinylVault.SeekBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:max="5"
+            android:progress="0"
+            android:thumb="@drawable/ic_baseline_star_24"
+            app:layout_gravity="fill_horizontal" />
+
+        <View
+            android:id="@+id/filler_lineBreak2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/darker_purple"
+            app:layout_columnSpan="2" />
+
+        <TextView
+            android:id="@+id/filler_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="Review:"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            app:layout_columnSpan="2"
+            app:layout_gravity="fill_horizontal" />
+
+        <EditText
+            android:id="@+id/add_album_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/light_purple"
+            android:fontFamily="@font/noto_sans"
+            android:hint="Sample input"
+            android:inputType="textLongMessage|textMultiLine|text"
+            android:lineSpacingExtra="8sp"
+            android:minHeight="48dp"
+            android:padding="5dp"
+            android:textColor="@color/darker_purple"
+            android:textSize="14sp"
+            app:layout_columnSpan="2"
+            app:layout_gravity="fill_horizontal" />
+
+        <View
+            android:id="@+id/filler_lineBreak3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/darker_purple"
+            app:layout_columnSpan="2" />
+
+        <RadioGroup
+            android:id="@+id/add_album_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_columnSpan="2"
+            app:layout_gravity="fill_horizontal">
+
+            <RadioButton
+                android:id="@+id/add_album_radio1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:buttonTint="@color/dark_blue"
+                android:checked="true"
+                android:fontFamily="@font/josefin_sans_semibold"
+                android:text="Currently Listening"
+                android:textColor="@color/darker_purple"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/add_album_radio2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:buttonTint="@color/dark_blue"
+                android:checked="false"
+                android:fontFamily="@font/josefin_sans_semibold"
+                android:text="To Listen"
+                android:textColor="@color/darker_purple"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/add_album_radio3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:buttonTint="@color/dark_blue"
+                android:checked="false"
+                android:fontFamily="@font/josefin_sans_semibold"
+                android:text="Done"
+                android:textColor="@color/darker_purple"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <Button
+        android:id="@+id/add_album_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/josefin_sans_semibold"
+        android:text="-----"
+        android:textColor="@color/light_purple"
+        android:textSize="20sp" />
+
+</LinearLayout>

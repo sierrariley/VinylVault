@@ -1,20 +1,46 @@
 package com.example.vinylvault;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-
+import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.example.vinylvault.databinding.ActivityMainBinding;
 
+import java.io.File;
+
+/**
+ * Author: Sierra
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    NavController navController;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +49,147 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        /**
+         * Author: Sierra Riley
+         * This on click listener allows the fab button to navigate to a specific fragment
+         * when it is on a certain fragment
+         */
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavDestination currentFragment = navController.getCurrentDestination();
+                //If we are on album summary fragment
+                if (currentFragment.getId() == R.id.nav_browse){
+                    Bundle extra = new Bundle();
+                    extra.putInt(AddAnAlbumFragment.ACTION_TYPE, AddAnAlbumFragment.CREATE);
+
+                    //Go to the add album fragment in create mode
+                    navController.navigate(R.id.nav_add_album, extra);
+                }
+                if(currentFragment.getId() == R.id.nav_search){
+                    String url = "https://www.ticketmaster.ca/discover/concerts?landing=c&awtrc=true&c=SEM_TMBRAND_ggl_6619616063_137379093082_ticketmaster&GCID=0&&gad_source=1&gclid=Cj0KCQjwiMmwBhDmARIsABeQ7xSC8NgZSWyUxtCT6yGxUrflbhNZSAuPKrKFMtZPweWV0XqMij0t3JUaAlNiEALw_wcB&gclsrc=aw.ds";
+                    Uri webPage = Uri.parse(url);
+                    Intent i = new Intent(Intent.ACTION_VIEW, webPage);
+                    startActivity(i);
+                }else if(currentFragment.getId() == R.id.nav_profile){
+                    share(MainActivity.this, screenShot());
+
+                }
+
+            }
+        });
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.nav_profile,
+                R.id.nav_browse,
+                R.id.nav_vault,
+                R.id.nav_search)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        /**
+         * Changes fab icon based on destination
+         */
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId() == R.id.nav_search){
+                    binding.fab.setImageResource(R.drawable.ic_baseline_screen_search_desktop_24);
+                }else if(destination.getId() == R.id.nav_profile){
+                    binding.fab.setImageResource(R.drawable.ic_baseline_ios_share_24);
+                }else{
+                    binding.fab.setImageResource(R.drawable.ic_baseline_add_24);
+                }
+            }
+        });
+
     }
 
+    /**
+     * author: Sierra Riley
+     * @return bitmap
+     */
+    private Bitmap screenShot() {
+        View root = getWindow().getDecorView().getRootView();
+        root.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(root.getDrawingCache());
+        root.setWillNotDraw(false);
+        return bitmap;
+    }
+
+    /**
+     * author: Sierra Riley
+     * @param context
+     * @param bitmap
+     * starts intent
+     */
+    private void share(Context context, Bitmap bitmap){
+        //Make sure screenshot is taking
+        Bitmap screenshot = screenShot();
+        if (screenshot == null) {
+            Toast.makeText(context, "Failed to capture screenshot", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //Save screenshot
+        String path= MediaStore.Images.Media.insertImage(context.getContentResolver(),
+
+                    screenshot,"App Screenshot", null);
+        //Check to see if path is empty
+        if (path == null) {
+            Toast.makeText(context, "Failed to insert image into MediaStore", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //Intent -> Share screenshot through app of choice
+        Uri uri = Uri.parse(path);
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setData(Uri.parse("smsto:"));
+        i.setType("image/*");
+        i.putExtra(Intent.EXTRA_SUBJECT, "Vinyl Vault App");
+        i.putExtra(Intent.EXTRA_TEXT, "Hey! Check out my top albums I've listened to so far. If you download the Vinyl Vault app, you can track your albums too! ");
+        i.putExtra(Intent.EXTRA_STREAM, uri);
+
+        if (i.resolveActivity(context.getPackageManager()) != null) {
+            startActivity(i);
+        } else {
+            // Handle the case when no activity is found to handle the intent
+            Toast.makeText(context, "No app found to handle the intent", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    /**
+     * @author Sierra Riley
+     * this method navigates to either settings or credits page based on whats selected
+     * @param item
+     * @return Option Item Selected
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                navController.navigate(R.id.nav_settings);
+                break;
+            case R.id.action_credits:
+                navController.navigate(R.id.nav_credits);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override public boolean onSupportNavigateUp() {
+        return navController.navigateUp() || super.onSupportNavigateUp();
+    }
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue"
+    tools:context=".Browse.BrowseFragment">
+
+    <LinearLayout
+        android:layout_width="500dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/browse_album_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/josefin_sans_semibold"
+            android:text="Album Name"
+            android:textColor="@color/light_purple"
+            android:textSize="60sp" />
+
+        <TextView
+            android:id="@+id/browse_genre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/noto_sans"
+            android:text="Genre"
+            android:textColor="@color/dark_purple"
+            android:textSize="34sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/browse_artist_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/noto_sans"
+            android:text="Artist Name"
+            android:textColor="@color/dark_purple"
+            android:textSize="48sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/browse_tracks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layoutAnimation="@anim/track_layout_animation" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/browse_album_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="25dp"
+        android:background="@color/darker_purple"
+        android:padding="25dp"
+        android:src="@drawable/album_placeholder" />
+
+</LinearLayout>
