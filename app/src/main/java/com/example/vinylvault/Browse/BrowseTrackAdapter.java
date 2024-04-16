@@ -1,10 +1,13 @@
 package com.example.vinylvault.Browse;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,9 +25,12 @@ import java.util.ArrayList;
 public class BrowseTrackAdapter extends RecyclerView.Adapter<BrowseTrackAdapter.BrowseTrackViewHolder> {
 
     private ArrayList<Track> tracks;
+    private Context context;
 
-    public BrowseTrackAdapter(ArrayList<Track> tracks) {
+
+    public BrowseTrackAdapter(ArrayList<Track> tracks, Context context) {
         this.tracks = tracks;
+        this.context = context;
     }
 
     public void setTracks(ArrayList<Track> newTracks) {
@@ -51,6 +57,16 @@ public class BrowseTrackAdapter extends RecyclerView.Adapter<BrowseTrackAdapter.
         holder.name.setText(track.getName());
         holder.length.setText(track.getLength());
         Log.d("RV_TRACK_NAME " + position, track.getName());
+        holder.playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            //Play sample of track
+            public void onClick(View v) {
+                String songURL = track.getMp3();
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(songURL));
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -65,12 +81,16 @@ public class BrowseTrackAdapter extends RecyclerView.Adapter<BrowseTrackAdapter.
         protected TextView number;
         protected TextView name;
         protected TextView length;
+        protected ImageView playButton;
+
 
         public BrowseTrackViewHolder(@NonNull View itemView) {
             super(itemView);
             this.number = itemView.findViewById(R.id.track_number);
             this.name = itemView.findViewById(R.id.track_name);
             this.length = itemView.findViewById(R.id.track_length);
+            this.playButton = itemView.findViewById(R.id.playButton);
+
         }
     }
 }

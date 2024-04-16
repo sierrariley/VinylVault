@@ -77,7 +77,7 @@ public class BrowseFragment extends Fragment {
         recyclerView = view.findViewById(R.id.browse_tracks);
         fabButton = getActivity().findViewById(R.id.fab);
 
-        adapter = new BrowseTrackAdapter(new ArrayList<>());
+        adapter = new BrowseTrackAdapter(new ArrayList<>(), getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -117,6 +117,7 @@ public class BrowseFragment extends Fragment {
                                 Track track = new Track();
                                 track.setName(trackName);
                                 track.setLength(trackLength);
+                                track.setMp3(trackObject.getString("previewUrl"));
                                 track.setAlbum(album);
                                 tracks.add(track);
                             }
